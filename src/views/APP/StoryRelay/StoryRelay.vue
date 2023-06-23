@@ -1,26 +1,25 @@
 <template>
-  <div>
-    <div>故事接龙页面</div>
-
-
+  <div id="app">
+<!--     <Demo></Demo>-->
+    <JsMind></JsMind>
   </div>
 </template>
 
+
 <script>
+import JsMind from '@/components/Jsmind.vue'
+// import Demo from '@/components/Demo.vue'
+
+
 export default {
-  name: "StoryRelay.vue",
-  created() {
-    this.$emit("generateTab",this.plate,this.func)
-  },
-  data(){
-    return {
-      plate: "",
-      func: "",
-    }
+  name: 'App',
+  components: {
+    // Demo,
+    JsMind
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="less">
+@import '@/assets/css/reset.less';
 </style>

@@ -33,6 +33,12 @@ const routes = [
     component:()=>import('../views/APP/StoryRelay/StoryRelay.vue'),
     meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
+  {
+    path:'/APP/test',
+    name:'test',
+    component:()=>import('../views/APP/StoryRelay/test.vue'),
+    meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
+  },
 
     //后台管理页面
 
