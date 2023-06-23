@@ -1,0 +1,43 @@
+<template>
+  <div class="wrapper">
+    <div>这是主页！</div>
+    <el-button type="primary"size="small" autocomplete="off" style="width: 150px" @click="jumpToStoryRelay">跳转到接龙页面</el-button>
+
+
+
+
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: "index.vue",
+  created() {
+
+  },
+  data(){
+    return {
+
+
+
+    }
+  },
+  methods:{
+
+    jumpToStoryRelay(){
+      this.$router.push("/APP/StoryRelay")
+
+
+
+
+    },
+
+
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

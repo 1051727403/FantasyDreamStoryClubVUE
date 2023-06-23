@@ -56,7 +56,7 @@ export default {
               //将用户信息存储到浏览器中
               localStorage.setItem("user",JSON.stringify(res.data.data));
               if(res.data.is_admin=="1") this.$router.push("/Manage/home");
-              else this.$router.push("/app/home")
+              else this.$router.push("/APP/Index/Home")
               this.$message.success("登录成功！")
             }else{
               this.$message.error(res.msg)
