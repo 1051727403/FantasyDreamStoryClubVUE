@@ -27,7 +27,7 @@ const routes = [
     children:[
       {
         path:'Index',
-        name:'index',
+        name:'home',
         component:()=>import('../views/APP/Index/Index.vue'),
         meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
@@ -35,7 +35,6 @@ const routes = [
         path:'PersonalSpace',
         name:'PersonInfo',
         component:()=>import('../views/APP/PersonalSpace/PersonalSpace.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
       {
         path:'StoryInfo',
@@ -43,7 +42,6 @@ const routes = [
         component:()=>import('../views/APP/StoryInfo/StoryInfo.vue'),
         meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       }
-
     ]
   },
   {

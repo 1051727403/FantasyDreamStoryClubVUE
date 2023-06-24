@@ -1,8 +1,8 @@
 <template>
   <div style="display: flex;text-align: left; font-size: 12px;line-height: 60px;">
-
-
-
+    <el-input placeholder="请输入内容" v-model="input1" class="input-with-select" >
+      <el-button slot="append" icon="el-icon-search" @click="gotowhat"></el-button>
+    </el-input>
     <el-dropdown style="cursor: pointer">
       <div style="display: flex; flex-direction: row; align-items: center; justify-content: center" >
         <img :src="user.avatarUrl?user.avatarUrl:'https://img-blog.csdnimg.cn/20290dd840684512ac61bf09f60e7889.png#pic_center'"
@@ -30,6 +30,7 @@ export default {
   data(){
     return{
       user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{},
+      input1:""
     }
   },
   methods:{
@@ -47,6 +48,9 @@ export default {
       }else{
         this.$router.push("/App/PersonalSpace")
       }
+    },
+    gotowhat(){
+      console.log("搜索"+this.input1)
     }
   },
 
