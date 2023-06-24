@@ -970,6 +970,16 @@
                 ctx.lineTo(x2,y2);
                 ctx.stroke();
             },
+            //修改原码为直线格式
+            nearby_brokenline_to: function (ctx, x1, y1, x2, y2) {
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                let offset = x1<x2?-20:20;//仅延长5
+                ctx.lineTo(x2+offset, y1);
+                ctx.lineTo(x2+offset,y2);
+                ctx.lineTo(x2,y2);
+                ctx.stroke();
+            },
             clear:function(ctx,x,y,w,h){
                 ctx.clearRect(x,y,w,h);
             }
@@ -2701,7 +2711,7 @@
             ctx.lineWidth = this.opts.line_width;
             ctx.lineCap = 'round';
 
-            jm.util.canvas.bezierto(
+            jm.util.canvas.nearby_brokenline_to(
                 ctx,
                 pin.x + offset.x,
                 pin.y + offset.y,
