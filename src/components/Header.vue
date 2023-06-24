@@ -51,6 +51,7 @@ export default {
     },
     gotowhat(){
       console.log("搜索"+this.input1)
+      this.input1=""
     }
   },
 
