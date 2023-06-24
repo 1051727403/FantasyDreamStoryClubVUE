@@ -82,26 +82,38 @@
     </div>
 
 <!--    树形布局-->
-    <div class="jsmind_layout">
-      <div
-        id="jsmind_container"
-        ref="container"
-        @click="nodeClick"
-        @contextmenu.prevent.stop="nodeClick"
-      ></div>
-  </div>
+      <div class="jsmind_layout animate__animated animate__fadeInRight">
+        <div
+          id="jsmind_container"
+          ref="container"
+          @click="nodeClick"
+          @contextmenu.prevent.stop="nodeClick"
+        >
+        </div>
+      </div>
+
     <!-- 点击按钮侧边栏详细信息菜单 -->
-    <div class="right_slider_bar" v-if="showSideBar">
+    <transition name="sideBar">
+    <div class="right_slider_bar"  v-if="showSideBar">
+        <!-- 内容 -->
+<!--      上半-->
+      <div class="sideBarTop">
+        <div class="backIcon"@click="closeSideBar">
+          <svg  style="width: 25px;height: 25px;" t="1687598692787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10553" width="200" height="200"><path d="M428.31644444 679.92462223l76.91377778-19.11466667-30.49244445-25.03111111a145.89724445 145.89724445 0 0 0-224.22186666-184.51342222l-7.96444444-6.58773333-195.44746667 329.95555555 298.74631111-74.25137778c2.50311111 0.13653333 5.02897778 0.19342222 7.56622223 0.19342223a145.18044445 145.18044445 0 0 0 74.8999111-20.65066667z" fill="#1792E5" p-id="10554"></path><path d="M1011.83715556 511.21493333c7.82791111-6.62186667 12.62933333-17.44213333 12.62933333-28.8768a38.05866667 38.05866667 0 0 0-12.02631112-27.67075555L608.81351111 93.7528889c-6.61048889-5.41582222-14.4384-9.02257778-23.46097777-9.02257779-20.48 0-36.69333333 16.83911111-36.69333334 37.888v159.41404445c-308.57671111 51.72337778-526.336 286.32177778-547.38488889 587.69635555 1.20604445 12.62933333 11.37777778 22.85795555 23.46097778 22.85795556a24.62151111 24.62151111 0 0 0 13.23235555-4.22115556c53.47555555-39.09404445 99.24835555-68.57386667 135.39555556-87.82506666 87.22204445-49.92568889 222.57208889-89.62275555 374.74986667-105.87022222v147.97937777c0 21.06026667 16.24746667 37.89937778 36.7047111 37.89937778 8.41955555 0 16.23608889-3.60675555 22.85795557-8.41955555l114.91555555-102.8664889a35.98791111 35.98791111 0 0 0 10.74062222-33.1207111v-0.59164445c-6.01884445-24.66702222-35.48728889-34.89564445-54.73848889-18.05653333l-52.9408 46.33031111V614.67306667l-40.89173333 3.00373333c-150.99448889 11.37777778-347.69351111 52.9408-474.61262222 129.3312-11.37777778 7.22488889-25.27004445-4.8128-21.0488889-17.44213333 70.97457778-204.51555555 255.64728889-348.88817778 502.89777779-378.95964444l33.67822221-4.20977778V200.81777778l320.62577779 281.52035555L769.42222222 637.53102223c-9.6256 8.41955555-13.23235555 21.61777778-10.24 34.28124444v0.6144c6.61048889 23.4496 34.88426667 32.47217778 53.53244445 16.23608889z m0 0" fill="#424242" p-id="10555"></path></svg>
+        </div>
+        <div class="sideTopic">
+          主题： {{selectNodeInfo.topic}}
+        </div>
 
-
-
-
+      </div>
 <!--      底部-->
       <div class="sideBarBottom">
           <el-button @click="addChild" class="Relay">片段接龙</el-button>
           <el-button @click="delCard">删除片段</el-button>
       </div>
     </div>
+    </transition>
+
     <!--右键点击后出现的输入框-->
     <el-dialog
         :title="'插入子级'"
@@ -144,6 +156,7 @@
 
 import '../../public/jsmind/style/jsmind.css'
 import jsMind from '../../public/jsmind/js/jsmind.js'
+import "animate.css"
 require('../../public/jsmind/js/jsmind.draggable.js')
 require('../../public/jsmind/js/jsmind.screenshot.js')
 
@@ -531,6 +544,10 @@ export default {
           document.onmousemove = document.onmouseup = null
         }
       }
+    },
+    //右侧边栏关闭
+    closeSideBar(){
+      this.showSideBar=false
     }
   },
   mounted () {
@@ -548,7 +565,7 @@ export default {
   },
   beforeDestroy () {
     document.removeEventListener('domMouseScroll', this.scrollFunc, false)
-  }
+  },
 }
 </script>
 
