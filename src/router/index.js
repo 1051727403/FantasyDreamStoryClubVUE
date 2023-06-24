@@ -42,20 +42,21 @@ const routes = [
         name:'AppStoryInfo',
         component:()=>import('../views/APP/StoryInfo/StoryInfo.vue'),
         meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
-      },
-      {
-        path:'StoryRelay',
-        name:'AppStoryRelay',
-        component:()=>import('../views/APP/StoryRelay/StoryRelay.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
-      },
-      {
-        path:'test',
-        name:'Apptest',
-        component:()=>import('../views/APP/StoryRelay/test.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
-      },
+      }
+
     ]
+  },
+  {
+    path:'/App/StoryRelay',
+    name:'AppStoryRelay',
+    component:()=>import('../views/APP/StoryRelay/StoryRelay.vue'),
+    meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
+  },
+  {
+    path:'/App/test',
+    name:'Apptest',
+    component:()=>import('../views/APP/StoryRelay/test.vue'),
+    meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
 
 

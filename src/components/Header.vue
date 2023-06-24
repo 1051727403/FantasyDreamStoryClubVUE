@@ -1,5 +1,8 @@
 <template>
   <div style="display: flex;text-align: left; font-size: 12px;line-height: 60px;">
+
+
+
     <el-dropdown style="cursor: pointer">
       <div style="display: flex; flex-direction: row; align-items: center; justify-content: center" >
         <img :src="user.avatarUrl?user.avatarUrl:'https://img-blog.csdnimg.cn/20290dd840684512ac61bf09f60e7889.png#pic_center'"
