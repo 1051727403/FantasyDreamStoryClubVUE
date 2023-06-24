@@ -384,12 +384,15 @@ export default {
               topic: 'Easy', // [必选] 节点上显示的内容
               direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
               expanded: true, // [可选] 该节点是否是展开状态，默认为 true
-              type: '4', // [可选]自定义节点类型
               children: [
-                { id: 'easy1', topic: 'Easy to show', type: '1' },
-                { id: 'easy2', topic: 'Easy to edit', type: '2' },
-                { id: 'easy3', topic: 'Easy to store', type: '1' },
-                { id: 'easy4', topic: 'Easy to embed', type: '3' }
+                { id: 'easy1', topic: 'Easy to show' ,
+                  children: [
+                    { id: 'test1', topic: 'test1' }
+                  ]
+                },
+                { id: 'easy2', topic: 'Easy to edit' },
+                { id: 'easy3', topic: 'Easy to store' },
+                { id: 'easy4', topic: 'Easy to embed' }
               ]
             },
             {
@@ -397,31 +400,28 @@ export default {
               topic: 'Open Source',
               direction: 'right',
               expanded: true,
-              type: '4',
               children: [
-                { id: 'open1', topic: 'on GitHub', type: '1' },
-                { id: 'open2', topic: 'BSD License', type: '1' }
+                { id: 'open1', topic: 'on GitHub' },
+                { id: 'open2', topic: 'BSD License' }
               ]
             },
             {
               id: 'powerful',
               topic: 'Powerful',
               direction: 'right',
-              type: '4',
               children: [
-                { id: 'powerful1', topic: 'Base on Javascript', type: '3' },
-                { id: 'powerful2', topic: 'Base on HTML5', type: '2' },
-                { id: 'powerful3', topic: 'Depends on you', type: '4' }
+                { id: 'powerful1', topic: 'Base on Javascript'},
+                { id: 'powerful2', topic: 'Base on HTML5' },
+                { id: 'powerful3', topic: 'Depends on you' }
               ]
             },
             {
               id: 'other',
               topic: 'test node',
               direction: 'right',
-              type: '4',
               children: [
-                { id: 'other1', topic: "I'm from local variable", type: '1' },
-                { id: 'other2', topic: 'I can do everything', type: '4' }
+                { id: 'other1', topic: "I'm from local variable"},
+                { id: 'other2', topic: 'I can do everything'}
               ]
             }
           ]
@@ -436,7 +436,7 @@ export default {
           hmargin: 120, // 思维导图距容器外框的最小水平距离
           vmargin: 50, // 思维导图距容器外框的最小垂直距离
           line_width: 2, // 思维导图线条的粗细
-          line_color: '#ddd' // 思维导图线条的颜色
+          line_color: 'rgba(87, 107, 127,0.5)' // 思维导图线条的颜色
         },
         layout: {
           hspace: 100, // 节点之间的水平间距
@@ -454,21 +454,13 @@ export default {
       },
       bgMap: {
         1: {
-          original: 'rgb(212, 42, 42)',
-          transparent: 'rgb(212, 42, 42, 0.2)'
-        },
-        2: {
           original: 'rgb(100, 201, 53)',
           transparent: 'rgb(100, 201, 53, 0.2)'
         },
-        3: {
-          original: 'rgb(67, 50, 173)',
-          transparent: 'rgb(67, 50, 173, 0.2)'
+        2: {
+          original: 'rgb(78,181,255)',
+          transparent: 'rgb(43, 118, 239,0.2)'
         },
-        4: {
-          original: 'rgb(25, 144, 255)',
-          transparent: 'rgb(25, 144, 255, 0.2)'
-        }
       },
       structure: {
         active: 'right',
@@ -494,31 +486,19 @@ export default {
       filterTypes: [
         {
           type: 'kd',
-          value: '4',
-          name: '考点',
+          value: '1',
+          name: 'root',
           status: true
         },
         {
           type: 'zsd',
-          value: '1',
+          value: 'children',
           name: '知识点',
           status: true
         },
-        {
-          type: 'zskp',
-          value: '2',
-          name: '知识卡片',
-          status: true
-        },
-        {
-          type: 'st',
-          value: '3',
-          name: '练习题',
-          status: true
-        }
       ],
-      typeQueue: new Set(['1', '2', '3', '4']), // 选中types Set
-      selectTypes: ['1', '2', '3', '4'] // 选中types Array
+      typeQueue: new Set(['1', '2']), // 选中types Set
+      selectTypes: ['1', '2'] // 选中types Array
     }
   },
   methods: {
@@ -565,17 +545,9 @@ export default {
 
     // 设置背景颜色
     setColor () {
-      this.jm.set_node_color('root', this.bgMap[4].original, '#fff')
+      this.jm.set_node_color('root', this.bgMap[1].original, '#fff')
       this.loopTreeData(this.mind.data.children, (item) => {
-        if (this.selectTypes.length) {
-          if (this.selectTypes.includes(item.type)) {
-            this.jm.set_node_color(item.id, this.bgMap[item.type].original, '#fff')
-          } else {
-            this.jm.set_node_color(item.id, this.bgMap[item.type].transparent, '#fff')
-          }
-        } else {
-          this.jm.set_node_color(item.id, this.bgMap[item.type].transparent, '#fff')
-        }
+        this.jm.set_node_color(item.id, this.bgMap[2].original, '#fff')
       })
     },
 
