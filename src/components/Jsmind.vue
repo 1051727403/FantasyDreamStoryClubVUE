@@ -79,6 +79,7 @@
 <!--    顶部菜单栏-->
     <div class="top-bar">
       <svg @click="GoBackPage" t="1687590289426" style="height: 35px;width: 35px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1622" width="200" height="200"><path d="M728 212.182v-82.183a8 8 0 0 0-13.327-5.968L306.69 488.138c-0.9 0.803-1.754 1.657-2.558 2.557-11.772 13.178-10.626 33.4 2.558 45.167l407.984 364.107A8 8 0 0 0 728 894.001v-82.183a16 16 0 0 0-5.346-11.937L400.082 512l322.572-287.88A16 16 0 0 0 728 212.181z" fill="#5090F1" p-id="1623"></path></svg>
+      <div class="story_name"><span>{{story_name}}</span></div>
     </div>
 
 <!--    树形布局-->
@@ -92,30 +93,41 @@
         </div>
       </div>
 
-    <!-- 点击按钮侧边栏详细信息菜单 -->
+    <!-- 点击按钮侧边栏详细信息菜单 start-->
     <transition name="sideBar">
     <div class="right_slider_bar"  v-if="showSideBar">
-        <!-- 内容 -->
-<!--      上半-->
+        <!--      上半-->
       <div class="sideBarTop">
         <div class="backIcon"@click="closeSideBar">
           <svg  style="width: 25px;height: 25px;" t="1687598692787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10553" width="200" height="200"><path d="M428.31644444 679.92462223l76.91377778-19.11466667-30.49244445-25.03111111a145.89724445 145.89724445 0 0 0-224.22186666-184.51342222l-7.96444444-6.58773333-195.44746667 329.95555555 298.74631111-74.25137778c2.50311111 0.13653333 5.02897778 0.19342222 7.56622223 0.19342223a145.18044445 145.18044445 0 0 0 74.8999111-20.65066667z" fill="#1792E5" p-id="10554"></path><path d="M1011.83715556 511.21493333c7.82791111-6.62186667 12.62933333-17.44213333 12.62933333-28.8768a38.05866667 38.05866667 0 0 0-12.02631112-27.67075555L608.81351111 93.7528889c-6.61048889-5.41582222-14.4384-9.02257778-23.46097777-9.02257779-20.48 0-36.69333333 16.83911111-36.69333334 37.888v159.41404445c-308.57671111 51.72337778-526.336 286.32177778-547.38488889 587.69635555 1.20604445 12.62933333 11.37777778 22.85795555 23.46097778 22.85795556a24.62151111 24.62151111 0 0 0 13.23235555-4.22115556c53.47555555-39.09404445 99.24835555-68.57386667 135.39555556-87.82506666 87.22204445-49.92568889 222.57208889-89.62275555 374.74986667-105.87022222v147.97937777c0 21.06026667 16.24746667 37.89937778 36.7047111 37.89937778 8.41955555 0 16.23608889-3.60675555 22.85795557-8.41955555l114.91555555-102.8664889a35.98791111 35.98791111 0 0 0 10.74062222-33.1207111v-0.59164445c-6.01884445-24.66702222-35.48728889-34.89564445-54.73848889-18.05653333l-52.9408 46.33031111V614.67306667l-40.89173333 3.00373333c-150.99448889 11.37777778-347.69351111 52.9408-474.61262222 129.3312-11.37777778 7.22488889-25.27004445-4.8128-21.0488889-17.44213333 70.97457778-204.51555555 255.64728889-348.88817778 502.89777779-378.95964444l33.67822221-4.20977778V200.81777778l320.62577779 281.52035555L769.42222222 637.53102223c-9.6256 8.41955555-13.23235555 21.61777778-10.24 34.28124444v0.6144c6.61048889 23.4496 34.88426667 32.47217778 53.53244445 16.23608889z m0 0" fill="#424242" p-id="10555"></path></svg>
         </div>
         <div class="sideTopic">
           主题： {{selectNodeInfo.topic}}<br>
-          其他数据:{{selectNodeInfo.data.content}}
         </div>
 
       </div>
-<!--      底部-->
+        <!--      底部-->
       <div class="sideBarBottom">
           <el-button @click="addChild" class="Relay">片段接龙</el-button>
           <el-button @click="delCard">删除片段</el-button>
       </div>
     </div>
     </transition>
+    <!-- 点击按钮侧边栏详细信息菜单 end-->
 
-    <!--右键点击后出现的输入框-->
+    <!-- 片段内容-->
+    <transition name="fragment">
+      <div class="fragmentContainer" v-if="showFragmentContent">
+        <div class="cover">
+          <div class="fragmentTop">
+            <div class="common-flex"><span class="fragmentTopic">{{selectNodeInfo.topic}}</span></div>
+            <svg @click="closeFragment" t="1687692218899" style="height: 25px;width: 25px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9883" width="200" height="200"><path d="M232.9 928.7c-34.8 0-69.6-13.2-96-39.7-53-53-53-139.1 0-192.1L463.8 370c10.3-10.3 27.1-10.3 37.5 0 10.3 10.3 10.3 27.1 0 37.5l-327 326.9c-32.3 32.3-32.3 84.9 0 117.2s84.9 32.3 117.2 0L850 293.1c32.3-32.3 32.3-84.9 0-117.2s-84.9-32.3-117.2 0L648.6 260c-10.3 10.3-27.1 10.3-37.5 0-10.3-10.3-10.3-27.1 0-37.5l84.1-84.1c53-53 139.1-53 192.1 0s53 139.1 0 192.1L328.9 889c-26.5 26.5-61.3 39.7-96 39.7z m0 0" fill="#2197EF" p-id="9884"></path><path d="M868.7 870.3c-42.7 42.7-112 42.7-154.7 0L155.6 311.8c-42.7-42.7-42.7-111.9 0-154.6 42.7-42.7 111.9-42.7 154.6 0l558.5 558.5c42.7 42.7 42.7 111.9 0 154.6z m0 0" fill="#CEE8FA" p-id="9885"></path><path d="M791.3 928.8c-36.3 0-70.4-14.1-96-39.8L136.8 330.5c-53-53-53-139.1 0-192.1 25.7-25.7 59.8-39.8 96-39.8 36.3 0 70.4 14.1 96 39.8l558.5 558.5c25.7 25.7 39.8 59.8 39.8 96 0 36.3-14.1 70.4-39.8 96-25.6 25.8-59.7 39.9-96 39.9zM232.9 151.6c-22.1 0-42.9 8.6-58.6 24.3-32.3 32.3-32.3 84.9 0 117.2l558.5 558.5c15.6 15.7 36.5 24.3 58.6 24.3s42.9-8.6 58.6-24.3c15.6-15.6 24.3-36.5 24.3-58.6s-8.6-42.9-24.3-58.6L291.5 175.9c-15.7-15.6-36.5-24.3-58.6-24.3z m0 0" fill="#2197EF" p-id="9886"></path></svg>
+          </div>
+          <div class="fragmentContent"><pre>{{selectNodeInfo.data.content}}</pre></div>
+        </div>
+      </div>
+    </transition>
+    <!--接龙弹窗 start-->
     <el-dialog
         :title="'插入子级'"
         :visible.sync="dialogVisible"
@@ -149,7 +161,7 @@
         </div>
       </template>
     </el-dialog>
-
+    <!--接龙弹窗 end-->
   </div>
 </template>
 
@@ -194,6 +206,9 @@ export default {
       }
     }
   },
+  created() {
+
+  },
   data () {
     return {
       mind: {
@@ -203,8 +218,55 @@ export default {
         format: 'node_tree',
         data: {
           id: 'root',
-          topic: 'jsMind',
-          content:"114514",
+          topic: '序幕',
+          content:"Wahn en sorl vealivasgon levy vonley\n" +
+              "夜深了 小镇静谧而安详\n" +
+              "Sedd delyn o passidy sevely\n" +
+              "睡着了 像做了一个甜美的梦\n" +
+              "Kluu vamo shevys dlesphon levy vonley\n" +
+              "寂然啊 这个被施了魔法的小镇\n" +
+              "Oul levmon seravo rystonray\n" +
+              "女孩啊 我将一直守护着你\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Dudu laav\n" +
+              "Dudu 你的微笑\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Sevely ahhs\n" +
+              "一场梦啊\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Dudu laav\n" +
+              "Dudu 你的微笑\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Relsama houwy\n" +
+              "重新开始吧\n"+
+              "Wahn en sorl vealivasgon levy vonley\n" +
+                  "夜深了 小镇静谧而安详\n" +
+              "Sedd delyn o passidy sevely\n" +
+              "睡着了 像做了一个甜美的梦\n" +
+              "Kluu vamo shevys dlesphon levy vonley\n" +
+              "寂然啊 这个被施了魔法的小镇\n" +
+              "Oul levmon seravo rystonray\n" +
+              "女孩啊 我将一直守护着你\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Dudu laav\n" +
+              "Dudu 你的微笑\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Sevely ahhs\n" +
+              "一场梦啊\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Dudu laav\n" +
+              "Dudu 你的微笑\n" +
+              "Du dududu Du dududu\n" +
+              "Du dududu Du dududu\n" +
+              "Relsama houwy\n" +
+              "重新开始吧",
           children: [
             {
               id: 'easy', // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
@@ -296,17 +358,28 @@ export default {
         rectOrginalColor: '#C3C6CB',
         rectActiveColor: '#BACEFD'
       },
+
+      story_name:'永远的二十四岁(遠天、とある忘れ物)',
+      //片段内容显示控制
+      showFragmentContent:false,
+      //新增子节点填写信息窗口显示控制
       dialogVisible: false,
+      // 选中节点信息
       selectNodeInfo: {
         id: null,
         Name: ''
-      }, // 选中节点信息
+      },
+      //接龙新建节点信息
       createNodeInfo:{
         id: null,
         topic: ''
       },
-      tempNodeInfo: null, // 保存修改之前的信息
-      showSideBar: false, // 是否显示右侧侧边栏
+      // 保存修改之前的信息
+      tempNodeInfo: null,
+      // 是否显示右侧侧边栏
+      showSideBar: false,
+      //滚动条管理
+      hasScrollbar: false,
       typeQueue: new Set(['1', '2']), // 选中types Set
       selectTypes: ['1', '2'] // 选中types Array
     }
@@ -393,6 +466,7 @@ export default {
       const selectedNode = this.jm.get_selected_node()
       if (this.selectNodeInfo===selectedNode && selectedNode!=null){
         this.showSideBar=!this.showSideBar
+        this.showFragmentContent=!this.showFragmentContent
         //取消选中
         this.jm.select_clear()
         console.log("重复选中同一node")
@@ -404,9 +478,11 @@ export default {
       console.log("选中node的为：",selectedNode)
       if (selectedNode) {
         this.showSideBar=true
+        this.showFragmentContent=true
         return selectedNode.id
       } else {
         this.showSideBar=false
+        this.showFragmentContent=false
         return null
       }
     },
@@ -536,8 +612,17 @@ export default {
     //右侧边栏关闭
     closeSideBar(){
       this.showSideBar=false
+      this.showFragmentContent=false
+    },
+    closeFragment(){
+      this.showFragmentContent=false;
     }
+
+
+
+
   },
+  //挂载
   mounted () {
     this.jm = jsMind.show(this.options, this.mind)
     this.editor = this.jm.view.e_editor
@@ -548,6 +633,7 @@ export default {
   beforeDestroy () {
     document.removeEventListener('domMouseScroll', this.scrollFunc, false)
   },
+
 }
 </script>
 
