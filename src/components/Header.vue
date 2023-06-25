@@ -1,21 +1,30 @@
 <template>
-  <div style="display: flex;text-align: left; font-size: 12px;line-height: 60px;">
-    <el-input placeholder="请输入内容" v-model="input1" class="input-with-select" >
-      <el-button slot="append" icon="el-icon-search" @click="gotowhat"></el-button>
-    </el-input>
-    <el-dropdown style="cursor: pointer">
-      <div style="display: flex; flex-direction: row; align-items: center; justify-content: center" >
-        <img :src="user.avatarUrl?user.avatarUrl:'https://img-blog.csdnimg.cn/20290dd840684512ac61bf09f60e7889.png#pic_center'"
-             alt=""
-             style="width: 30px;margin-right: 10px;">
-        <span>{{user.nickname}}</span><i class="el-icon-arrow-down"style="margin-right: 5px;"></i>
-      </div>
-      <el-dropdown-menu slot="dropdown">
-        <span style="text-decoration: none" @click="userInfo"><el-dropdown-item>个人信息 </el-dropdown-item></span>
-        <span style="text-decoration: none" @click="logout"><el-dropdown-item>退出 </el-dropdown-item></span>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </div>
+  <div style="display: flex;text-align: left; font-size: 15px;line-height: 12px;">
+      <el-input class="input-with-select" placeholder="请输入内容" v-model="input1"  >
+        <el-button slot="append" icon="el-icon-search" @click="gotowhat"></el-button>
+      </el-input>
+      <ul class="the-right">
+        <li><a href="#">登录</a><span>|</span></li>
+        <li><a href="#">注册</a><span>|</span></li>
+        <li><a href="#">反馈留言</a></li>
+      </ul>
+
+<!--        <el-dropdown style="cursor: pointer">-->
+<!--          <div style="display: flex; flex-direction: row; align-items: center; justify-content: center" >-->
+<!--            <img :src="user.avatarUrl?user.avatarUrl:'https://img-blog.csdnimg.cn/20290dd840684512ac61bf09f60e7889.png#pic_center'"-->
+<!--                 alt=""-->
+<!--                 style="width: 30px;margin-right: 10px;">-->
+<!--            <span>{{user.nickname}}</span><i class="el-icon-arrow-down"style="margin-right: 5px;"></i>-->
+<!--          </div>-->
+<!--          <el-dropdown-menu slot="dropdown">-->
+<!--            <span style="text-decoration: none" @click="userInfo"><el-dropdown-item>个人信息 </el-dropdown-item></span>-->
+<!--            <span style="text-decoration: none" @click="logout"><el-dropdown-item>退出 </el-dropdown-item></span>-->
+<!--          </el-dropdown-menu>-->
+<!--        </el-dropdown>-->
+
+
+    </div>
+
 </template>
 
 <script>
@@ -51,6 +60,7 @@ export default {
     },
     gotowhat(){
       console.log("搜索"+this.input1)
+      this.$router.push("/app/storyinfo");
       this.input1=""
     }
   },
@@ -60,4 +70,25 @@ export default {
 
 <style scoped>
 
+.input-with-select{
+  width: 300px;
+  margin: 15px auto;
+  float:left;
+}
+.the-right{
+  float: right;
+  margin-top: 25px;
+}
+.the-right li{
+  list-style: none;
+  float:left;
+  margin-left: 27px ;
+}
+.the-right li a{
+  text-decoration: none;
+  color: #b0b0b0;
+}
+.the-right li span{
+  color: #424242;
+}
 </style>
