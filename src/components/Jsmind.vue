@@ -82,7 +82,7 @@
     </div>
 
 <!--    树形布局-->
-      <div class="jsmind_layout animate__animated animate__fadeInRight">
+      <div class="jsmind_layout animate__animated animate__fadeInRight" >
         <div
           id="jsmind_container"
           ref="container"
@@ -103,7 +103,7 @@
         </div>
         <div class="sideTopic">
           主题： {{selectNodeInfo.topic}}<br>
-          其他数据:{{selectNodeInfo.data.info}}
+          其他数据:{{selectNodeInfo.data.content}}
         </div>
 
       </div>
@@ -131,7 +131,7 @@
           <el-input
               type="textarea"
               :rows="2"
-              v-model="selectNodeInfo.Name"
+              v-model="createNodeInfo.topic"
               class="ele-width"
               maxLength="64"
           ></el-input>
@@ -142,7 +142,7 @@
           <el-button
               type="primary"
               class="common-btn"
-              @click="sureEditNode"
+              @click="saveNode"
               size="medium"
           >确 定</el-button
           >
@@ -204,7 +204,7 @@ export default {
         data: {
           id: 'root',
           topic: 'jsMind',
-          info:"114514",
+          content:"114514",
           children: [
             {
               id: 'easy', // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
@@ -276,8 +276,8 @@ export default {
       },
       zoom: {
         value: 100, // 层级大小
-        min: 10, // 最小层级
-        max: 400 // 最大层级
+        min: 10, // 最小放大倍数%
+        max: 400 // 最大放大倍数%
       },
       bgMap: {
         1: {
@@ -301,6 +301,10 @@ export default {
         id: null,
         Name: ''
       }, // 选中节点信息
+      createNodeInfo:{
+        id: null,
+        topic: ''
+      },
       tempNodeInfo: null, // 保存修改之前的信息
       showSideBar: false, // 是否显示右侧侧边栏
       typeQueue: new Set(['1', '2']), // 选中types Set
@@ -385,8 +389,18 @@ export default {
     },
     // 获取选中标签的 ID
     get_selected_nodeid () {
+      //若重复选中
       const selectedNode = this.jm.get_selected_node()
-      this.selectNodeInfo=selectedNode
+      if (this.selectNodeInfo===selectedNode && selectedNode!=null){
+        this.showSideBar=!this.showSideBar
+        //取消选中
+        this.jm.select_clear()
+        console.log("重复选中同一node")
+        return null
+      }else {
+        this.selectNodeInfo = selectedNode
+      }
+      //若点击空白部分
       console.log("选中node的为：",selectedNode)
       if (selectedNode) {
         this.showSideBar=true
@@ -398,30 +412,21 @@ export default {
     },
 
     // 保存节点
-    sureEditNode () {
-      if (!this.selectNodeInfo.Name) {
-        this.$message.info('请输入卡片标题')
+    saveNode () {
+      if (!this.createNodeInfo.topic) {
+        this.$message.info('请输入接龙标题')
         return
       }
-        // 添加接龙
+      console.log("输入的接龙节点topic为：",this.createNodeInfo.topic)
+        // 添加接龙,使用数据库中返回的id作为newid
         // TODO 调接口
-
-      this.dialogVisible = false
-    },
-
-    // 拖拽
-    handleDrop (draggingNode, dropNode) {
-      // 前一个兄弟节点
-      const prevNode = this.jm.find_node_before(dropNode)
-      // 获取移动后的node
-      const dragForm = {
-        modelId: '',
-        treeNum: !prevNode ? draggingNode : prevNode.id,
-        thisTreeNum: dropNode
+      let newid=this.selectNodeInfo.id+'1';
+      let newtopic=this.createNodeInfo.topic;
+      let data={
+        content:'123456'
       }
-      console.log('dragForm', dragForm)
-
-      // TODO 调接口
+      this.jm.add_node(this.selectNodeInfo,newid,newtopic,data);
+      this.dialogVisible = false
     },
     // 单击重置选中背景颜色
     nodeClick () {
@@ -432,18 +437,13 @@ export default {
       this.jm.set_node_color(selectedId, nodeObj.data['background-color'], '#500d41')
     },
 
-    // 插入子级
+    // 点击接龙按钮插入子级
     addChild () {
-      const selectedNode = this.jm.get_selected_node()
-      console.log("当前选中的节点：",selectedNode)
-      if (selectedNode.data) {
-        this.dialogVisible = true
-        this.selectNodeInfo = {
-          id: selectedNode.data.num,
-          Name: ''
-        }
-      } else {
-        this.$message.error('节点不存在！出错！')
+      console.log("当前选中的节点：",this.selectNodeInfo)
+      this.dialogVisible = true
+      this.createNodeInfo={
+        id: null,
+        topic:''
       }
     },
 
@@ -486,20 +486,6 @@ export default {
       }
       e.preventDefault()
       this.jm.resize()
-    },
-
-    // 导出图片
-    screen_shot () {
-      // 去除透明度
-      this.loopTreeData(this.mind.data.children, (item) => this.jm.set_node_color(item.id, this.bgMap[item.type].original, '#fff'))
-      try {
-        this.jm.screenshot.shootDownload()
-      } catch (error) {
-        console.log(error)
-      }
-      setTimeout(() => {
-        this.setColor()
-      }, 1000)
     },
     // 鼠标拖拽
     mouseDrag () {
@@ -554,12 +540,6 @@ export default {
   },
   mounted () {
     this.jm = jsMind.show(this.options, this.mind)
-
-    // 自定义拖拽完成事件有bug
-    // jsMind.draggable.prototype.handleDrag = (srcNode, targetNode, targetDirect) => {
-    //   const nextParentId = srcNode.parent.id
-    //   this.handleDrop(nextParentId, srcNode.id)
-    // }
     this.editor = this.jm.view.e_editor
     this.init()
     this.mouseWheel()
