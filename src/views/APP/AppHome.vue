@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="min-height: 100vh">
-        <el-header style="border-bottom: 1px solid #eee">
+        <el-header style="border-bottom: 1px solid #eee;height: 50px">
           <Header :collapseBthClass="collapseBthClass" :collapse="collapse"/>
         </el-header>
         <el-main>
