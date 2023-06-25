@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="jsmind"
-  >
-    <!-- 右上角菜单 -->
+  <div class="jsmind">
+<!-- 右上角菜单 -->
     <div class="toolbar">
       <ul class="toolbar-list">
         <li class="item">
@@ -57,176 +55,6 @@
           </div>
         </li>
 
-        <div class="layout item">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12.56 4.06c1.41 0 2.8.28 4.05.8l-.99 1.21a9.3 9.3 0 00-2.67-.5l-.4-.01h-.43a9.14 9.14 0 00-5.28 2c-.72.61-1.3 1.32-1.69 2.09a5.1 5.1 0 000 4.82c.39.74.95 1.41 1.68 2 .73.59 1.59 1.06 2.55 1.39a9.75 9.75 0 004.5.42l.44-.06.53-.11.06-.02c.07-.03.14-.1.2-.2a.8.8 0 00.1-.47l-.03-.12-.03-.1-.05-.22a3.32 3.32 0 01.46-2.53c.52-.8 1.36-1.3 2.27-1.36H19.45l.1-.01c.48-.07.87-.53.96-1.1l.02-.14v-.25l-.02-.22-.05-.29a5.6 5.6 0 00-1.13-2.4l.96-1.2a7.08 7.08 0 011.63 3.34l.06.34.04.34v.37c-.08 1.45-1.12 2.6-2.4 2.7H18.02c-.48 0-.94.26-1.23.7-.22.34-.32.75-.28 1.16l.02.18.07.27a2.3 2.3 0 01-.2 1.75c-.24.41-.6.72-1 .86l-.17.05-.57.12c-.42.08-.84.13-1.26.16l-.42.03h-.44c-1.26 0-2.5-.2-3.65-.6a9.85 9.85 0 01-3-1.63 7.91 7.91 0 01-2.07-2.47 6.58 6.58 0 010-6.19A8.24 8.24 0 015.9 6.42a9.85 9.85 0 013-1.72c.92-.32 1.86-.53 2.81-.6l.41-.02.43-.01h.02zM7.4 12.4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm12.29-9.01a.5.5 0 01.63-.13l.07.05.4.31c.18.16.23.42.12.63l-.05.08-7.69 9.6-1.14.51a.2.2 0 01-.28-.17v-.05L12 13l7.69-9.61zM8.4 8.4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm4.2-1.5a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"
-              fill="#2B2F36"
-              fill-rule="evenodd"
-            ></path>
-          </svg>
-          <div class="structure">
-            <div class="tab-content">
-              <h3 class="tab-label">结构</h3>
-              <ul class="struct-list">
-                <li @click="toggleStucture('side')">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                  >
-                    <g fill="none" fill-rule="evenodd">
-                      <path
-                        :fill="pathColor('side')"
-                        d="M18.77 15.25H22a.75.75 0 110 1.5h-4c1.05.97 1.9 3.27 2.76 7.02.4 1.73.88 2.48 1.24 2.48a.75.75 0 110 1.5c-1.33 0-2.16-1.29-2.7-3.65-.87-3.77-1.76-5.93-2.38-6.32A2 2 0 0116 18c-.35 0-.68-.09-.97-.25H15c-.36 0-.84.75-1.24 2.48-1.07 4.66-2.13 7.1-3.56 7.5a.75.75 0 11-.4-1.45c.62-.18 1.58-2.37 2.5-6.38.34-1.5.8-2.57 1.44-3.15H10a.75.75 0 110-1.5h3.02a9.55 9.55 0 01-.72-2.15c-.92-4.01-1.88-6.2-2.5-6.38a.75.75 0 11.4-1.44c1.43.4 2.5 2.83 3.56 7.49.21.93.45 1.57.68 1.97A2 2 0 0116 14a2 2 0 011.43.6c.55-.95 1.22-2.87 1.87-5.7.54-2.36 1.37-3.65 2.7-3.65a.75.75 0 110 1.5c-.36 0-.84.75-1.24 2.48-.64 2.8-1.28 4.79-2 6.02z"
-                      ></path>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="26"
-                        y="5"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="26"
-                        y="15"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="26"
-                        y="25"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="1"
-                        y="5"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="1"
-                        y="15"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="5"
-                        height="3"
-                        x="1"
-                        y="25"
-                        :fill="rectColor('side')"
-                        rx=".5"
-                      ></rect>
-                    </g>
-                  </svg>
-                </li>
-
-                <li class="" @click="toggleStucture('right')">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                  >
-                    <g
-                      fill="none"
-                      fill-rule="evenodd"
-                      transform="translate(2 4)"
-                    >
-                      <path
-                        :fill="pathColor('right')"
-                        d="M4.92 11.25H9.5a.75.75 0 110 1.5H4.92c.87 1.34 1.66 3.56 2.44 6.7.5 1.94 1.1 2.8 1.64 2.8a.75.75 0 110 1.5c-1.48 0-2.45-1.39-3.1-3.94-.82-3.33-1.67-5.5-2.4-6.5a2 2 0 110-2.63c.73-.98 1.58-3.16 2.4-6.49C6.56 1.64 7.53.25 9 .25a.75.75 0 010 1.5c-.55 0-1.15.86-1.64 2.8-.78 3.14-1.57 5.36-2.44 6.7z"
-                      ></path>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        :fill="rectColor('right')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        y="10.5"
-                        :fill="rectColor('right')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        y="21"
-                        :fill="rectColor('right')"
-                        rx=".5"
-                      ></rect>
-                    </g>
-                  </svg>
-                </li>
-                <li class="" @click="toggleStucture('left')">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                  >
-                    <g
-                      fill="none"
-                      fill-rule="evenodd"
-                      transform="matrix(-1 0 0 1 29 4)"
-                    >
-                      <path
-                        :fill="pathColor('left')"
-                        d="M4.92 11.25H9.5a.75.75 0 110 1.5H4.92c.87 1.34 1.66 3.56 2.44 6.7.5 1.94 1.1 2.8 1.64 2.8a.75.75 0 110 1.5c-1.48 0-2.45-1.39-3.1-3.94-.82-3.33-1.67-5.5-2.4-6.5a2 2 0 110-2.63c.73-.98 1.58-3.16 2.4-6.49C6.56 1.64 7.53.25 9 .25a.75.75 0 010 1.5c-.55 0-1.15.86-1.64 2.8-.78 3.14-1.57 5.36-2.44 6.7z"
-                      ></path>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        :fill="rectColor('left')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        y="10.5"
-                        :fill="rectColor('left')"
-                        rx=".5"
-                      ></rect>
-                      <rect
-                        width="12"
-                        height="3"
-                        x="14"
-                        y="21"
-                        :fill="rectColor('left')"
-                        rx=".5"
-                      ></rect>
-                    </g>
-                  </svg>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
         <div
           class="reset item normal-item"
           title="定位到中心主题"
@@ -248,32 +76,48 @@
       </ul>
     </div>
 
+<!--    顶部菜单栏-->
     <div class="top-bar">
-      <ul class="filter">
-        <li
-          :class="[item.type, item.status && 'active']"
-          @click="toggleFilter(item)"
-          v-for="item in filterTypes"
-          :key="item.value"
-        >
-          <i></i>
-          <span>{{ item.name }}</span>
-        </li>
-      </ul>
-
-      <span class="export" @click="screen_shot">导出图片</span>
+      <svg @click="GoBackPage" t="1687590289426" style="height: 35px;width: 35px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1622" width="200" height="200"><path d="M728 212.182v-82.183a8 8 0 0 0-13.327-5.968L306.69 488.138c-0.9 0.803-1.754 1.657-2.558 2.557-11.772 13.178-10.626 33.4 2.558 45.167l407.984 364.107A8 8 0 0 0 728 894.001v-82.183a16 16 0 0 0-5.346-11.937L400.082 512l322.572-287.88A16 16 0 0 0 728 212.181z" fill="#5090F1" p-id="1623"></path></svg>
     </div>
 
-    <div class="jsmind_layout">
-      <div
-        id="jsmind_container"
-        ref="container"
-        @click="nodeClick"
-        @contextmenu.prevent.stop="nodeClick"
-      ></div>
+<!--    树形布局-->
+      <div class="jsmind_layout animate__animated animate__fadeInRight">
+        <div
+          id="jsmind_container"
+          ref="container"
+          @click="nodeClick"
+          @contextmenu.prevent.stop="nodeClick"
+        >
+        </div>
+      </div>
 
-      <el-dialog
-        :title="createType === 'bro' ? '插入平级' : '插入子级'"
+    <!-- 点击按钮侧边栏详细信息菜单 -->
+    <transition name="sideBar">
+    <div class="right_slider_bar"  v-if="showSideBar">
+        <!-- 内容 -->
+<!--      上半-->
+      <div class="sideBarTop">
+        <div class="backIcon"@click="closeSideBar">
+          <svg  style="width: 25px;height: 25px;" t="1687598692787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10553" width="200" height="200"><path d="M428.31644444 679.92462223l76.91377778-19.11466667-30.49244445-25.03111111a145.89724445 145.89724445 0 0 0-224.22186666-184.51342222l-7.96444444-6.58773333-195.44746667 329.95555555 298.74631111-74.25137778c2.50311111 0.13653333 5.02897778 0.19342222 7.56622223 0.19342223a145.18044445 145.18044445 0 0 0 74.8999111-20.65066667z" fill="#1792E5" p-id="10554"></path><path d="M1011.83715556 511.21493333c7.82791111-6.62186667 12.62933333-17.44213333 12.62933333-28.8768a38.05866667 38.05866667 0 0 0-12.02631112-27.67075555L608.81351111 93.7528889c-6.61048889-5.41582222-14.4384-9.02257778-23.46097777-9.02257779-20.48 0-36.69333333 16.83911111-36.69333334 37.888v159.41404445c-308.57671111 51.72337778-526.336 286.32177778-547.38488889 587.69635555 1.20604445 12.62933333 11.37777778 22.85795555 23.46097778 22.85795556a24.62151111 24.62151111 0 0 0 13.23235555-4.22115556c53.47555555-39.09404445 99.24835555-68.57386667 135.39555556-87.82506666 87.22204445-49.92568889 222.57208889-89.62275555 374.74986667-105.87022222v147.97937777c0 21.06026667 16.24746667 37.89937778 36.7047111 37.89937778 8.41955555 0 16.23608889-3.60675555 22.85795557-8.41955555l114.91555555-102.8664889a35.98791111 35.98791111 0 0 0 10.74062222-33.1207111v-0.59164445c-6.01884445-24.66702222-35.48728889-34.89564445-54.73848889-18.05653333l-52.9408 46.33031111V614.67306667l-40.89173333 3.00373333c-150.99448889 11.37777778-347.69351111 52.9408-474.61262222 129.3312-11.37777778 7.22488889-25.27004445-4.8128-21.0488889-17.44213333 70.97457778-204.51555555 255.64728889-348.88817778 502.89777779-378.95964444l33.67822221-4.20977778V200.81777778l320.62577779 281.52035555L769.42222222 637.53102223c-9.6256 8.41955555-13.23235555 21.61777778-10.24 34.28124444v0.6144c6.61048889 23.4496 34.88426667 32.47217778 53.53244445 16.23608889z m0 0" fill="#424242" p-id="10555"></path></svg>
+        </div>
+        <div class="sideTopic">
+          主题： {{selectNodeInfo.topic}}<br>
+          其他数据:{{selectNodeInfo.data.info}}
+        </div>
+
+      </div>
+<!--      底部-->
+      <div class="sideBarBottom">
+          <el-button @click="addChild" class="Relay">片段接龙</el-button>
+          <el-button @click="delCard">删除片段</el-button>
+      </div>
+    </div>
+    </transition>
+
+    <!--右键点击后出现的输入框-->
+    <el-dialog
+        :title="'插入子级'"
         :visible.sync="dialogVisible"
         width="600px"
         @closed="form = {}"
@@ -281,50 +125,31 @@
         :lock-scroll="false"
         :append-to-body="true"
         v-if="selectNodeInfo"
-      >
-        <el-form label-width="80px" class="form-con">
-          <el-form-item label="卡片标题">
-            <el-input
+    >
+      <el-form label-width="80px" class="form-con">
+        <el-form-item label="卡片标题">
+          <el-input
               type="textarea"
               :rows="2"
               v-model="selectNodeInfo.Name"
               class="ele-width"
               maxLength="64"
-            ></el-input>
-          </el-form-item>
-        </el-form>
-        <template v-slot:footer>
-          <div class="right mr-10">
-            <el-button
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <template v-slot:footer>
+        <div class="right mr-10">
+          <el-button
               type="primary"
               class="common-btn"
               @click="sureEditNode"
               size="medium"
-              >确 定</el-button
-            >
-          </div>
-        </template>
-      </el-dialog>
-    </div>
+          >确 定</el-button
+          >
+        </div>
+      </template>
+    </el-dialog>
 
-    <!-- 右键菜单 -->
-    <el-menu
-      class="context-menu"
-      v-show="showMenu"
-      :style="{
-        left: menuStyle.left,
-        top: menuStyle.top,
-        bottom: menuStyle.bottom,
-        right: menuStyle.right
-      }"
-      ref="context"
-    >
-      <slot>
-        <el-menu-item @click="addBrother">插入平级</el-menu-item>
-        <el-menu-item @click="addChild">插入子级</el-menu-item>
-        <el-menu-item @click="delCard">删除卡片</el-menu-item>
-      </slot>
-    </el-menu>
   </div>
 </template>
 
@@ -332,6 +157,7 @@
 
 import '../../public/jsmind/style/jsmind.css'
 import jsMind from '../../public/jsmind/js/jsmind.js'
+import "animate.css"
 require('../../public/jsmind/js/jsmind.draggable.js')
 require('../../public/jsmind/js/jsmind.screenshot.js')
 
@@ -378,6 +204,7 @@ export default {
         data: {
           id: 'root',
           topic: 'jsMind',
+          info:"114514",
           children: [
             {
               id: 'easy', // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
@@ -436,7 +263,7 @@ export default {
           hmargin: 120, // 思维导图距容器外框的最小水平距离
           vmargin: 50, // 思维导图距容器外框的最小垂直距离
           line_width: 2, // 思维导图线条的粗细
-          line_color: 'rgba(87, 107, 127,0.5)' // 思维导图线条的颜色
+          line_color: 'rgba(87,94,127,0.4)' // 思维导图线条的颜色
         },
         layout: {
           hspace: 100, // 节点之间的水平间距
@@ -475,40 +302,17 @@ export default {
         Name: ''
       }, // 选中节点信息
       tempNodeInfo: null, // 保存修改之前的信息
-      createType: '', // 添加平级or子级
-      showMenu: false, // 是否显示右键菜单栏
-      menuStyle: {
-        top: '',
-        bottom: '',
-        left: '',
-        right: ''
-      },
-      filterTypes: [
-        {
-          type: 'kd',
-          value: '1',
-          name: 'root',
-          status: true
-        },
-        {
-          type: 'zsd',
-          value: 'children',
-          name: '知识点',
-          status: true
-        },
-      ],
+      showSideBar: false, // 是否显示右侧侧边栏
       typeQueue: new Set(['1', '2']), // 选中types Set
       selectTypes: ['1', '2'] // 选中types Array
     }
   },
   methods: {
-    // 筛选树结构
-    toggleFilter (item) {
-      item.status = !item.status
-      item.status ? this.typeQueue.add(item.value) : this.typeQueue.delete(item.value)
-      this.selectTypes = [...this.typeQueue]
-    },
 
+    //返回上一页面
+    GoBackPage(){
+      this.$router.push("../")
+    },
     // 重置视图
     reset () {
       document.querySelector('.root').scrollIntoView({
@@ -551,33 +355,6 @@ export default {
       })
     },
 
-    // 切换思维导图结构
-    toggleStucture (type) {
-      if (this.structure.active === type) return
-      this.structure.active = type
-      switch (type) {
-        case 'side':
-          // 两边分布
-          this.loopTreeData(this.mind.data.children, (item, i) => { item.direction = i % 2 ? 'left' : 'right' })
-          break
-
-        case 'left':
-          // 向左分布
-          this.loopTreeData(this.mind.data.children, (item) => { item.direction = 'left' })
-          break
-
-        case 'right':
-          // 向右分布
-          this.loopTreeData(this.mind.data.children, (item) => { item.direction = 'right' })
-          break
-
-        default:
-          break
-      }
-
-      this.jm.show(this.mind)
-      this.init()
-    },
 
     // 初始化配置
     init () {
@@ -605,43 +382,17 @@ export default {
         // TODO 调接口
       }
 
-      // 右键菜单
-      this.jm.view.add_event(this.editor, 'contextmenu', (e) => {
-        const selectedNode = this.jm.get_selected_node()
-        if (selectedNode && selectedNode.data.type) {
-          e.preventDefault()
-          const el = document.querySelector('.context-menu .el-menu-item')
-          const width = parseFloat(window.getComputedStyle(el).width)
-          const height = parseFloat(window.getComputedStyle(el).height) * 3 + 12
-          const windowHeight = window.innerHeight
-          const windowWidth = window.innerWidth
-
-          // 极限位置 避免越界
-          if (e.clientY + height > windowHeight) {
-            this.menuStyle.left = e.clientX + 'px'
-            this.menuStyle.top = 'unset'
-            this.menuStyle.bottom = 0
-          } else if (e.clientX + width > windowWidth) {
-            this.menuStyle.top = e.clientY + 'px'
-            this.menuStyle.left = 'unset'
-            this.menuStyle.right = 0
-          } else {
-            this.menuStyle.left = e.clientX + 'px'
-            this.menuStyle.top = e.clientY + 'px'
-            this.menuStyle.bottom = 'unset'
-          }
-          this.showMenu = true
-        } else {
-          this.showMenu = false
-        }
-      })
     },
     // 获取选中标签的 ID
     get_selected_nodeid () {
       const selectedNode = this.jm.get_selected_node()
+      this.selectNodeInfo=selectedNode
+      console.log("选中node的为：",selectedNode)
       if (selectedNode) {
+        this.showSideBar=true
         return selectedNode.id
       } else {
+        this.showSideBar=false
         return null
       }
     },
@@ -652,15 +403,9 @@ export default {
         this.$message.info('请输入卡片标题')
         return
       }
-
-      if (this.createType === 'bro') {
-        // 平级
-        // TODO 调接口
-      } else {
-        // 子级
+        // 添加接龙
         // TODO 调接口
 
-      }
       this.dialogVisible = false
     },
 
@@ -680,37 +425,11 @@ export default {
     },
     // 单击重置选中背景颜色
     nodeClick () {
+      //通过id寻找
       const selectedId = this.get_selected_nodeid()
       if (!selectedId) return
       const nodeObj = this.jm.get_node(selectedId)
-      this.jm.set_node_color(selectedId, nodeObj.data['background-color'], '#fff')
-    },
-
-    // 插入卡片
-    insertNode () {
-      const selectedNode = this.jm.get_selected_node()
-      if (selectedNode.data) {
-        this.$emit('insert', selectedNode.data)
-      } else {
-        this.$message.error('请选择卡片')
-      }
-      this.showMenu = false
-    },
-    // 插入平级
-    addBrother () {
-      const selectedNode = this.jm.get_selected_node()
-      if (selectedNode.data) {
-        this.dialogVisible = true
-        this.selectNodeInfo = {
-          id: selectedNode.data.num,
-          Name: ''
-        }
-        this.createType = 'bro'
-      } else {
-        this.$message.error('请选择卡片')
-      }
-
-      this.showMenu = false
+      this.jm.set_node_color(selectedId, nodeObj.data['background-color'], '#500d41')
     },
 
     // 插入子级
@@ -723,15 +442,12 @@ export default {
           id: selectedNode.data.num,
           Name: ''
         }
-        this.createType = 'child'
       } else {
-        this.$message.error('请选择卡片')
+        this.$message.error('节点不存在！出错！')
       }
-
-      this.showMenu = false
     },
 
-    // 删除卡片
+    // 删除节点
     delCard () {
       const selectedNode = this.jm.get_selected_node()
       if (selectedNode.data) {
@@ -742,7 +458,7 @@ export default {
       } else {
         this.$message.error('请选择卡片')
       }
-      this.showMenu = false
+      this.showSideBar = false
     },
 
     // 鼠标滚轮放大缩小
@@ -830,6 +546,10 @@ export default {
           document.onmousemove = document.onmouseup = null
         }
       }
+    },
+    //右侧边栏关闭
+    closeSideBar(){
+      this.showSideBar=false
     }
   },
   mounted () {
@@ -847,7 +567,7 @@ export default {
   },
   beforeDestroy () {
     document.removeEventListener('domMouseScroll', this.scrollFunc, false)
-  }
+  },
 }
 </script>
 

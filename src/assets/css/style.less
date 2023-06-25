@@ -1,3 +1,15 @@
+//animate.css使用格式
+//animation: animate__fadeOutRight; /* referring directly to the animation's @keyframe declaration */
+//animation-duration: 2s; /* don't forget to set a duration! */
+
+//展开原点样式
+jmexpander {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  margin-top: 5px;
+}
 jmexpander {
   line-height: 8px;
 }
@@ -5,6 +17,7 @@ jmexpander {
   position: relative;
   padding: 0px 0px 60px 0px;
   height: 100vh;
+  z-index: 998;
   background-color: rgba(251, 245, 224);
 
   &.full {
@@ -134,107 +147,6 @@ jmexpander {
                 }
               }
             }
-
-            .style__zoom-scroll-bar___3n1YHZLZ {
-              display: flex;
-
-              .style__zoom-bar___rp3v2Kdv {
-                position: relative;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                width: 120px;
-                height: 36px;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                cursor: pointer;
-
-                .style__process-bar___2nCsCTk0 {
-                  position: relative;
-                  left: 50%;
-                  width: 104px;
-                  height: 2px;
-                  -ms-flex-item-align: center;
-                  align-self: center;
-                  margin-left: -52px;
-                  background-color: #bbbfc4;
-                  border-radius: 2px;
-                }
-
-                .style__process-btn___azlkuc9i {
-                  position: absolute;
-                  width: 16px;
-                  height: 16px;
-                  border: 0.5px solid #dee0e3;
-                  background-color: #fff;
-                  border-radius: 8px;
-                  -webkit-box-shadow: 0 2px 3px 0 rgb(0 0 0 / 15%);
-                  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 15%);
-                  cursor: pointer;
-                }
-              }
-            }
-          }
-        }
-
-        .structure {
-          position: absolute;
-          top: 0;
-          right: 58px;
-          width: 244px;
-          min-height: 120px;
-          max-height: calc(100vh - 200px);
-          cursor: default;
-          opacity: 0;
-          overflow-y: overlay;
-          -webkit-transition: all 0.1s linear;
-          transition: all 0.1s linear;
-          visibility: hidden;
-          z-index: 1000;
-
-          &:hover {
-            opacity: 1;
-            visibility: visible;
-          }
-
-          .tab-content {
-            padding: 24px 24px 10px;
-            border: 1px solid #dee0e3;
-            background-color: #fff;
-            border-radius: 5px;
-            -webkit-box-shadow: 0 0 8px 4px rgb(31 35 41 / 6%);
-            box-shadow: 0 0 8px 4px rgb(31 35 41 / 6%);
-
-            .tab-label {
-              margin-bottom: 12px;
-              color: #1f2329;
-              font-size: 16px;
-              font-weight: 500;
-              line-height: 1.5;
-              text-align: left;
-            }
-
-            .struct-list {
-              display: -webkit-box;
-              display: -ms-flexbox;
-              display: flex;
-              -webkit-box-orient: horizontal;
-              -webkit-box-direction: normal;
-              -ms-flex-direction: row;
-              flex-direction: row;
-              -webkit-box-pack: justify;
-              -ms-flex-pack: justify;
-              justify-content: space-between;
-              margin: 0 0 20px;
-              list-style: none;
-
-              li {
-                width: 32px;
-                height: 32px;
-                cursor: pointer;
-              }
-            }
           }
         }
       }
@@ -248,7 +160,11 @@ jmexpander {
   .top-bar {
     height: 60px;
     width: 100%;
-    background-color: rgba(28, 255, 242,0.1);
+    background-color: #e6ffe7;
+    box-shadow: 0 0 15px #bebebe;
+    display: flex;
+    align-items: center;
+    padding: 10px;
     .filter {
       float: left;
 
@@ -359,25 +275,6 @@ jmexpander {
     }
   }
 
-  .context-menu {
-    width: 150px;
-    padding: 12px 0px;
-    position: fixed;
-    z-index: 100;
-    background: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
-    border-radius: 5px;
-    font-size: 12px;
-    display: block;
-    left: 912px;
-    top: 535px;
-
-    .el-menu-item {
-      width: 150px;
-      height: 40px;
-      line-height: 40px;
-    }
-  }
 
   .jsmind-inner {
     overflow: scroll;
@@ -393,5 +290,43 @@ jmexpander {
   }
   .ele-width {
     width: 96%;
+  }
+  .right_slider_bar{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 999;
+    height: 100vh;
+    width: 300px;
+    opacity: 0.9;
+    background-color: white;
+    box-shadow: 0 0 8px 4px rgb(31 35 41 / 10%);
+    border-radius: 20px 0 0 20px ;
+
+  }
+  .sideTopic{
+    margin-top: 10px;
+  }
+  .sideBarTop{
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+  }
+  .sideBarBottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    bottom: 0px;
+  }
+  .sideBar-enter-active{
+    animation: fadeInRight;
+    animation-duration: 0.5s;
+  }
+  .sideBar-leave-active{
+    animation: fadeOutRight;
+    animation-duration: 0.5s;
   }
 }
