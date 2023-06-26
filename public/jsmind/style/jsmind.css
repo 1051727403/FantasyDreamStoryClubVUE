@@ -74,7 +74,7 @@ jmnode:hover::before {
 
 
 
-jmnode.selected{background-color: #ff11c7;color:#fff;box-shadow:2px 2px 8px #000;}
+jmnode.selected{background-color: #ffd1f2;color:#fff;box-shadow:2px 2px 8px #000;}
 jmnode.root{
     font-size:24px;
     padding: 10px;
