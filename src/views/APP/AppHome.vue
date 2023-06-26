@@ -4,7 +4,7 @@
         <el-header style="border-bottom: 1px solid #eee;height: 50px">
           <Header :collapseBthClass="collapseBthClass" :collapse="collapse"/>
         </el-header>
-        <el-main>
+        <el-main style="padding: 0">
           <router-view/>
         </el-main>
     </el-container>
