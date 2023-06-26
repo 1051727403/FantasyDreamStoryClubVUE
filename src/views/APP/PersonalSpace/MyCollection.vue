@@ -1,5 +1,8 @@
 <template>
-我的收藏
+  <div>
+    我的收藏
+  </div>
+
 </template>
 
 <script>

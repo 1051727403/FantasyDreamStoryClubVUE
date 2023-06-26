@@ -1,5 +1,8 @@
 <template>
-个人信息
+  <div>
+    个人信息
+  </div>
+
 </template>
 
 <script>

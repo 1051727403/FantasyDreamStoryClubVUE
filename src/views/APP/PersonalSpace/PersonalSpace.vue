@@ -5,7 +5,7 @@
         <Aside />
       </el-aside>
       <el-main style="padding: 0">
-        用户信息
+        <router-view/>
       </el-main>
     </el-container>
   </div>

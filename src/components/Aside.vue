@@ -12,10 +12,10 @@
         <span style="color:#3fccfc;font-weight: bolder">个人中心</span>
       </b>
     </div>
-    <el-menu-item index="#"  >
+    <el-menu-item index="/App/PersonalSpace"  >
       <i class="el-icon-s-home"></i><span>主页</span>
     </el-menu-item>
-    <el-menu-item index="mycollection"  >
+    <el-menu-item index="MyCollection"  >
       <i class="el-icon-folder"></i><span>我的收藏</span>
     </el-menu-item>
     <el-submenu  text-color="#fff"
@@ -24,7 +24,7 @@
         <i class="el-icon-edit"></i>
         <span >我的创作</span>
       </template>
-      <el-menu-item index="newstory">
+      <el-menu-item index="NewStory">
         <i class="el-icon-collection"></i>
         <span>新故事</span>
       </el-menu-item>

@@ -35,6 +35,34 @@ const routes = [
         path:'PersonalSpace',
         name:'usercenter',
         component:()=>import('../views/APP/PersonalSpace/PersonalSpace.vue'),
+        redirect: '/App/PersonalSpace/PersonalInfo',
+        children:[
+          {
+            path:'PersonalInfo',
+            name:'userinfo',
+            component:()=>import('../views/APP/PersonalSpace/PersonalInfo.vue'),
+          },
+          {
+            path:'MyCollection',
+            name:'usercollection',
+            component:()=>import('../views/APP/PersonalSpace/MyCollection.vue'),
+          },
+          {
+            path:'NewStory',
+            name:'userstory',
+            component:()=>import('../views/APP/PersonalSpace/NewStory.vue'),
+          },
+          {
+            path:'NewFragement',
+            name:'userc',
+            component:()=>import('../views/APP/PersonalSpace/NewFragement.vue'),
+          },
+          {
+            path:'MyComment',
+            name:'userc',
+            component:()=>import('../views/APP/PersonalSpace/MyComment.vue'),
+          },
+        ]
       },
       {
         path:'StoryInfo',
@@ -56,11 +84,9 @@ const routes = [
     component:()=>import('../views/APP/StoryRelay/test.vue'),
     meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
-  {
-    path: '/mycollection',
-    name: 'usercollection',
-    component:()=>import('../views/APP/PersonalSpace/Mycollection.vue')
-  }
+
+
+
 
 
 

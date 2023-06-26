@@ -1,5 +1,8 @@
 <template>
-新故事
+  <div>
+    新故事
+  </div>
+
 </template>
 
 <script>
