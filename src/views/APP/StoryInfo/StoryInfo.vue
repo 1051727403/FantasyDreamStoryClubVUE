@@ -17,8 +17,6 @@
             <br>
           </div>
           <div class="book-data">
-            <span>29万</span>
-            <span class="hint">字数</span>
             <span>
             <i class="line"></i>
             466.6万
@@ -65,7 +63,7 @@
               <div style="color: #999;font-size: 10px;text-align: center;">谁谁</div>
             </div>
             <div class="userinfo">
-                总关注数：150
+                总点赞数：150
             </div>
 
           </div>
@@ -74,9 +72,6 @@
       </div>
 
     </div>
-
-
-
   </div>
 </template>
 
