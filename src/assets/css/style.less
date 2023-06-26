@@ -2,6 +2,33 @@
 //animation: animate__fadeOutRight; /* referring directly to the animation's @keyframe declaration */
 //animation-duration: 2s; /* don't forget to set a duration! */
 
+html{
+
+  overflow-y: scroll;
+
+}
+
+:root {
+
+  overflow-x: auto;
+
+  overflow-y: hidden
+
+}
+
+:root body {
+
+  position: absolute;
+
+}
+
+body {
+
+  width: 100vw;
+
+  overflow: hidden;
+
+}
 :root {
   --fixed-width: 300px;
 }
@@ -314,34 +341,102 @@ jmexpander {
     width: 96%;
   }
   .right_slider_bar{
-    position: fixed;
+    position: absolute;
     top: 0px;
     right: 0px;
-    z-index: 999;
+    z-index: 1000;
     height: 100vh;
-    width: 300px;
+    width: 320px;
     opacity: 0.9;
     background-color: white;
     box-shadow: 0 0 8px 4px rgb(31 35 41 / 10%);
     border-radius: 20px 0 0 20px ;
+    overflow-y: auto;
+  }
 
-  }
-  .sideTopic{
-    margin-top: 10px;
-  }
   .sideBarTop{
     padding: 20px;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .sideBarTopItem{
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .label{
+      background: #ff951a;
+      border-radius: 2px;
+      height: 20px;
+      width: 35px;
+      margin-top: 2px;
+      padding: 0 5px;
+      margin-left: 10px;
+      font-size: 10px;
+      line-height: 20px;
+      color: #fff;
+    }
+    .backToFragment{
+      margin-top: 20px;
+      padding: 10px;
+      font-size:16px;
+      color: #4e8bff;
+      background-color: #ffe4e9;
+      border-radius: 10px;
+    }
+    .backToFragment:hover{
+      background-color: #fdc5d0;
+    }
+    .nextFragment{
+      width: 100%;
+      height: auto;
+      margin-top: 10px;
+      background-color:#e6ffe7;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+      .nextFragmentPrompt{
+        font-size:18px;
+        color: #4e8bff;
+        padding-bottom: 5px;
+      }
+      .chooseFragment{
+        overflow-y: auto;
+        max-height: 250px;
+        background-color:#e6ffe7;
+      }
+      .eachFragment{
+        padding-left: 10px;
+        margin-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: 0.2px solid #efefef;
+        border-radius: 5px;
+      }
+      .eachFragment:hover{
+        background-color: #89e172;
+      }
+    }
   }
   .sideBarBottom{
+    padding-left: clac(100vh-100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     height: 60px;
-    position: absolute;
+    width: 310px;
+    margin-right: 10px;
+    z-index: 1000;
+    position: fixed;
+    right: 0px;
     bottom: 0px;
+    background-color: #fff8fa;
+    box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
+    border-radius:0 0 0 20px;
   }
   //动画效果
   .sideBar-enter-active{
@@ -401,12 +496,12 @@ jmexpander {
         text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; /* 添加白色描边 */
       }
       .fragmentContent{
-        font-size:14px;
-        text-space: 2px;
+        font-size:16px;
+        letter-spacing: 2px;
         line-height: 22px;
         white-space: pre-wrap;
         word-wrap: break-word;
-        color: #0a001f;
+        color: #000000;
         max-height: calc(90% - 25px); /* 设置最大高度，超出时将出现垂直滚动条 */
         overflow-y:auto; /* 允许垂直滚动 */
       }
