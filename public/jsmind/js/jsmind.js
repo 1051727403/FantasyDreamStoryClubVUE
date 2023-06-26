@@ -2356,6 +2356,7 @@
                     $t(d,node.topic);
                 }
             }
+            d.setAttribute('data-content', node.data.content); // 添加 data-content 属性
             d.setAttribute('nodeid',node.id);
             d.style.visibility='hidden';
             this._reset_node_custom_style(d, node.data);

@@ -296,27 +296,6 @@ jmexpander {
       margin-left: 10px;
     }
 
-    jmnode {
-      max-width: unset;
-      color: #fff;
-      visibility: visible;
-      background-color: rgb(78, 181, 255);
-      color: rgb(255, 255, 255);
-      &.selected {
-        color: #fff !important;
-        border: 1px solid #777;
-        transition: 1s;
-      }
-    }
-
-    /deep/ jmnode.selected {
-      background-color: #b9b9b9;
-      color: #fff;
-      box-shadow: 2px 2px 8px #777;
-    }
-    /deep/ jmnode:hover {
-      box-shadow: 2px 2px 8px #777;
-    }
   }
 
 
@@ -432,8 +411,6 @@ jmexpander {
         overflow-y:auto; /* 允许垂直滚动 */
       }
     }
-
-
   }
 
 }

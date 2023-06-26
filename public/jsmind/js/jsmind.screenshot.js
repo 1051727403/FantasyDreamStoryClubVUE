@@ -247,6 +247,7 @@
             ctx.fill();
 
             ctx.fillStyle = color;
+
             if ('background-image' in node.data) {
                 var backgroundUrl = css(ncs,'background-image').slice(5, -2);
                 node.ready = false;
