@@ -206,9 +206,6 @@ export default {
       }
     }
   },
-  created() {
-
-  },
   data () {
     return {
       mind: {
@@ -384,8 +381,18 @@ export default {
       selectTypes: ['1', '2'] // 选中types Array
     }
   },
-  methods: {
+  created() {
 
+  },
+  methods: {
+    //根据传入故事id参数load页面内容
+    loadStory(storyID){
+      this.request.get("/user/login?username=").then(res=> {
+
+
+
+      })
+    },
     //返回上一页面
     GoBackPage(){
       this.$router.push("../")
