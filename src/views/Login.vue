@@ -46,6 +46,7 @@ export default {
       this.$refs["userForm"].validate((valid) => {
         if (valid) {
           var str = Md5(this.user.password)
+          console.log(str)
           //alert('登陆中!');
           this.request.post("/user/login?username="+this.user.username+"&password="+str).then(res=>{
             console.log("res:"+res);

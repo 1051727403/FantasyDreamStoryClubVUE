@@ -113,13 +113,20 @@
 
 
             <div class="backToFragment" @click="backToFragment">返回上一幕</div>
-            <!-- 下一章节选择-->
+            <!-- 下一章节选择 start-->
             <div class="nextFragment">
               <div class="nextFragmentPrompt">选择下一幕:</div>
               <div class="chooseFragment">
                 <div class="eachFragment" v-for="child in selectNodeInfo.children" @click="chooseFragment(child)">{{child.topic}}</div>
               </div>
             </div>
+            <!-- 下一章节选择 end-->
+            <!-- 评论区组件 start-->
+
+
+
+
+            <!-- 评论区组件 end-->
           </div>
     </div>
     </transition>
