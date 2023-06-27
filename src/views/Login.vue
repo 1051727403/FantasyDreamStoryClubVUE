@@ -42,7 +42,6 @@ export default {
   methods:{
     //登录
     login(){
-      console.log("=================")
       this.$refs["userForm"].validate((valid) => {
         if (valid) {
           var str = Md5(this.user.password)
@@ -53,12 +52,14 @@ export default {
             if(res.code==='200'){
               //console.log(res.data);
               //将用户信息存储到浏览器中
+              console.log(res.data)
               localStorage.setItem("user",JSON.stringify(res.data.data));
+
               if(res.data.is_admin=="1") this.$router.push("/Manage/home");
               else this.$router.push("/APP/Index")
               this.$message.success("登录成功！")
             }else{
-              this.$message.error(res.msg)
+              this.$message.error("error"+res.msg)
             }
           })
         } else {
