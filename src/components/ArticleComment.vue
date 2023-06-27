@@ -200,9 +200,9 @@ export default {
     },
     //验证是否登陆
     checkIsLogined(){
-      let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{};
+      let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
       console.log("user:",user)
-      if(user){
+      if(user==null){
         //未登录
         this.$message.warning("请登录后再进行操作!")
         return false;
