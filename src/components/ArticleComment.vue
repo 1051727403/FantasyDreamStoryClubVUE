@@ -112,6 +112,12 @@ const clickoutside = {
 };
 export default {
   name: 'ArticleComment',
+  props:{
+    comments: {
+      type: Array,
+      required:true
+    }
+  },
   data() {
     return {
       btnShow: false,
@@ -122,75 +128,88 @@ export default {
       myId: 19870621,
       to: '',
       toId: -1,
-      comments: [
-        {
-          name: 'Lana Del Rey',
-          id: 19870621,
-          headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
-          comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
-          time: '2019年9月16日 18:43',
-          inputShow: false,
-          reply: [
-            {
-              from: 'Taylor Swift',
-              fromId: 19891221,
-              fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
-              to: 'Lana Del Rey',
-              toId: 19870621,
-              comment: '我很喜欢你的新专辑！！',
-              time: '2019年9月16日 18:43',
-              inputShow: false
-            },
-            {
-              from: 'Ariana Grande',
-              fromId: 1123,
-              fromHeadImg: 'https://ae01.alicdn.com/kf/Hf6c0b4a7428b4edf866a9fbab75568e6U.jpg',
-              to: 'Lana Del Rey',
-              toId: 19870621,
-              comment: '别忘记宣传我们的合作单曲啊',
-              time: '2019年9月16日 18:43',
-              inputShow: false
-
-            }
-          ]
-        },
-        {
-          name: 'Taylor Swift',
-          id: 19891221,
-          headImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
-          comment: '我发行了我的新专辑Lover',
-          time: '2019年9月16日 18:43',
-          inputShow: false,
-          reply: [
-            {
-              from: 'Lana Del Rey',
-              fromId: 19870621,
-              fromHeadImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
-              to: 'Taylor Swift',
-              toId: 19891221,
-              comment: '新专辑和speak now 一样棒！',
-              time: '2019年9月16日 18:43',
-              inputShow: false
-
-            }
-          ]
-        },
-        {
-          name: 'Norman Fucking Rockwell',
-          id: 20190830,
-          headImg: 'https://ae01.alicdn.com/kf/Hdd856ae4c81545d2b51fa0c209f7aa28Z.jpg',
-          comment: 'Plz buy Norman Fucking Rockwell on everywhere',
-          time: '2019年9月16日 18:43',
-          inputShow: false,
-          reply: []
-        },
-      ]
+      // comments: [
+      //   {
+      //     name: 'Lana Del Rey',
+      //     id: 19870621,
+      //     headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+      //     comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+      //     time: '2019年9月16日 18:43',
+      //     inputShow: false,
+      //     reply: [
+      //       {
+      //         from: 'Taylor Swift',
+      //         fromId: 19891221,
+      //         fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+      //         to: 'Lana Del Rey',
+      //         toId: 19870621,
+      //         comment: '我很喜欢你的新专辑！！',
+      //         time: '2019年9月16日 18:43',
+      //         inputShow: false
+      //       },
+      //       {
+      //         from: 'Ariana Grande',
+      //         fromId: 1123,
+      //         fromHeadImg: 'https://ae01.alicdn.com/kf/Hf6c0b4a7428b4edf866a9fbab75568e6U.jpg',
+      //         to: 'Lana Del Rey',
+      //         toId: 19870621,
+      //         comment: '别忘记宣传我们的合作单曲啊',
+      //         time: '2019年9月16日 18:43',
+      //         inputShow: false
+      //
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: 'Taylor Swift',
+      //     id: 19891221,
+      //     headImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+      //     comment: '我发行了我的新专辑Lover',
+      //     time: '2019年9月16日 18:43',
+      //     inputShow: false,
+      //     reply: [
+      //       {
+      //         from: 'Lana Del Rey',
+      //         fromId: 19870621,
+      //         fromHeadImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+      //         to: 'Taylor Swift',
+      //         toId: 19891221,
+      //         comment: '新专辑和speak now 一样棒！',
+      //         time: '2019年9月16日 18:43',
+      //         inputShow: false
+      //
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: 'Norman Fucking Rockwell',
+      //     id: 20190830,
+      //     headImg: 'https://ae01.alicdn.com/kf/Hdd856ae4c81545d2b51fa0c209f7aa28Z.jpg',
+      //     comment: 'Plz buy Norman Fucking Rockwell on everywhere',
+      //     time: '2019年9月16日 18:43',
+      //     inputShow: false,
+      //     reply: []
+      //   },
+      // ]
     }
   },
   directives: {clickoutside},
   methods: {
     messageTitleClick(num) { // 点击了具体某条消息
       console.log("点击了消息", num);
+    },
+    //验证是否登陆
+    checkIsLogined(){
+      let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{};
+      console.log("user:",user)
+      if(user){
+        //未登录
+        this.$message.warning("请登录后再进行操作!")
+        return false;
+      }else{
+        //已登录
+        return true;
+      }
     },
     inputFocus() {
       var replyInput = document.getElementById('replyInput');
@@ -219,6 +238,7 @@ export default {
       return this.comments[i].inputShow
     },
     sendComment() {
+      if(!this.checkIsLogined())return;
       if (!this.replyComment) {
         this.$message({
           showClose: true,
@@ -240,9 +260,14 @@ export default {
         this.replyComment = ''
         input.innerHTML = '';
         console.log(this.comments)
+        this.$notify({
+          title: '发表成功！',
+          duration:1500
+        });
       }
     },
     sendCommentReply(i) {
+      if(!this.checkIsLogined())return;
       if (!this.replyComment) {
         this.$message({
           showClose: true,
@@ -264,6 +289,10 @@ export default {
         this.replyComment = ''
         console.log(this.to)
         document.getElementsByClassName("reply-comment-input")[i].innerHTML = ""
+        this.$notify({
+          title: '发表成功！',
+          duration:1500
+        });
       }
     },
     onDivInput: function (e) {

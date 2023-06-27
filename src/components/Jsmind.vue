@@ -123,7 +123,7 @@
             <!-- 下一章节选择 end-->
             <!-- 评论区组件 start-->
             <div style="margin-top: 20px;font-size: 18px;color: #000000;">评论区</div>
-            <article-comment></article-comment>
+            <article-comment v-bind:comments="selectNodeInfo.data.comments"></article-comment>
             <div style="padding-bottom: 80px;"></div>
             <!-- 评论区组件 end-->
           </div>
@@ -239,120 +239,205 @@ export default {
           name: '思维导图',
         },
         format: 'node_tree',
-        data: {
-          id: 'root',
-          topic: '序幕',
-          author:{
-            nickname:'小明',
-            avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
-            totalLike:12345
-          },
-          content:"Wahn en sorl vealivasgon levy vonley\n" +
-              "夜深了 小镇静谧而安详\n" +
-              "Sedd delyn o passidy sevely\n" +
-              "睡着了 像做了一个甜美的梦\n" +
-              "Kluu vamo shevys dlesphon levy vonley\n" +
-              "寂然啊 这个被施了魔法的小镇\n" +
-              "Oul levmon seravo rystonray\n" +
-              "女孩啊 我将一直守护着你\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Dudu laav\n" +
-              "Dudu 你的微笑\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Sevely ahhs\n" +
-              "一场梦啊\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Dudu laav\n" +
-              "Dudu 你的微笑\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Relsama houwy\n" +
-              "重新开始吧\n"+
-              "Wahn en sorl vealivasgon levy vonley\n" +
-                  "夜深了 小镇静谧而安详\n" +
-              "Sedd delyn o passidy sevely\n" +
-              "睡着了 像做了一个甜美的梦\n" +
-              "Kluu vamo shevys dlesphon levy vonley\n" +
-              "寂然啊 这个被施了魔法的小镇\n" +
-              "Oul levmon seravo rystonray\n" +
-              "女孩啊 我将一直守护着你\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Dudu laav\n" +
-              "Dudu 你的微笑\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Sevely ahhs\n" +
-              "一场梦啊\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Dudu laav\n" +
-              "Dudu 你的微笑\n" +
-              "Du dududu Du dududu\n" +
-              "Du dududu Du dududu\n" +
-              "Relsama houwy\n" +
-              "重新开始吧",
-          children: [
-            {
-              id: 'easy', // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
-              topic: 'Easy', // [必选] 节点上显示的内容
-              direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
-              expanded: true, // [可选] 该节点是否是展开状态，默认为 true
-              author:{
-                nickname:'小小',
-                avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
-                totalLike:11451145
-              },
-              content:"恩爱王师傅的无穷大无穷大科维奇接地网群d\n殴ID叫哦我",
-              children: [
-                { id: 'easy1', topic: 'Easy to show' ,
-                  children: [
-                    { id: 'test1', topic: 'test11111111111111111111111111111111111111111111111111111111111111111111' }
-                  ]
-                },
-                { id: 'easy2', topic: 'Easy to edit' },
-                { id: 'easy3', topic: 'Easy to store' },
-                { id: 'easy44', topic: 'Easy to 1' },
-              ]
-            },
-            {
-              id: 'open',
-              topic: 'Open Source',
-              direction: 'right',
-              expanded: true,
-              children: [
-                { id: 'open1', topic: 'on GitHub' },
-                { id: 'open2', topic: 'BSD License' }
-              ]
-            },
-            {
-              id: 'powerful',
-              topic: 'Powerful',
-              direction: 'right',
-              children: [
-                { id: 'powerful1', topic: 'Base on Javascript'},
-                { id: 'powerful2', topic: 'Base on HTML5' },
-                { id: 'powerful3', topic: 'Depends on you' }
-              ]
-            },
-            {
-              id: 'other',
-              topic: 'test node',
-              direction: 'right',
-              children: [
-                { id: 'other1', topic: "I'm from local variable"},
-                { id: 'other2', topic: 'I can do everything'}
-              ]
-            },
-            { id: 'easy444', topic: 'Easy to 2' },
-            { id: 'easy4444', topic: 'Easy to 3' },
-            { id: 'easy44444', topic: 'Easy to 4' },
-            { id: 'easy444444', topic: 'Easy to 5' },
-          ]
-        }
+        data:{}
+        // data: {
+        //   id: 'root',
+        //   topic: '序幕',
+        //   author:{
+        //     nickname:'小明',
+        //     avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
+        //     totalLike:12345
+        //   },
+        //   comments: [
+        //     {
+        //       name: 'Lana Del Rey',
+        //       id: 19870621,
+        //       headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+        //       comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+        //       time: '2019年9月16日 18:43',
+        //       inputShow: false,
+        //       reply: [
+        //         {
+        //           from: 'Taylor Swift',
+        //           fromId: 19891221,
+        //           fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+        //           to: 'Lana Del Rey',
+        //           toId: 19870621,
+        //           comment: '我很喜欢你的新专辑！！',
+        //           time: '2019年9月16日 18:43',
+        //           inputShow: false
+        //         },
+        //         {
+        //           from: 'Ariana Grande',
+        //           fromId: 1123,
+        //           fromHeadImg: 'https://ae01.alicdn.com/kf/Hf6c0b4a7428b4edf866a9fbab75568e6U.jpg',
+        //           to: 'Lana Del Rey',
+        //           toId: 19870621,
+        //           comment: '别忘记宣传我们的合作单曲啊',
+        //           time: '2019年9月16日 18:43',
+        //           inputShow: false
+        //
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       name: 'Taylor Swift',
+        //       id: 19891221,
+        //       headImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+        //       comment: '我发行了我的新专辑Lover',
+        //       time: '2019年9月16日 18:43',
+        //       inputShow: false,
+        //       reply: [
+        //         {
+        //           from: 'Lana Del Rey',
+        //           fromId: 19870621,
+        //           fromHeadImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+        //           to: 'Taylor Swift',
+        //           toId: 19891221,
+        //           comment: '新专辑和speak now 一样棒！',
+        //           time: '2019年9月16日 18:43',
+        //           inputShow: false
+        //
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       name: 'Norman Fucking Rockwell',
+        //       id: 20190830,
+        //       headImg: 'https://ae01.alicdn.com/kf/Hdd856ae4c81545d2b51fa0c209f7aa28Z.jpg',
+        //       comment: 'Plz buy Norman Fucking Rockwell on everywhere',
+        //       time: '2019年9月16日 18:43',
+        //       inputShow: false,
+        //       reply: []
+        //     },
+        //   ],
+        //   content:"Wahn en sorl vealivasgon levy vonley\n" +
+        //       "夜深了 小镇静谧而安详\n" +
+        //       "Sedd delyn o passidy sevely\n" +
+        //       "睡着了 像做了一个甜美的梦\n" +
+        //       "Kluu vamo shevys dlesphon levy vonley\n" +
+        //       "寂然啊 这个被施了魔法的小镇\n" +
+        //       "Oul levmon seravo rystonray\n" +
+        //       "女孩啊 我将一直守护着你\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Dudu laav\n" +
+        //       "Dudu 你的微笑\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Sevely ahhs\n" +
+        //       "一场梦啊\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Dudu laav\n" +
+        //       "Dudu 你的微笑\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Relsama houwy\n" +
+        //       "重新开始吧\n"+
+        //       "Wahn en sorl vealivasgon levy vonley\n" +
+        //           "夜深了 小镇静谧而安详\n" +
+        //       "Sedd delyn o passidy sevely\n" +
+        //       "睡着了 像做了一个甜美的梦\n" +
+        //       "Kluu vamo shevys dlesphon levy vonley\n" +
+        //       "寂然啊 这个被施了魔法的小镇\n" +
+        //       "Oul levmon seravo rystonray\n" +
+        //       "女孩啊 我将一直守护着你\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Dudu laav\n" +
+        //       "Dudu 你的微笑\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Sevely ahhs\n" +
+        //       "一场梦啊\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Dudu laav\n" +
+        //       "Dudu 你的微笑\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Du dududu Du dududu\n" +
+        //       "Relsama houwy\n" +
+        //       "重新开始吧",
+        //   children: [
+        //     {
+        //       id: 1, // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
+        //       topic: 'Easy', // [必选] 节点上显示的内容
+        //       direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
+        //       author:{
+        //         nickname:'小小',
+        //         avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
+        //         totalLike:11451145
+        //       },
+        //       comments:[
+        //         {
+        //           name: 'Lana Del Rey',
+        //           id: 19870621,
+        //           headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+        //           comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+        //           time: '2019年9月16日 18:43',
+        //           inputShow: false,
+        //           reply: [
+        //             {
+        //               from: 'Taylor Swift',
+        //               fromId: 19891221,
+        //               fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+        //               to: 'Lana Del Rey',
+        //               toId: 19870621,
+        //               comment: '我很喜欢你的新专辑！！',
+        //               time: '2019年9月16日 18:43',
+        //               inputShow: false
+        //             }
+        //           ]
+        //         }
+        //       ],
+        //       content:"恩爱王师傅的无穷大无穷大科维奇接地网群d\n殴ID叫哦我",
+        //       children: [
+        //         { id: 'easy1', topic: 'Easy to show' ,
+        //           children: [
+        //             { id: 'test1', topic: 'test11111111111111111111111111111111111111111111111111111111111111111111' }
+        //           ]
+        //         },
+        //         { id: 'easy2', topic: 'Easy to edit' },
+        //         { id: 'easy3', topic: 'Easy to store' },
+        //         { id: 'easy44', topic: 'Easy to 1' },
+        //       ]
+        //     },
+        //     {
+        //       id: 'open',
+        //       topic: 'Open Source',
+        //       direction: 'right',
+        //       expanded: true,
+        //       children: [
+        //         { id: 'open1', topic: 'on GitHub' },
+        //         { id: 'open2', topic: 'BSD License' }
+        //       ]
+        //     },
+        //     {
+        //       id: 'powerful',
+        //       topic: 'Powerful',
+        //       direction: 'right',
+        //       children: [
+        //         { id: 'powerful1', topic: 'Base on Javascript'},
+        //         { id: 'powerful2', topic: 'Base on HTML5' },
+        //         { id: 'powerful3', topic: 'Depends on you' }
+        //       ]
+        //     },
+        //     {
+        //       id: 'other',
+        //       topic: 'test node',
+        //       direction: 'right',
+        //       children: [
+        //         { id: 'other1', topic: "I'm from local variable"},
+        //         { id: 'other2', topic: 'I can do everything'}
+        //       ]
+        //     },
+        //     { id: 'easy444', topic: 'Easy to 2' },
+        //     { id: 'easy4444', topic: 'Easy to 3' },
+        //     { id: 'easy44444', topic: 'Easy to 4' },
+        //     { id: 'easy444444', topic: 'Easy to 5' },
+        //   ]
+        // }
       },
       options: {
         container: 'jsmind_container', // [必选] 容器的ID
@@ -423,7 +508,7 @@ export default {
     }
   },
   created() {
-
+    this.loadAllFragment(1);
   },
   methods: {
     //返回上一个父片段
@@ -435,11 +520,140 @@ export default {
       this.selectNodeInfo=child
     },
     //根据传入故事id参数load页面内容
-    loadStory(storyID){
-      this.request.get("/user/login?username=").then(res=> {
+    loadAllFragment(storyID){
+      this.request.get("/fragment/loadAllFragment?storyId="+storyID).then(res=> {
+        res.data={
+          id: 'root',
+          topic: '序幕',
+          author:{
+            nickname:'小明',
+            avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
+            totalLike:12345
+          },
+          comments: [
+            {
+              name: 'Lana Del Rey',
+              id: 19870621,
+              headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+              comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+              time: '2019年9月16日 18:43',
+              inputShow: false,
+              reply: [
+                {
+                  from: 'Taylor Swift',
+                  fromId: 19891221,
+                  fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+                  to: 'Lana Del Rey',
+                  toId: 19870621,
+                  comment: '我很喜欢你的新专辑！！',
+                  time: '2019年9月16日 18:43',
+                  inputShow: false
+                },
+                {
+                  from: 'Ariana Grande',
+                  fromId: 1123,
+                  fromHeadImg: 'https://ae01.alicdn.com/kf/Hf6c0b4a7428b4edf866a9fbab75568e6U.jpg',
+                  to: 'Lana Del Rey',
+                  toId: 19870621,
+                  comment: '别忘记宣传我们的合作单曲啊',
+                  time: '2019年9月16日 18:43',
+                  inputShow: false
 
+                }
+              ]
+            },
+            {
+              name: 'Taylor Swift',
+              id: 19891221,
+              headImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+              comment: '我发行了我的新专辑Lover',
+              time: '2019年9月16日 18:43',
+              inputShow: false,
+              reply: [
+                {
+                  from: 'Lana Del Rey',
+                  fromId: 19870621,
+                  fromHeadImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+                  to: 'Taylor Swift',
+                  toId: 19891221,
+                  comment: '新专辑和speak now 一样棒！',
+                  time: '2019年9月16日 18:43',
+                  inputShow: false
 
-
+                }
+              ]
+            },
+            {
+              name: 'Norman Fucking Rockwell',
+              id: 20190830,
+              headImg: 'https://ae01.alicdn.com/kf/Hdd856ae4c81545d2b51fa0c209f7aa28Z.jpg',
+              comment: 'Plz buy Norman Fucking Rockwell on everywhere',
+              time: '2019年9月16日 18:43',
+              inputShow: false,
+              reply: []
+            },
+          ],
+          content:"Wahn en sorl vealivasgon levy vonley\n" +
+              "夜深了 小镇静谧而安详\n" +
+              "Sedd delyn o passidy sevely\n" +
+              "重新开始吧",
+          children: [
+            {
+              id: 1, // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
+              topic: 'Easy', // [必选] 节点上显示的内容
+              direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
+              author:{
+                nickname:'小小',
+                avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
+                totalLike:11451145
+              },
+              comments:[
+                {
+                  name: 'Lana Del Rey',
+                  id: 19870621,
+                  headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+                  comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+                  time: '2019年9月16日 18:43',
+                  inputShow: false,
+                  reply: [
+                    {
+                      from: 'Taylor Swift',
+                      fromId: 19891221,
+                      fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+                      to: 'Lana Del Rey',
+                      toId: 19870621,
+                      comment: '我很喜欢你的新专辑！！',
+                      time: '2019年9月16日 18:43',
+                      inputShow: false
+                    }
+                  ]
+                }
+              ],
+              content:"恩爱王师傅的无穷大无穷大科维奇接地网群d\n殴ID叫哦我",
+              children: [
+                { id: 'easy1', topic: 'Easy to show' ,
+                  children: [
+                    { id: 'test1', topic: 'test11111111111111111111111111111111111111111111111111111111111111111111' }
+                  ]
+                },
+                { id: 'easy2', topic: 'Easy to edit' },
+                { id: 'easy3', topic: 'Easy to store' },
+                { id: 'easy44', topic: 'Easy to 1' },
+              ]
+            },
+          ]
+        }
+        if(res.code=='200'){
+          this.mind.data= res.data
+          //创建布局
+          this.jm = jsMind.show(this.options, this.mind)
+          this.editor = this.jm.view.e_editor
+          this.init()
+          this.mouseWheel()
+          this.mouseDrag()
+        }else{
+          this.$message.error(res.msg)
+        }
       })
     },
     //返回上一页面
@@ -555,10 +769,37 @@ export default {
       let newid=this.selectNodeInfo.id+'1';
       let newtopic=this.createNodeInfo.topic;
       let data={
+        author: {
+          nickname:'小小',
+          avatarUrl:'wddwqdqwd',
+          totalLike:520
+        },
+        comments: [{
+          name: 'Lana Del Rey',
+          id: 19870621,
+          headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+          comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
+          time: '2019年9月16日 18:43',
+          inputShow: false,
+          reply: [{
+            from: 'Taylor Swift',
+            fromId: 19891221,
+            fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
+            to: 'Lana Del Rey',
+            toId: 19870621,
+            comment: '我很喜欢你的新专辑！！',
+            time: '2019年9月16日 18:43',
+            inputShow: false
+          }]
+        }],
         content:'123456'
       }
-      this.jm.add_node(this.selectNodeInfo,newid,newtopic,data);
+      let newnode=this.jm.add_node(this.selectNodeInfo,newid,newtopic,data);
+      this.jm.set_node_color(newnode.id, this.bgMap[2].original, '#fff')
+      console.log("newnode:",newnode)
       this.dialogVisible = false
+      this.showSideBar=false
+      this.showFragmentContent=false
     },
     // 单击重置选中背景颜色
     nodeClick () {
@@ -680,11 +921,7 @@ export default {
   },
   //挂载
   mounted () {
-    this.jm = jsMind.show(this.options, this.mind)
-    this.editor = this.jm.view.e_editor
-    this.init()
-    this.mouseWheel()
-    this.mouseDrag()
+
   },
   beforeDestroy () {
     document.removeEventListener('domMouseScroll', this.scrollFunc, false)

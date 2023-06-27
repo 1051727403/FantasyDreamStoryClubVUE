@@ -213,7 +213,7 @@
             }
         },
 
-        add_node:function(parent_node, nodeid, topic, data, idx, direction, expanded){
+        add_node:function(parent_node, nodeid, topic, data, idx, direction=1, expanded){
             if(!jm.util.is_node(parent_node)){
                 var the_parent_node = this.get_node(parent_node);
                 if(!the_parent_node){
