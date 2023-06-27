@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;text-align: left; font-size: 15px;line-height: 12px; height: 20px;">
+  <div style="text-align: left; font-size: 15px;line-height: 12px; height: 20px;">
       <el-input class="input-with-select" placeholder="请输入内容" v-model="input1"  >
         <el-button slot="append" icon="el-icon-search"  @click="gotowhat"></el-button>
       </el-input>
@@ -8,7 +8,7 @@
         <li id="lregister"><a href="/register" >注册</a><span>|</span></li>
         <li><a href="#">反馈留言</a></li>
       </ul>
-      <el-dropdown style="cursor: pointer;margin-top: 10px;margin-left: 40px;" id="avatar">
+      <el-dropdown style="cursor: pointer;margin-top: 10px;margin-right: 20px;float: right" id="avatar">
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >
           <img :src="user.avatarUrl"
                alt=""
@@ -96,20 +96,20 @@ export default {
 
 .input-with-select{
   width: 300px;
+  float: left;
   margin-top: 10px;
   margin-left: 450px;;
-  margin-right: 490px;;
-  float:left;
+  margin-right: 550px;;
 }
 .the-right{
   display: block!important;
-  float: right;
+  float: left;
   margin-top: 20px;
 }
 .the-right li{
   list-style: none;
   float:left;
-  margin-left: 27px ;
+  margin-left: 25px ;
 }
 .the-right li a{
   text-decoration: none;
