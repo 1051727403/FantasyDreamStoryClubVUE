@@ -8,13 +8,13 @@
         <li id="lregister"><a href="/register" >注册</a><span>|</span></li>
         <li><a href="#">反馈留言</a></li>
       </ul>
-      <el-dropdown style="cursor: pointer;margin-top: 10px;margin-left: 20px;" id="avatar">
+      <el-dropdown style="cursor: pointer;margin-top: 10px;margin-left: 40px;" id="avatar">
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >
           <img :src="user.avatarUrl"
                alt=""
                style="width: 32px;margin-right: 10px;
                 border-radius: 40%;">
-          <span>{{user.nickname}}</span>
+          <span >{{user.nickname}}</span>
           <i class="el-icon-arrow-down" style="margin-right: 5px;"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -42,10 +42,6 @@ export default {
       user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{},
       input1:""
     }
-  },
-  created() {
-
-
   },
   mounted() {
     var t1 = document.getElementById("llogin");
@@ -100,7 +96,9 @@ export default {
 
 .input-with-select{
   width: 300px;
-  margin: 10px auto;
+  margin-top: 10px;
+  margin-left: 490px;;
+  margin-right: 490px;;
   float:left;
 }
 .the-right{

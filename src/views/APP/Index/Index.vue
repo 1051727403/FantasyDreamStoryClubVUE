@@ -21,52 +21,6 @@
     </div>
 
     <div class="vsc-initialized">
-      <div class="nav-menu" id="navbar">
-        <div class="container">
-          <div class="new-l-side">
-            <div class="nav-content">
-              <div class="function-logo">
-                <ul>
-                  <li>
-                    <a class="logo" href="/"></a>
-                  </li>
-                </ul>
-              </div>
-              <form action="/search/" id="nav_search_form" class="navbar-form nav-search-form" role="search" method="GET">                <div class="search-right">
-                <input type="text" class="search-input" name="kw" id="nav_search_ipt" placeholder="人间存异的可行性证明" autocomplete="off">
-                <button class="btn btn-default btn-search" type="submit"></button>
-              </div>
-
-              </form>            </div>
-          </div>
-          <div class="new-r-side">
-            <div class="nav-content">
-              <div class="user-login">
-                <div class="login-menu">
-                  <ul>
-                    <li>
-                      <a rel="nofollow" class="login-win" href="/auth/login">登录</a>
-                    </li>
-                    <li>/</li>
-                    <li>
-                      <a rel="nofollow" class="register-win" href="/auth/register">注册</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="user-right">
-                    <span class="download">
-                        <a href="//app.linovel.net/" target="_blank">下载APP</a>
-                    </span>
-                <i class="split-line"></i>
-                <i class="language-change">
-                  <a rel="nofollow" href="/?cht=1"></a>
-                </i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="menu-fixed">
         <div class="container">
           <div class="inner-menu inner-menu-fixed">
