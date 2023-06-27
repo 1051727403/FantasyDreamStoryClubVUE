@@ -4,8 +4,8 @@
         <el-button slot="append" icon="el-icon-search" @click="gotowhat"></el-button>
       </el-input>
       <ul class="the-right">
-        <li><a href="#">登录</a><span>|</span></li>
-        <li><a href="#">注册</a><span>|</span></li>
+        <li><a href="/login">登录</a><span>|</span></li>
+        <li><a href="/register">注册</a><span>|</span></li>
         <li><a href="#">反馈留言</a></li>
       </ul>
 
