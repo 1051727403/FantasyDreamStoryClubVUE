@@ -111,6 +111,21 @@
               <svg t="1687761923860" style="width: 18px;height: 18px;margin-left: 8px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3569" width="200" height="200"><path d="M911.786667 493.312c-40.789333 208.896-254.933333 355.626667-345.088 409.045333a107.434667 107.434667 0 0 1-109.397334 0c-90.197333-53.418667-304.341333-200.106667-345.088-409.045333-17.024-87.338667 6.144-179.925333 61.994667-247.765333C225.322667 183.466667 296.362667 149.333333 374.314667 149.333333c48.981333 0 96.298667 12.416 137.685333 36.010667a277.461333 277.461333 0 0 1 137.728-36.010667c77.909333 0 148.949333 34.133333 200.106667 96.213334 55.765333 67.84 78.933333 160.426667 61.909333 247.765333z" fill="#FF3D3F" p-id="3570"></path><path d="M849.792 245.546667a297.984 297.984 0 0 1 61.013333 128.256L411.221333 873.429333c-48.213333-32.128-109.482667-78.549333-164.522666-137.386666L790.912 192c21.632 14.421333 41.386667 32.384 58.88 53.589333z" fill="#FF5052" p-id="3571"></path><path d="M649.728 149.333333c51.285333 0 99.584 14.805333 141.226667 42.624L246.741333 736.128c-48.725333-52.053333-92.544-113.749333-118.058666-183.722667l372.821333-372.736c3.541333 1.834667 6.997333 3.712 10.453333 5.674667a277.461333 277.461333 0 0 1 137.728-36.010667z" fill="#FF6365" p-id="3572"></path><path d="M374.272 149.333333c44.970667 0 88.448 10.410667 127.274667 30.336l-372.778667 372.778667a391.253333 391.253333 0 0 1-16.554667-59.136c-17.024-87.338667 6.144-179.925333 61.994667-247.765333C225.322667 183.466667 296.362667 149.333333 374.314667 149.333333z" fill="#FF8A8B" p-id="3573"></path></svg>
             </div>
 
+            <!-- 点赞和收藏-->
+            <div class="likeAndCollection">
+              <div class="checkLike">
+                <svg @click="pressLike" class="likeIcon" v-if="selectNodeInfo.data.isLike" t="1687875250824"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2292" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#F44336" p-id="2293"></path></svg>
+                <svg @click="pressLike" class="likeIcon" v-if="!selectNodeInfo.data.isLike" t="1687875263018"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2447" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#ffffff" p-id="2448" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path></svg>
+                <div style="margin-left: 5px;color: #ff0000;
+                text-shadow: 1px 1px 0px #ffa3ae, -1px -1px 0px #ffa3ae, 1px -1px 0px #ffa3ae, -1px 1px 0px #ffa3ae; /* 添加白色描边 */">
+                  {{selectNodeInfo.data.totalLike}}
+                </div>
+              </div>
+
+              <div class="collect">
+                <i class="collectIcon"  :class="[selectNodeInfo.data.isCollected?'el-icon-star-on':'el-icon-star-off']"@click="pressCollect"></i>
+              </div>
+            </div>
 
             <div class="backToFragment" @click="backToFragment">返回上一幕</div>
             <!-- 下一章节选择 start-->
@@ -122,7 +137,7 @@
             </div>
             <!-- 下一章节选择 end-->
             <!-- 评论区组件 start-->
-            <div style="margin-top: 20px;font-size: 18px;color: #000000;">评论区</div>
+            <div style="margin-top: 20px;font-size: 18px;color: #000000;">评论区&nbsp;({{selectNodeInfo.data.totalComment}})</div>
             <article-comment v-bind:comments="selectNodeInfo.data.comments"></article-comment>
             <div style="padding-bottom: 80px;"></div>
             <!-- 评论区组件 end-->
@@ -511,6 +526,25 @@ export default {
     this.loadAllFragment(1);
   },
   methods: {
+    //点赞
+    pressLike(){
+      console.log("点赞")
+      let nodeId=this.selectNodeInfo.id
+      let nodeTopic=this.selectNodeInfo.topic
+      let isLike=!this.selectNodeInfo.data.isLike
+      let isCollected=this.selectNodeInfo.data.isCollected
+      this.jm.update_node(nodeId,nodeTopic,isLike,isCollected)
+    },
+    //收藏片段
+    pressCollect(){
+      console.log("点击收藏")
+      let nodeId=this.selectNodeInfo.id
+      let nodeTopic=this.selectNodeInfo.topic
+      let isLike=this.selectNodeInfo.data.isLike
+      let isCollected=!this.selectNodeInfo.data.isCollected
+      this.jm.update_node(nodeId,nodeTopic,isLike,isCollected)
+
+    },
     //返回上一个父片段
     backToFragment(){
       this.selectNodeInfo=this.selectNodeInfo.parent
@@ -530,6 +564,11 @@ export default {
             avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
             totalLike:12345
           },
+          isLike:0,
+          isCollected:1,
+          totalLike:520,
+          totalCollection:50,
+          totalComment:127,
           comments: [
             {
               name: 'Lana Del Rey',
@@ -607,6 +646,11 @@ export default {
                 avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
                 totalLike:11451145
               },
+              isLike:1,
+              isCollected:0,
+              totalLike:56550,
+              totalCollection:5450,
+              totalComment:111,
               comments:[
                 {
                   name: 'Lana Del Rey',

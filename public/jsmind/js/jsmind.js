@@ -1427,7 +1427,7 @@
             }
         },
 
-        update_node:function(nodeid, topic){
+        update_node:function(nodeid, topic,isLike,isCollected){
             if(this.get_editable()){
                 if(jm.util.text.is_empty(topic)){
                     logger.warn('fail, topic can not be empty');
@@ -1435,12 +1435,18 @@
                 }
                 var node = this.get_node(nodeid);
                 if(!!node){
-                    if(node.topic === topic){
+                    if(node.topic === topic && node.data.isLike===isLike && node.data.isCollected===isCollected){
                         logger.info('nothing changed');
                         this.view.update_node(node);
                         return;
                     }
                     node.topic = topic;
+                    if (node.data.isLike!=isLike) {
+                        if(node.data.isLike)node.data.totalLike=node.data.totalLike-1
+                        else node.data.totalLike=node.data.totalLike+1
+                    }
+                    node.data.isLike=isLike;
+                    node.data.isCollected=isCollected
                     this.view.update_node(node);
                     this.layout.layout();
                     this.view.show(false);
