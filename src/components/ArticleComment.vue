@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-clickoutside="hideReplyBtn" @click="inputFocus" class="my-reply">
-      <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
+      <el-avatar class="header-img" :size="30" :src="myHeader"></el-avatar>
       <div class="reply-info">
         <div
 
@@ -17,17 +17,21 @@
         </div>
       </div>
       <div class="reply-btn-box" v-show="btnShow">
-        <el-button class="reply-btn" size="medium" @click="sendComment" type="primary">发表评论</el-button>
+        <el-button class="reply-btn" size="small" @click="sendComment" type="primary">发表评论</el-button>
       </div>
     </div>
     <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
-      <el-avatar class="header-img" :size="40" :src="item.headImg"></el-avatar>
-      <div class="author-info">
-        <span class="author-name">{{item.name}}</span>
-        <span class="author-time">{{item.time}}</span>
-      </div>
-      <div class="icon-btn">
-        <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">回复</i></span>
+      <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
+        <el-avatar class="header-img"  :src="item.headImg"></el-avatar>
+        <div style="display: flex;justify-content: space-between;align-items: center; width: 235px;">
+          <div class="author-info">
+            <span class="author-name">{{item.name}}</span>
+            <span class="author-time">{{item.time}}</span>
+          </div>
+          <div class="icon-btn" style="font-size: 12px;">
+            <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">回复</i></span>
+          </div>
+        </div>
       </div>
       <div class="talk-box">
         <p>
@@ -36,18 +40,22 @@
       </div>
       <div class="reply-box">
         <div v-for="(reply,j) in item.reply" :key="j" class="author-title">
-          <el-avatar class="header-img" :size="40" :src="reply.fromHeadImg"></el-avatar>
-          <div class="author-info">
-            <span class="author-name">{{reply.from}}</span>
-            <span class="author-time">{{reply.time}}</span>
+          <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
+            <el-avatar class="header-img" :size="30" :src="reply.fromHeadImg"></el-avatar>
+            <div style="display: flex;justify-content: space-between;align-items: center; width: 205px;">
+              <div class="author-info">
+                <span class="author-name">{{reply.from}}</span>
+                <span class="author-time">{{reply.time}}</span>
+              </div>
+              <div class="icon-btn"style="font-size: 12px;">
+                <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
+              </div>
+            </div>
           </div>
-          <div class="icon-btn">
-            <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
 
-          </div>
           <div class="talk-box">
             <p>
-              <span>回复 {{reply.to}}:</span>
+              <span>@{{reply.to}}：</span>
               <span class="reply">{{reply.comment}}</span>
             </p>
           </div>
@@ -63,7 +71,7 @@
                @input="onDivInput($event)" class="reply-input reply-comment-input"></div>
         </div>
         <div class=" reply-btn-box">
-          <el-button class="reply-btn" size="medium" @click="sendCommentReply(i)" type="primary">发表评论
+          <el-button class="reply-btn" size="small" @click="sendCommentReply(i)" type="primary">发表评论
           </el-button>
         </div>
       </div>
@@ -227,10 +235,11 @@ export default {
         a.headImg = this.myHeader
         a.time = time
         a.id=this.myId
+        a.reply=[]
         this.comments.push(a)
         this.replyComment = ''
         input.innerHTML = '';
-
+        console.log(this.comments)
       }
     },
     sendCommentReply(i) {
@@ -293,6 +302,7 @@ export default {
 </script>
 <style scoped lang="css">
 .my-reply {
+  margin-top: 20px;
   padding: 10px;
   background-color: #fafbfc;
 }
@@ -305,6 +315,7 @@ export default {
 .my-reply .reply-info {
   display: inline-block;
   margin-left: 5px;
+  margin-top: 10px;
   width: 90%;
 }
 
@@ -350,7 +361,7 @@ export default {
 }
 
 .my-comment-reply {
-  margin-left: 50px;
+  margin-left: 10px;
 }
 
 .my-comment-reply .reply-input {
@@ -369,6 +380,8 @@ export default {
 .author-title .header-img {
   display: inline-block;
   vertical-align: top;
+  width: 30px;
+  height: 30px;
 }
 
 .author-title .author-info {
@@ -377,6 +390,9 @@ export default {
   width: 60%;
   height: 40px;
   line-height: 20px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
 .author-title .author-info > span {
@@ -389,12 +405,12 @@ export default {
 
 .author-title .author-info .author-name {
   color: #000;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
 }
 
 .author-title .author-info .author-time {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .author-title .icon-btn {
@@ -419,7 +435,8 @@ export default {
 }
 
 .author-title .talk-box {
-  margin: 0 50px;
+  margin: 10px 10px;
+  font-size: 12px;
 }
 
 .author-title .talk-box > p {
@@ -427,13 +444,14 @@ export default {
 }
 
 .author-title .talk-box .reply {
-  font-size: 16px;
+  font-size: 12px;
   color: #000;
 }
 
 .author-title .reply-box {
-  margin: 10px 0 0 50px;
-  background-color: #efefef;
+  margin: 10px 0 0 10px;
+  background-color:#fafbfc;
+  border-radius: 5px;
 }
 
 </style>

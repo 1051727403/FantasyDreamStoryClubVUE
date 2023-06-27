@@ -122,10 +122,9 @@
             </div>
             <!-- 下一章节选择 end-->
             <!-- 评论区组件 start-->
-
-
-
-
+            <div style="margin-top: 20px;font-size: 18px;color: #000000;">评论区</div>
+            <article-comment></article-comment>
+            <div style="padding-bottom: 80px;"></div>
             <!-- 评论区组件 end-->
           </div>
     </div>
@@ -193,11 +192,15 @@
 import '../../public/jsmind/style/jsmind.css'
 import jsMind from '../../public/jsmind/js/jsmind.js'
 import "animate.css"
+import ArticleComment from "@/components/ArticleComment";
 require('../../public/jsmind/js/jsmind.draggable.js')
 require('../../public/jsmind/js/jsmind.screenshot.js')
 
 
 export default {
+  components: {
+    ArticleComment
+  },
   watch: {
     'zoom.value' (val) {
       const zoom = val / 100
