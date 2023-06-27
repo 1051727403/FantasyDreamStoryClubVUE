@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;text-align: left; font-size: 15px;line-height: 12px; height: 20px">
+  <div style="display: flex;text-align: left; font-size: 15px;line-height: 12px; height: 20px;">
       <el-input class="input-with-select" placeholder="请输入内容" v-model="input1"  >
         <el-button slot="append" icon="el-icon-search"  @click="gotowhat"></el-button>
       </el-input>
@@ -97,7 +97,7 @@ export default {
 .input-with-select{
   width: 300px;
   margin-top: 10px;
-  margin-left: 490px;;
+  margin-left: 450px;;
   margin-right: 490px;;
   float:left;
 }
