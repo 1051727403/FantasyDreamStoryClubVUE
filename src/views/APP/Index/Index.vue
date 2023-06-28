@@ -169,10 +169,21 @@
 
     <div class="index-banner">
       <div class="container" style="display: flex;">
+
         <div class="slide-recommend">
+          <el-carousel trigger="click" id="carousel-banner" class="carousel slide">
+            <el-carousel-item v-for="item in activity_recommendation" :key="item" class="carousel-inner">
+              <a :href="item.link" class="item active" target="_blank">
+                <img class="lazy" :data-original="original_cover" :src="item.coverUrl">
+              </a>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+
+<!--        <div class="slide-recommend">
           <div id="carousel-banner" class="carousel slide" data-ride="carousel">
 
-            <!-- Indicators -->
+            &lt;!&ndash; Indicators &ndash;&gt;
             <ol class="carousel-indicators">
               <li data-target="#carousel-banner" data-slide-to="0" class="active"></li>
               <li data-target="#carousel-banner" data-slide-to="1" class=""></li>
@@ -182,14 +193,14 @@
               <li data-target="#carousel-banner" data-slide-to="5" class=""></li>
             </ol>
 
-            <!-- Wrapper for slides -->
+            &lt;!&ndash; Wrapper for slides &ndash;&gt;
             <div class="carousel-inner" role="listbox">
               <a href="https://www.linovel.net/article/1239.html" class="item active" target="_blank">
                 <img class="lazy" data-original="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg">
-<!--                <div class="carousel-caption">
+&lt;!&ndash;                <div class="carousel-caption">
                   <img class="lazy" data-original="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" src="" style="left: 0px; opacity: 1;">
                   <img class="lazy" data-original="" src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" style="left: 0px; opacity: 1;">
-                </div>-->
+                </div>&ndash;&gt;
               </a>
               <a href="https://www.linovel.net/article/detail?id=1236" class="item" target="_blank">
                 <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1119852_604cc7fd08b28413baf8432a7403ec14.jpg" src="https://rin.linovel.net/v3_recommend/1119852_604cc7fd08b28413baf8432a7403ec14.jpg" style="display: block;">
@@ -228,7 +239,7 @@
               </a>
             </div>
 
-            <!-- Controls -->
+            &lt;!&ndash; Controls &ndash;&gt;
             <a class="left carousel-control" href="#carousel-banner" role="button" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left left-banner" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
@@ -238,7 +249,7 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-        </div>
+        </div>-->
 
         <div class="user-center">
           <div class="rules-notice">
@@ -310,7 +321,7 @@
       <div class="container clearfix">
         <div class="new-l-side">
           <div class="headline">
-            <i class="headline-icon"></i>
+            <i class="headline-icon">推荐</i>
           </div>
 
           <div class="work-list clearfix">
@@ -325,7 +336,7 @@
                           class="lazy"
                           :data-original="original_cover"
                           alt=""
-                          :src="item.cover"></el-image>
+                          :src="item.coverUrl"></el-image>
                     </div>
                     <div class="mask">
 
@@ -341,12 +352,12 @@
                                             </div>-->
 
                       <div class="mask-detail">
-                        <p>点赞 : {{item.detail.total_like}}</p>
-                        <p>收藏 : {{item.detail.total_collection}}</p>
+                        <p>点赞 : {{item.totalLike}}</p>
+                        <p>收藏 : {{item.totalCollection}}</p>
                       </div>
                     </div>
                   </div>
-                  <div class="book-item-name" >{{item.name}}</div>
+                  <div class="book-item-name" >{{item.storyName}}</div>
                 </a>
               </li>
             </ul>
@@ -549,124 +560,32 @@ export default {
   data(){
     return {
       plate: '首页',
-      lines: 0,
 
       original_cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00004.jpg?x-oss-process=style/watermark',
-      personal_recommendation: [
+      activity_recommendation: [
         {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
+          coverUrl: "https://gd-hbimg.huaban.com/aef85c328a77b669806bb66add5f7c86402192cd192aec-BAv5SV_fw1200",
+          link: "",
         },
         {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-        {
-          cover: 'https://pic.vjshi.com/2017-08-22/25cade84a2fc335da9f9bfa2a9e013b4/00001.jpg?x-oss-process=style/watermark',
-          name: '111',
-          detail: {
-            total_like: 0,
-            total_collection: 0,
-          },
-          link: '',
-        },
-      ]
+          coverUrl: "https://gd-hbimg.huaban.com/aef85c328a77b669806bb66add5f7c86402192cd192aec-BAv5SV_fw1200",
+          link: "",
+        }
+      ],
+      personal_recommendation: [],
     }
   },
   methods:{
     load() {
+      this.request.get("story/recommendStory").then(res=>{
+        console.log(res)
+        this.personal_recommendation = res.data;
+      })
 
+      this.request.get("story/activityRecommend").then(res=>{
+        console.log(res)
+        this.activity_recommendation = res.data;
+      })
     },
     jumpToStoryRelay(){
       this.$router.push("/APP/StoryRelay")
