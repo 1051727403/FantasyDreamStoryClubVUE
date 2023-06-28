@@ -25,7 +25,7 @@
           <div class="book-controls">
             <div class="primary">
               <el-button type="success" plain>开始阅读</el-button>
-              <el-button plain>收藏</el-button>
+              <el-button plain @click="collect">收藏</el-button>
             </div>
           </div>
         </div>
@@ -71,6 +71,7 @@ export default {
     return {
       plate: "",
       func: "",
+      storyid:0,
       storyinfo:{},
       editorinfo:{},
       astyle:"margin-left: 4px;"+
@@ -89,7 +90,8 @@ export default {
     }
   },
   created() {
-    this.request.get("/story/getstoryinfo?storyid=1").then(res=>{
+    this.storyid=this.$route.query["storyid"]
+    this.request.get("/story/getstoryinfo?storyid="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
         // 请求作者信息
@@ -123,6 +125,29 @@ export default {
         this.$message.error("error"+res.msg)
       }
     })
+  },
+  mounted() {
+
+
+  },
+  methods:{
+    collect(){
+      if(localStorage.getItem("user")){
+        var userid =  JSON.parse(localStorage.getItem("user")).id;
+        this.request.post("/story/collectestory?userid="+userid+"&storyid="+this.storyid).then(res=>{
+          if(res.code==="200"){
+            this.$message.success("收藏成功")
+          }
+          else{
+            this.$message.warning("已收藏")
+          }
+        })
+        console.log("collecte")
+      }
+      else{
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>
