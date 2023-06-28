@@ -6,7 +6,7 @@
         <div class="meta-info">
           <h1 class="book-title">{{storyinfo.storyName}}</h1>
           <div class="book-cover">
-              <img :src="storyinfo.storyCover" alt="世界规则">
+              <img :src="storyinfo.coverUrl" alt="">
           </div>
           <div class="book-cats" id="cats">
 <!--            <a href="" class="book-catsa">幻想</a>-->
@@ -47,7 +47,7 @@
         <div class="author-frame">
           <div class="novelist">
             <div class="avatar">
-              <img :src="editorinfo.avatarUrl" alt="45">
+              <img :src="editorinfo.avatarUrl" alt="">
             </div>
             <div class="name" style="height: 40px">
               <a href="#">{{editorinfo.username}}</a>
@@ -94,6 +94,8 @@ export default {
     this.request.get("/story/getstoryinfo?storyid="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
+        console.log(res.data)
+        console.log(this.storyinfo.coverUrl)
         // 请求作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
@@ -160,7 +162,6 @@ export default {
   background: #f6f7f8;
   padding-bottom: 60px;
   margin: 0 auto;
-
 }
 .book-wrapper .background{
   position: absolute;
@@ -208,10 +209,15 @@ export default {
   position: absolute;
   left: 15px;
   top: 15px;
-  width: 167px;
+  width: 160px;
   height: 251px;
   border: 1px solid #e7e7e7;
 }
+.book-wrapper .detail-layout .detail .meta-info .book-cover img{
+  width: 160px;
+  height: 251px;
+}
+
 .book-wrapper .detail-layout .detail .meta-info .book-cats{
   margin-top: 12px;
   box-sizing: border-box;
