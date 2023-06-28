@@ -65,7 +65,7 @@
         </div>
       </div>
       <div v-show="_inputShow(i)" class="my-reply my-comment-reply">
-        <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
+        <el-avatar class="header-img" :size="30" :src="myHeader"></el-avatar>
         <div class="reply-info">
           <div tabindex="0" contenteditable="true" spellcheck="false" placeholder="输入评论..."
                @input="onDivInput($event)" class="reply-input reply-comment-input"></div>
@@ -123,9 +123,9 @@ export default {
       btnShow: false,
       index: '0',
       replyComment: '',
-      myName: 'Lana Del Rey',
-      myHeader: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
-      myId: 19870621,
+      myName: localStorage.getItem("user")?localStorage.getItem("nickname"):'Li Li',
+      myHeader: localStorage.getItem("user")?localStorage.getItem("avatarUrl"):'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+      myId: localStorage.getItem("user")?localStorage.getItem("id"):null,
       to: '',
       toId: -1,
       // comments: [
