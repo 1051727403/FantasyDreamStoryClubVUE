@@ -52,10 +52,6 @@ export default {
       t1.style.display='none'
       t2.style.display='none'
       t3.style.display='block'
-      var tem = JSON.parse(localStorage.getItem("user"))
-      tem.nickname="45"
-      tem.avatarUrl="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1690453682&t=8b6630dbd32cead9dfe82e5adfe86031"
-      localStorage.setItem("user",JSON.stringify(tem));
     }
     else{
       t1.style.display='block'
@@ -64,13 +60,11 @@ export default {
     }
   },
 
-
-
   methods:{
     //退出跳转同时清楚localstorage中的数据
     logout(){
-        this.$router.push("/login");
         localStorage.removeItem("user");
+        location.reload()
         this.$message.success("退出成功！");
     },
     userInfo(){
@@ -102,7 +96,7 @@ export default {
   margin-right: 550px;;
 }
 .the-right{
-  display: block!important;
+  display: block;
   float: left;
   margin-top: 20px;
 }
