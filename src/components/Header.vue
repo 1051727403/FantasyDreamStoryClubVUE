@@ -98,7 +98,7 @@ export default {
   margin-right: 550px;;
 }
 .the-right{
-  display: block!important;
+  display: block;
   float: left;
   margin-top: 20px;
 }
