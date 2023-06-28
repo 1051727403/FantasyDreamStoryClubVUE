@@ -123,9 +123,9 @@ export default {
       btnShow: false,
       index: '0',
       replyComment: '',
-      myName: localStorage.getItem("user")?localStorage.getItem("nickname"):'Li Li',
-      myHeader: localStorage.getItem("user")?localStorage.getItem("avatarUrl"):'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
-      myId: localStorage.getItem("user")?localStorage.getItem("id"):null,
+      myName: '游客',
+      myHeader: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
+      myId: null,
       to: '',
       toId: -1,
       // comments: [
@@ -194,6 +194,14 @@ export default {
     }
   },
   directives: {clickoutside},
+  created() {
+    var user=JSON.parse(localStorage.getItem("user"))
+    console.log(user)
+    console.log(user.nickname)
+    this.myName=user.nickname
+    this.myHeader=user.avatarUrl
+    this.myId=user.id
+  },
   methods: {
     messageTitleClick(num) { // 点击了具体某条消息
       console.log("点击了消息", num);
