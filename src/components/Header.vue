@@ -60,12 +60,14 @@ export default {
     }
   },
 
+
+
   methods:{
     //退出跳转同时清楚localstorage中的数据
     logout(){
         localStorage.removeItem("user");
-        location.reload()
         this.$message.success("退出成功！");
+        this.$router.push("/login");
     },
     userInfo(){
       console.log("this.$route.path:",this.$route.path)
@@ -96,7 +98,7 @@ export default {
   margin-right: 550px;;
 }
 .the-right{
-  display: block;
+  display: block!important;
   float: left;
   margin-top: 20px;
 }
