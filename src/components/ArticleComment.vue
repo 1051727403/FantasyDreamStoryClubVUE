@@ -212,7 +212,10 @@ export default {
       console.log("user:",user)
       if(user==null){
         //未登录
-        this.$message.warning("请登录后再进行操作!")
+        this.$notify({
+          title: '请登录后再进行操作！',
+          duration:1500
+        });
         return false;
       }else{
         //已登录

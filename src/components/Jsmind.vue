@@ -113,17 +113,17 @@
 
             <!-- 点赞和收藏-->
             <div class="likeAndCollection">
-              <div class="checkLike">
-                <svg @click="pressLike" class="likeIcon" v-if="selectNodeInfo.data.isLike" t="1687875250824"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2292" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#F44336" p-id="2293"></path></svg>
-                <svg @click="pressLike" class="likeIcon" v-if="!selectNodeInfo.data.isLike" t="1687875263018"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2447" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#ffffff" p-id="2448" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path></svg>
+              <div class="checkLike"@click="pressLike">
+                <svg  class="likeIcon" v-if="selectNodeInfo.data.isLike" t="1687875250824"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2292" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#F44336" p-id="2293"></path></svg>
+                <svg  class="likeIcon" v-if="!selectNodeInfo.data.isLike" t="1687875263018"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2447" width="200" height="200"><path d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z" fill="#ffffff" p-id="2448" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path></svg>
                 <div style="margin-left: 5px;color: #ff0000;
                 text-shadow: 1px 1px 0px #ffa3ae, -1px -1px 0px #ffa3ae, 1px -1px 0px #ffa3ae, -1px 1px 0px #ffa3ae; /* 添加白色描边 */">
                   {{selectNodeInfo.data.totalLike}}
                 </div>
               </div>
 
-              <div class="collect">
-                <i class="collectIcon"  :class="[selectNodeInfo.data.isCollected?'el-icon-star-on':'el-icon-star-off']"@click="pressCollect"></i>
+              <div class="collect"@click="pressCollect">
+                <i class="collectIcon"  :class="[selectNodeInfo.data.isCollected?'el-icon-star-on':'el-icon-star-off']"></i>
               </div>
             </div>
 
@@ -527,8 +527,26 @@ export default {
     this.loadAllFragment(1);
   },
   methods: {
+    //验证是否登陆
+    checkIsLogined(){
+      let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
+      console.log("user:",user)
+      if(user==null){
+        //未登录
+        this.$notify({
+          title: '请登录后再进行操作！',
+          duration:1500
+        });
+        return false;
+      }else{
+        //已登录
+        return true;
+      }
+    },
     //点赞
     pressLike(){
+      //登录验证
+      if(!this.checkIsLogined())return;
       console.log("点赞")
       let nodeId=this.selectNodeInfo.id
       let nodeTopic=this.selectNodeInfo.topic
@@ -538,6 +556,14 @@ export default {
     },
     //收藏片段
     pressCollect(){
+      //登录验证
+      if(!this.checkIsLogined()){
+        this.$notify({
+          title: '请登录后再进行操作！',
+          duration:1500
+        });
+        return;
+      }
       console.log("点击收藏")
       let nodeId=this.selectNodeInfo.id
       let nodeTopic=this.selectNodeInfo.topic
@@ -893,6 +919,20 @@ export default {
       if (selectedNode) {
         this.showSideBar=true
         this.showFragmentContent=true
+        //加载作者和评论区信息
+        let fragmentId=-1;
+        if(this.selectNodeInfo.id=='root')fragmentId=this.selectNodeInfo.data.rootId
+        else fragmentId=this.selectNodeInfo.id;
+        console.log(fragmentId)
+        this.request.get("/fragment/loadAuthorAndComment?fragmentId="+fragmentId).then(res=> {
+          if(res.code=='200'){
+            this.selectNodeInfo.data.author=res.data.author
+            this.selectNodeInfo.data.comments=res.data.comments
+          }else{
+            this.$message.error(res.msg)
+          }
+
+        })
         return selectedNode.id
       } else {
         this.showSideBar=false
@@ -915,7 +955,7 @@ export default {
       let data={
         author: {
           nickname:'小小',
-          avatarUrl:'wddwqdqwd',
+          avatarUrl:'',
           totalLike:520
         },
         comments: [{
