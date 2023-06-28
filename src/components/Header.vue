@@ -47,7 +47,7 @@ export default {
     var t1 = document.getElementById("llogin");
     var t2 = document.getElementById("lregister");
     var t3 = document.getElementById("avatar");
-    console.log(this.user)
+    //console.log(this.user)
     if(this.user.nickname!=null){
       t1.style.display='none'
       t2.style.display='none'

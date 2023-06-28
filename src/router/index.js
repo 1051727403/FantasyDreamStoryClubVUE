@@ -54,7 +54,7 @@ const routes = [
           },
           {
             path:'NewFragement',
-            name:'userc',
+            name:'userf',
             component:()=>import('../views/APP/PersonalSpace/NewFragement.vue'),
           },
           {

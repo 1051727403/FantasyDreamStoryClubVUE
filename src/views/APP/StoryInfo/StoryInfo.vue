@@ -4,28 +4,22 @@
     <div class="detail-layout">
       <div class="detail">
         <div class="meta-info">
-          <h1 class="book-title" title="世界规则">世界规则</h1>
+          <h1 class="book-title">{{storyinfo.storyName}}</h1>
           <div class="book-cover">
-            <a href="#" data-lightbox="cover" data-title="世界规则">
-              <img src="" alt="世界规则">
-            </a>
+              <img :src="storyinfo.storyCover" alt="世界规则">
           </div>
-          <div class="book-cats">
-            <a href="">幻想</a>
-            <a href="">恋爱</a>
-            <a href="">治愈</a>
-            <br>
+          <div class="book-cats" id="cats">
+<!--            <a href="" class="book-catsa">幻想</a>-->
+<!--&lt;!&ndash;            <a href="">恋爱</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="">治愈</a>&ndash;&gt;-->
           </div>
+          <br>
           <div class="book-data">
-            <span>
-            <i class="line"></i>
-            466.6万
-          </span>
+            <span class="date">{{storyinfo.totalLike}}</span>
+            <span class="hint">点赞数</span>
+            <span class="date">{{storyinfo.totalComment}}</span>
             <span class="hint">热度</span>
-            <span>
-            <i class="line"></i>
-            1006
-          </span>
+            <span class="date">{{storyinfo.totalCollection}}</span>
             <span class="hint">收藏</span>
           </div>
           <div class="book-controls">
@@ -39,16 +33,13 @@
           <div class="section">
             <div class="section-title">简介</div>
             <div class="introduction-text">
-              "这里是简介 “
-              <br>
-              "这里是简介 “
+              {{storyinfo.introduce}}
             </div>
           </div>
         </div>
         <div class="comment">
           <div class="section">互动</div>
           <div class="comments-wrp">
-
           </div>
         </div>
       </div>
@@ -56,39 +47,86 @@
         <div class="author-frame">
           <div class="novelist">
             <div class="avatar">
-              <img src="https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282" alt="45">
+              <img :src="editorinfo.avatarUrl" alt="45">
             </div>
             <div class="name" style="height: 40px">
-              <a href="#">那个</a>
-              <div style="color: #999;font-size: 10px;text-align: center;">谁谁</div>
+              <a href="#">{{editorinfo.username}}</a>
+              <div style="color: #999;font-size: 10px;text-align: center;">{{editorinfo.nickname}}</div>
             </div>
             <div class="userinfo">
-                总点赞数：150
+                总点赞数：{{editorinfo.totalLike}}
             </div>
-
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "StoryInfo.vue",
-  created() {
-
-  },
   data(){
     return {
       plate: "",
       func: "",
+      storyinfo:{},
+      editorinfo:{},
+      astyle:"margin-left: 4px;"+
+          "margin-right: 10px;" +
+          "border: 1px solid #ddd!important;" +
+          "border-radius: 12px;" +
+          "display: block;" +
+          "float: left;" +
+          "height: 25px;" +
+          "line-height: 24px;" +
+          "padding: 0 13px;" +
+          "font-size: 12px;" +
+          "color: #333;" +
+          "text-decoration: none;" +
+          "background-color: transparent;"
     }
   },
+  created() {
+    this.request.get("/story/getstoryinfo?storyid=1").then(res=>{
+      if(res.code==='200'){
+        this.storyinfo=res.data
+        // 请求作者信息
+        this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
+          if(res.code==='200'){
+            this.editorinfo=res.data
+            //console.log(this.editorinfo)
+          }
+          else{
+            this.$message.error("error"+res.msg)
+          }
+        })
+        //生成标签
+        this.request.get("/story/getstorytag?storyid=1").then(res=>{
+          if(res.code==="200"){
+            var tags = res.data
+            var parent=document.getElementById("cats")
+            for (const tag of tags) {
+              var a = document.createElement("a")
+              a.style=this.astyle
+              a.innerText=tag
+              parent.append(a)
+            }
+          }
+          else{
+            this.$message.error("error"+res.msg)
+          }
+        })
+      }
+      else{
+        this.$message.error("error"+res.msg)
+      }
+    })
+  }
 }
 </script>
+
 
 <style scoped>
 
@@ -99,7 +137,6 @@ export default {
   margin: 0 auto;
 
 }
-
 .book-wrapper .background{
   position: absolute;
   top: 50px;
@@ -111,7 +148,6 @@ export default {
   margin-bottom: 0!important;
   background-image: url(https://5b0988e595225.cdn.sohucs.com/images/20200323/5d1dc63ffe1c4758be9beb08102b8d52.jpeg);
 }
-
 .book-wrapper .detail-layout{
   position: relative;
   width: 940px;
@@ -125,7 +161,7 @@ export default {
   box-shadow: 0 2px 4px 0 #e7e7e7;
   border-radius: 4px;
 }
-.book-wrapper .detail-layout .detail  .meta-info{
+.book-wrapper .detail-layout .detail .meta-info{
   min-height: 265px;
   position: relative;
   padding-top: 25px;
@@ -155,36 +191,23 @@ export default {
   margin-top: 12px;
   box-sizing: border-box;
 }
-.book-wrapper .detail-layout .detail .meta-info .book-cats a{
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  display: block;
-  float: left;
-  height: 25px;
-  line-height: 24px;
-  padding: 0 13px;
-  font-size: 12px;
-  color: #333;
-  text-decoration: none;
-  background-color: transparent;
-}
-.book-wrapper .detail-layout .detail .meta-info .book-cats a+a {
-  margin-left: 15px;
-}
+
 .book-wrapper .detail-layout .detail .meta-info .book-data{
   margin-top: 10px;
   font-size: 17px;
   color: #333;
   text-align: left;
 }
-.book-wrapper .detail-layout .detail .meta-info .book-data span{
+.book-wrapper .detail-layout .detail .meta-info .book-data data{
   display: inline-block;
+  width: 30px;
   position: relative;
   text-align: left;
 }
 .book-wrapper .detail-layout .detail .meta-info .book-data .hint{
   font-size: 12px;
   padding-right: 12px;
+  padding-left: 5px;
   color: #aaa;
   text-align: left;
   vertical-align: bottom;
