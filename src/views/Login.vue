@@ -1,8 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div class="login-wrapper" style="margin-top: 0;padding: 0">
     <div style="opacity:0.98;margin: 200px auto;background-color: #fff;width: 390px;height: 350px;padding: 20px;border-radius: 10px;
     box-shadow: gray 4px 4px 10px">
-
       <img src="https://www.shu.edu.cn/images/logoft.svg" style="height: 45px;"></img>
       <div style="margin: 20px 0;text-align: center;font-size: 24px;color: #153b7f"><b>绮梦故事会</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
@@ -79,12 +78,12 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper{
-    height: 100vh;
-    background: url('https://www.shu.edu.cn/2022banner/20230226-2.jpg');
-    background-size: 100% 100%;
-    overflow: hidden;
-  }
+.login-wrapper{
+  height: 100vh;
+  background: url('https://www.shu.edu.cn/2022banner/20230226-2.jpg');
+  background-size: 100% 100%;
+  overflow: hidden;
+}
 
 
 /*linear-gradient(to bottom right,#FC466B,#3F5EFB);*/
