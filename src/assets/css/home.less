@@ -18086,7 +18086,7 @@ body {
 .index-banner {
   position: relative;
   margin-top: 20px;
-  height: 360px
+  margin-bottom: 20px;
 }
 
 .index-banner .banner-nav {
@@ -18725,7 +18725,12 @@ body {
 }
 
 .strength-recommend .headline {
-  display: flex
+  display: flex;
+  justify-content: space-between;
+}
+
+.strength-recommend .headline .headline-left{
+  display:flex
 }
 
 .strength-recommend .headline .headline-icon {
@@ -18733,9 +18738,21 @@ body {
   display: block;
   width: 180px;
   height: 32px;
+  font-size: 24px;
   /*background-image:url(../image/css_sprites-left.a8d0cc9.png);*/
-  background-position: -10px -10px;
-  background-repeat: no-repeat
+/*  background-position: -10px -10px;
+  background-repeat: no-repeat*/
+}
+
+.strength-recommend .headline .btn-vol{
+  align-self:center;
+  outline:none;
+  border:none;
+  width:26px;
+  height:26px;
+  background:url(../../assets/refresh.png) no-repeat;
+  background-size: cover;
+  margin-right: 15px;
 }
 
 @media (max-width: 1399px) {
@@ -20401,16 +20418,37 @@ body {
   margin: 0
 }
 
+.hot-container .work-list ul {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .work-list ul li {
   float: left;
   margin-right: 18px
 }
 
+.hot-container .work-list ul li {
+  float: left;
+  margin-right: 12px
+}
+
 .work-list ul li a.book-item-inner {
   color: #333;
   display: inline-block;
-  width: 160px;
-  height: 225px;
+  width: 144px;
+  height: 202.5px;
+  text-decoration: none
+}
+
+.hot-container .work-list ul li a.book-item-inner {
+  color: #333;
+  display: inline-block;
+  width: 144px;
+  height: 102.5px;
   text-decoration: none
 }
 
@@ -20430,6 +20468,13 @@ body {
   position: relative;
   width: 160px;
   height: 225px;
+  background-color: #999
+}
+
+.hot-container .work-list ul li a.book-item-inner .cover {
+  position: relative;
+  width: 144px;
+  height: 202.5px;
   background-color: #999
 }
 
@@ -24345,6 +24390,12 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
   position:relative;
   float:left;
   width:870px
+}
+
+.hot-container{
+  position:relative;
+  float:left;
+  width:100%
 }
 
 .carousel-inner{

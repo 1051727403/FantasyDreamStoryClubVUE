@@ -105,7 +105,7 @@
           <div class="left-menu">
             <ul class="clearfix">
               <li>
-                <a href="/cat/-1.html" target="_blank">
+                <a href="/APP/Search" target="_blank">
                   <span class="icon"></span>
                   全部
                   <i class="line"></i>
@@ -238,12 +238,56 @@
       </div>
     </div>
 
+    <div class="strength-recommend slide-thing">
+      <div class="container clearfix">
+        <div class="hot-container">
+          <a href="/APP" class="headline" target="_blank">
+            <i class="headline-icon">热门</i>
+          </a>
+
+          <div class="work-list clearfix">
+            <ul>
+              <li v-for="item in hot_recommendation" :key="item" span="4">
+                <a :href="storySkip(item.storyId)" class="book-item-inner" target="_blank" >
+                  <div class="cover">
+                    <div class="img-loading">
+                      <el-image
+                          style="width: 100%; height: 100%"
+                          fit="cover"
+                          class="lazy"
+                          alt=""
+                          :data-original="original_cover"
+                          :src="item.coverUrl"
+                          lazy></el-image>
+                    </div>
+                    <div class="mask">
+                      <div class="mask-detail">
+                        <span class="icon1"></span>
+                        <p>{{item.totalLike}}</p>
+                        <span class="icon2"></span>
+                        <p>{{item.totalCollection}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-item-name" >{{item.storyName}}</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- 编辑强推 -->
     <div class="strength-recommend slide-thing">
       <div class="container clearfix">
         <div class="new-l-side">
           <div class="headline">
-            <i class="headline-icon">推荐</i>
+            <div class="headline-left">
+              <i class="headline-icon">推荐</i>
+            </div>
+            <button type="button" class="btn-vol btn-boutique" @click="reflesh"></button>
           </div>
 
           <div class="work-list clearfix">
@@ -279,10 +323,9 @@
 
         <div class="new-r-side">
           <div class="update-headline">
-            <i class="update-headline-icon"></i>
-            <div class="update-headline-text">
-              最近更新
-            </div>
+            <a href="/APP" class="headline" target="_blank">
+              <i class="headline-icon" style="padding-left: 15px">最近更新</i>
+            </a>
           </div>
 
           <div class="update-list" v-for="item in latest_recommendation" :key="item">
@@ -292,167 +335,6 @@
                 <span class="update-time">{{item.deltaTime}}</span>
               </div>
             </a>
-
-<!--            <a href="/book/124359.html" class="book-card" target="_blank">
-              <div class="book-name">
-                在异世界也要重新磨砺爪牙                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                Fistof                            </span>
-              </div>
-            </a>
-            <a href="/book/124356.html" class="book-card" target="_blank">
-              <div class="book-name">
-                灵魂与世界的栖息地：处在维莉耶的我                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                厄叶文                            </span>
-              </div>
-            </a>
-            <a href="/book/124355.html" class="book-card" target="_blank">
-              <div class="book-name">
-                奇幻大陆                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                蓝萌雨1                            </span>
-              </div>
-            </a>
-            <a href="/book/124347.html" class="book-card" target="_blank">
-              <div class="book-name">
-                非你莫属之飞妮沫舒                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                贝壳里笔记                            </span>
-              </div>
-            </a>
-            <a href="/book/124346.html" class="book-card" target="_blank">
-              <div class="book-name">
-                星空下的链接（游侠篇）                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                星空下的萤火虫                            </span>
-              </div>
-            </a>
-            <a href="/book/124342.html" class="book-card" target="_blank">
-              <div class="book-name">
-                我的基友居然真的变成了美少女                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                永恒的呆毛                            </span>
-              </div>
-            </a>
-            <a href="/book/124340.html" class="book-card" target="_blank">
-              <div class="book-name">
-                魔法少女的忧郁                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                剑馨W                            </span>
-              </div>
-            </a>
-            <a href="/book/124338.html" class="book-card" target="_blank">
-              <div class="book-name">
-                不想『谈』的故事                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                小城Yaa                            </span>
-              </div>
-            </a>
-            <a href="/book/124337.html" class="book-card" target="_blank">
-              <div class="book-name">
-                《此夜，翠星正美》                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                MinorityMajor                            </span>
-              </div>
-            </a>
-            <a href="/book/124335.html" class="book-card" target="_blank">
-              <div class="book-name">
-                转生恶役贵族~异世界求生记                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                沧天一弥                            </span>
-              </div>
-            </a>
-            <a href="/book/124334.html" class="book-card" target="_blank">
-              <div class="book-name">
-                废材魔法师                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                ph_ed0638b6305abdf1                            </span>
-              </div>
-            </a>
-            <a href="/book/124332.html" class="book-card" target="_blank">
-              <div class="book-name">
-                星历:4026                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                Shimakaze1942                            </span>
-              </div>
-            </a>
-            <a href="/book/124330.html" class="book-card" target="_blank">
-              <div class="book-name">
-                黑城                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                风间黎                            </span>
-              </div>
-            </a>
-            <a href="/book/124329.html" class="book-card" target="_blank">
-              <div class="book-name">
-                新黎明                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                硫磺社                            </span>
-              </div>
-            </a>
-            <a href="/book/124328.html" class="book-card" target="_blank">
-              <div class="book-name">
-                300英雄的起源                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                阿呆debu                            </span>
-              </div>
-            </a>
-            <a href="/book/124327.html" class="book-card" target="_blank">
-              <div class="book-name">
-                身为恶魔的她竟然拯救了浑浑噩噩的我                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                黯淡的背影                            </span>
-              </div>
-            </a>
-            <a href="/book/124326.html" class="book-card" target="_blank">
-              <div class="book-name">
-                传媒：震惊！堂堂人族人皇，真实身份竟是血族萝莉                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                qq_634e31ac00c4e                            </span>
-              </div>
-            </a>
-            <a href="/book/124324.html" class="book-card" target="_blank">
-              <div class="book-name">
-                致闯入我青春的你                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                しいなゆき                            </span>
-              </div>
-            </a>
-            <a href="/book/124322.html" class="book-card" target="_blank">
-              <div class="book-name">
-                星游记：同人文                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                林林凡林林凡                            </span>
-              </div>
-            </a>
-            <a href="/book/124319.html" class="book-card" target="_blank">
-              <div class="book-name">
-                四季如苏                            </div>
-              <div class="book-detail">
-                            <span class="book-author">
-                                儚野0-0                            </span>
-              </div>
-            </a>-->
           </div>
         </div>
 
@@ -487,14 +369,12 @@ export default {
       ],
       personal_recommendation: [],
       latest_recommendation: [],
+      hot_recommendation: [],
     }
   },
   methods:{
     load() {
-      this.request.get("story/recommendStory").then(res=>{
-        console.log(res)
-        this.personal_recommendation = res.data;
-      })
+      this.reflesh()
 
       this.request.get("story/slideShow").then(res=>{
         console.log(res)
@@ -505,9 +385,20 @@ export default {
         console.log(res)
         this.latest_recommendation = res.data;
       })
+
+      this.request.get("story/hotStory").then(res=>{
+        console.log(res)
+        this.hot_recommendation = res.data;
+      })
     },
     storySkip(storyId) {
-      return "StoryInfo/?storyid=" + storyId;
+      return "/APP/StoryInfo/?storyid=" + storyId;
+    },
+    reflesh() {
+      this.request.get("story/recommendStory").then(res=>{
+        console.log(res)
+        this.personal_recommendation = res.data;
+      })
     },
     jumpToStoryRelay(){
       this.$router.push("/APP/StoryRelay")

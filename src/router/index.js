@@ -43,6 +43,12 @@ const routes = [
         meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
       {
+        path:'Search',
+        name:'AppSearch',
+        component:()=>import('../views/APP/Search/Search.vue'),
+        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
+      },
+      {
         path: 'UserShow',
         name: "ShowUser",
         component:()=>import("@/views/APP/PersonalSpace/ShowUser.vue"),
