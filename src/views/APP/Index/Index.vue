@@ -256,26 +256,17 @@
                           style="width: 100%; height: 100%"
                           fit="cover"
                           class="lazy"
-                          :data-original="original_cover"
                           alt=""
-                          :src="item.coverUrl"></el-image>
+                          :data-original="original_cover"
+                          :src="item.coverUrl"
+                          lazy></el-image>
                     </div>
                     <div class="mask">
-
-                      <!--                      <div class="article-item-infos flex fs-sm text-gray">
-                                              <div class="flex-1">
-                                                <el-image src="vue/src/assets/liked.png"></el-image>
-                                                <span>180817</span>
-                                              </div>
-                                              <div class="flex-1">
-
-                                                <span>1799</span>
-                                              </div>
-                                            </div>-->
-
                       <div class="mask-detail">
-                        <p>点赞 : {{item.totalLike}}</p>
-                        <p>收藏 : {{item.totalCollection}}</p>
+                        <span class="icon1"></span>
+                        <p>{{item.totalLike}}</p>
+                        <span class="icon2"></span>
+                        <p>{{item.totalCollection}}</p>
                       </div>
                     </div>
                   </div>
@@ -290,19 +281,19 @@
           <div class="update-headline">
             <i class="update-headline-icon"></i>
             <div class="update-headline-text">
-              排行榜
+              最近更新
             </div>
           </div>
-          <div class="update-list">
-            <a href="/book/124362.html" class="bookup-card" target="_blank">
-              <div class="book-name">
-                结晶争夺战                            </div>
+
+          <div class="update-list" v-for="item in latest_recommendation" :key="item">
+            <a :href="storySkip(item.storyId)" class="book-card" target="_blank">
+              <div class="book-name">{{item.storyName}}</div>
               <div class="book-detail">
-                            <span class="book-author">
-                                机械王者                            </span>
+                <span class="update-time">{{item.deltaTime}}</span>
               </div>
             </a>
-            <a href="/book/124359.html" class="bookup-card" target="_blank">
+
+<!--            <a href="/book/124359.html" class="book-card" target="_blank">
               <div class="book-name">
                 在异世界也要重新磨砺爪牙                            </div>
               <div class="book-detail">
@@ -310,7 +301,7 @@
                                 Fistof                            </span>
               </div>
             </a>
-            <a href="/book/124356.html" class="bookup-card" target="_blank">
+            <a href="/book/124356.html" class="book-card" target="_blank">
               <div class="book-name">
                 灵魂与世界的栖息地：处在维莉耶的我                            </div>
               <div class="book-detail">
@@ -318,7 +309,7 @@
                                 厄叶文                            </span>
               </div>
             </a>
-            <a href="/book/124355.html" class="bookup-card" target="_blank">
+            <a href="/book/124355.html" class="book-card" target="_blank">
               <div class="book-name">
                 奇幻大陆                            </div>
               <div class="book-detail">
@@ -326,7 +317,7 @@
                                 蓝萌雨1                            </span>
               </div>
             </a>
-            <a href="/book/124347.html" class="bookup-card" target="_blank">
+            <a href="/book/124347.html" class="book-card" target="_blank">
               <div class="book-name">
                 非你莫属之飞妮沫舒                            </div>
               <div class="book-detail">
@@ -334,7 +325,7 @@
                                 贝壳里笔记                            </span>
               </div>
             </a>
-            <a href="/book/124346.html" class="bookup-card" target="_blank">
+            <a href="/book/124346.html" class="book-card" target="_blank">
               <div class="book-name">
                 星空下的链接（游侠篇）                            </div>
               <div class="book-detail">
@@ -342,7 +333,7 @@
                                 星空下的萤火虫                            </span>
               </div>
             </a>
-            <a href="/book/124342.html" class="bookup-card" target="_blank">
+            <a href="/book/124342.html" class="book-card" target="_blank">
               <div class="book-name">
                 我的基友居然真的变成了美少女                            </div>
               <div class="book-detail">
@@ -350,7 +341,7 @@
                                 永恒的呆毛                            </span>
               </div>
             </a>
-            <a href="/book/124340.html" class="bookup-card" target="_blank">
+            <a href="/book/124340.html" class="book-card" target="_blank">
               <div class="book-name">
                 魔法少女的忧郁                            </div>
               <div class="book-detail">
@@ -358,7 +349,7 @@
                                 剑馨W                            </span>
               </div>
             </a>
-            <a href="/book/124338.html" class="bookup-card" target="_blank">
+            <a href="/book/124338.html" class="book-card" target="_blank">
               <div class="book-name">
                 不想『谈』的故事                            </div>
               <div class="book-detail">
@@ -366,7 +357,7 @@
                                 小城Yaa                            </span>
               </div>
             </a>
-            <a href="/book/124337.html" class="bookup-card" target="_blank">
+            <a href="/book/124337.html" class="book-card" target="_blank">
               <div class="book-name">
                 《此夜，翠星正美》                            </div>
               <div class="book-detail">
@@ -374,7 +365,7 @@
                                 MinorityMajor                            </span>
               </div>
             </a>
-            <a href="/book/124335.html" class="bookup-card" target="_blank">
+            <a href="/book/124335.html" class="book-card" target="_blank">
               <div class="book-name">
                 转生恶役贵族~异世界求生记                            </div>
               <div class="book-detail">
@@ -382,7 +373,7 @@
                                 沧天一弥                            </span>
               </div>
             </a>
-            <a href="/book/124334.html" class="bookup-card" target="_blank">
+            <a href="/book/124334.html" class="book-card" target="_blank">
               <div class="book-name">
                 废材魔法师                            </div>
               <div class="book-detail">
@@ -390,7 +381,7 @@
                                 ph_ed0638b6305abdf1                            </span>
               </div>
             </a>
-            <a href="/book/124332.html" class="bookup-card" target="_blank">
+            <a href="/book/124332.html" class="book-card" target="_blank">
               <div class="book-name">
                 星历:4026                            </div>
               <div class="book-detail">
@@ -398,7 +389,7 @@
                                 Shimakaze1942                            </span>
               </div>
             </a>
-            <a href="/book/124330.html" class="bookup-card" target="_blank">
+            <a href="/book/124330.html" class="book-card" target="_blank">
               <div class="book-name">
                 黑城                            </div>
               <div class="book-detail">
@@ -406,7 +397,7 @@
                                 风间黎                            </span>
               </div>
             </a>
-            <a href="/book/124329.html" class="bookup-card" target="_blank">
+            <a href="/book/124329.html" class="book-card" target="_blank">
               <div class="book-name">
                 新黎明                            </div>
               <div class="book-detail">
@@ -414,7 +405,7 @@
                                 硫磺社                            </span>
               </div>
             </a>
-            <a href="/book/124328.html" class="bookup-card" target="_blank">
+            <a href="/book/124328.html" class="book-card" target="_blank">
               <div class="book-name">
                 300英雄的起源                            </div>
               <div class="book-detail">
@@ -422,7 +413,7 @@
                                 阿呆debu                            </span>
               </div>
             </a>
-            <a href="/book/124327.html" class="bookup-card" target="_blank">
+            <a href="/book/124327.html" class="book-card" target="_blank">
               <div class="book-name">
                 身为恶魔的她竟然拯救了浑浑噩噩的我                            </div>
               <div class="book-detail">
@@ -430,7 +421,7 @@
                                 黯淡的背影                            </span>
               </div>
             </a>
-            <a href="/book/124326.html" class="bookup-card" target="_blank">
+            <a href="/book/124326.html" class="book-card" target="_blank">
               <div class="book-name">
                 传媒：震惊！堂堂人族人皇，真实身份竟是血族萝莉                            </div>
               <div class="book-detail">
@@ -438,7 +429,7 @@
                                 qq_634e31ac00c4e                            </span>
               </div>
             </a>
-            <a href="/book/124324.html" class="bookup-card" target="_blank">
+            <a href="/book/124324.html" class="book-card" target="_blank">
               <div class="book-name">
                 致闯入我青春的你                            </div>
               <div class="book-detail">
@@ -446,7 +437,7 @@
                                 しいなゆき                            </span>
               </div>
             </a>
-            <a href="/book/124322.html" class="bookup-card" target="_blank">
+            <a href="/book/124322.html" class="book-card" target="_blank">
               <div class="book-name">
                 星游记：同人文                            </div>
               <div class="book-detail">
@@ -454,14 +445,14 @@
                                 林林凡林林凡                            </span>
               </div>
             </a>
-            <a href="/book/124319.html" class="bookup-card" target="_blank">
+            <a href="/book/124319.html" class="book-card" target="_blank">
               <div class="book-name">
                 四季如苏                            </div>
               <div class="book-detail">
                             <span class="book-author">
                                 儚野0-0                            </span>
               </div>
-            </a>
+            </a>-->
           </div>
         </div>
 
@@ -495,6 +486,7 @@ export default {
         }
       ],
       personal_recommendation: [],
+      latest_recommendation: [],
     }
   },
   methods:{
@@ -507,6 +499,11 @@ export default {
       this.request.get("story/slideShow").then(res=>{
         console.log(res)
         this.activity_recommendation = res.data;
+      })
+
+      this.request.get("story/latestStory").then(res=>{
+        console.log(res)
+        this.latest_recommendation = res.data;
       })
     },
     storySkip(storyId) {
