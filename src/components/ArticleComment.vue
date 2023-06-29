@@ -196,11 +196,11 @@ export default {
   directives: {clickoutside},
   created() {
     var user=JSON.parse(localStorage.getItem("user"))
-    console.log(user)
-    console.log(user.nickname)
-    this.myName=user.nickname
-    this.myHeader=user.avatarUrl
-    this.myId=user.id
+    if (user) {
+      this.myName = user.nickname
+      this.myHeader = user.avatarUrl
+      this.myId = user.id
+    }
   },
   methods: {
     messageTitleClick(num) { // 点击了具体某条消息
@@ -273,6 +273,7 @@ export default {
         console.log(this.comments)
         this.$notify({
           title: '发表成功！',
+          type:"success",
           duration:1500
         });
       }

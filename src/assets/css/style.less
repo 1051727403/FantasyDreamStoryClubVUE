@@ -56,6 +56,8 @@ body {
 .common-flex{
   width: 100%;
   height: 100%;
+  padding-right: 40px;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -452,6 +454,9 @@ jmexpander {
         padding-bottom: 8px;
         border-bottom: 0.2px solid #efefef;
         border-radius: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .eachFragment:hover{
         background-color: #89e172;
@@ -523,13 +528,20 @@ jmexpander {
       background: rgba(255, 255, 255, 0.8);
       .fragmentTop{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         height:10%;
         width: 100%;
         font-size: 20px;
         color: #36002b;
         text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; /* 添加白色描边 */
+      }
+      .fragmentTopic{
+        width: 50%;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .fragmentContent{
         font-size:16px;
