@@ -35,34 +35,6 @@ const routes = [
         path:'PersonalSpace',
         name:'usercenter',
         component:()=>import('../views/APP/PersonalSpace/PersonalSpace.vue'),
-        redirect: '/App/PersonalSpace/PersonalInfo',
-        children:[
-          {
-            path:'PersonalInfo',
-            name:'userinfo',
-            component:()=>import('../views/APP/PersonalSpace/PersonalInfo.vue'),
-          },
-          {
-            path:'MyCollection',
-            name:'usercollection',
-            component:()=>import('../views/APP/PersonalSpace/MyCollection.vue'),
-          },
-          {
-            path:'NewStory',
-            name:'userstory',
-            component:()=>import('../views/APP/PersonalSpace/NewStory.vue'),
-          },
-          {
-            path:'NewFragement',
-            name:'userf',
-            component:()=>import('../views/APP/PersonalSpace/NewFragement.vue'),
-          },
-          {
-            path:'MyComment',
-            name:'userc',
-            component:()=>import('../views/APP/PersonalSpace/MyComment.vue'),
-          },
-        ]
       },
       {
         path:'StoryInfo',

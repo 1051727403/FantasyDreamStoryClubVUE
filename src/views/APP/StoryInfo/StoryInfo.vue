@@ -50,7 +50,7 @@
               <img :src="editorinfo.avatarUrl" alt="">
             </div>
             <div class="name" style="height: 40px">
-              <a href="#">{{editorinfo.username}}</a>
+              <a :href="editorinfo.link">{{editorinfo.username}}</a>
               <div style="color: #999;font-size: 10px;text-align: center;">{{editorinfo.nickname}}</div>
             </div>
             <div class="userinfo">
@@ -100,6 +100,7 @@ export default {
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
             this.editorinfo=res.data
+            this.editorinfo.link="/app/usershow?userid="+this.editorinfo.id
             //console.log(this.editorinfo)
           }
           else{
@@ -127,10 +128,6 @@ export default {
         this.$message.error("error"+res.msg)
       }
     })
-  },
-  mounted() {
-
-
   },
   methods:{
     collect(){
