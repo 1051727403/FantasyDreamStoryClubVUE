@@ -89,7 +89,7 @@ export default {
         tmg.width=130
         tmg.height=195
         ta.appendChild(tmg)
-        ta.href=book.link
+        ta.href="/APP/storyinfo?storyid="+book.storyId
         tli.appendChild(ta)
         var tdiv = document.createElement("div")
         tdiv.style=
