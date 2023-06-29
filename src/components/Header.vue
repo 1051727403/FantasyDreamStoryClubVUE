@@ -59,9 +59,6 @@ export default {
       t3.style.display='none'
     }
   },
-
-
-
   methods:{
     //退出跳转同时清楚localstorage中的数据
     logout(){
@@ -75,7 +72,8 @@ export default {
       if(nowUrl[1]=='M') {
         this.$router.push("/Manage/userInfo")
       }else{
-        this.$router.push("/App/PersonalSpace")
+        console.log(this.user)
+        this.$router.push("/App/PersonalSpace?userid="+this.user.id)
       }
     },
     gotowhat(){
