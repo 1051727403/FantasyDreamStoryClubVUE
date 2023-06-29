@@ -9,8 +9,7 @@
             Ta的创作
           </div>
           <div class="book" style="margin-bottom: 10px">
-            <ul style="list-style: none" id="mybook" >
-
+            <ul style="list-style: none" id="my_book" >
             </ul>
           </div>
         </div>
@@ -20,7 +19,8 @@
             Ta的收藏
           </div>
           <div class="book">
-
+            <ul style="list-style: none" id="collect_book" >
+            </ul>
           </div>
         </div>
       </div>
@@ -43,13 +43,7 @@ export default {
   name: "ShowUser",
   data(){
     return{
-      userinfo:{
-        userid:1,
-        username:45,
-        nickname:"nick",
-        totalLike:520
-      },
-      mystoryies:{}
+      userinfo:{},
     }
   },
   created() {
@@ -59,9 +53,6 @@ export default {
     this.request.get("/user/getUserInfo?userid="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
         this.userinfo=res.data
-
-        //console.log(this.userinfo)
-
       }
       else{
         this.$message.error("error"+res.msg)
@@ -70,41 +61,55 @@ export default {
     //Ta的创作
     this.request.get("/story/usersStories?userid="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
-        this.mystoryies=res.data
-        var books =document.getElementById("mybook")
-        for (const book of res.data) {
-          var tli= document.createElement("li")
-          var ta = document.createElement("a")
-          var tmg= document.createElement('img')
-          tmg.src=book.coverUrl
-          tmg.width=130
-          tmg.height=195
-          ta.href=book.link
-          ta.appendChild(tmg)
-          tli.appendChild(ta)
-          var tdiv = document.createElement("div")
-          tdiv.style=
-              "  font-size: 15px;" +
-              "  font-weight: normal;"+
-              "  text-align: center;"
-          var tp = document.createElement("p")
-          tp.style= " text-overflow:ellipsis;" +
-              "  width:120px;"+
-              " overflow:hidden;" +
-              " white-space:nowrap;"
-          tp.innerText=book.storyName
-          tdiv.appendChild(tp)
-          tli.appendChild(tdiv)
-          tli.style=
-              " float: left;\n" +
-              " margin-left: 20px;" +
-          books.append(tli)
-        }
+        this.showbook(res.data,"my_book")
       }
       else{
         this.$message.error("error"+res.msg)
       }
     })
+    //Ta的收藏
+    this.request.get("/story/usersCollectStories?userid="+this.userinfo.userid).then(res=>{
+      if(res.code==='200'){
+        this.showbook(res.data,"collect_book")
+      }
+      else{
+        this.$message.error("error"+res.msg)
+      }
+    })
+  }
+  ,
+  methods:{
+    showbook(books,books_element_id){
+      var bookselement =document.getElementById(books_element_id)
+      for (const book of books) {
+        var tli= document.createElement("li")
+        var ta = document.createElement("a")
+        var tmg= document.createElement('img')
+        tmg.src=book.coverUrl
+        tmg.width=130
+        tmg.height=195
+        ta.appendChild(tmg)
+        ta.href=book.link
+        tli.appendChild(ta)
+        var tdiv = document.createElement("div")
+        tdiv.style=
+            "  font-size: 15px;" +
+            "  font-weight: normal;"+
+            "  text-align: center;"
+        var tp = document.createElement("p")
+        tp.style= " text-overflow:ellipsis;" +
+            "  width:120px;"+
+            " overflow:hidden;" +
+            " white-space:nowrap;"
+        tp.innerText=book.storyName
+        tdiv.appendChild(tp)
+        tli.appendChild(tdiv)
+        tli.style=
+            " float: left;\n" +
+            " margin-left: 20px;"
+        bookselement.append(tli)
+      }
+    }
   }
 }
 </script>
