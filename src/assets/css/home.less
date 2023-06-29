@@ -18299,8 +18299,8 @@ body {
 }
 
 .user-center .rules-notice {
-  border: 1px solid #eee;
-  border-radius: 10px;
+/*  border: 1px solid #eee;
+  border-radius: 10px;*/
   height: 240px
 }
 
@@ -18312,9 +18312,10 @@ body {
 
 .user-center .rules-notice .rules-list {
   position: relative;
-  height: 70px;
-  margin: 15px 25px;
+  height: 100px;
+  margin: 10px;
   font-size: 22px;
+  overflow: hidden;
 }
 
 .user-center .rules-notice .rules-list ul {
@@ -18369,15 +18370,15 @@ body {
 }
 
 .user-center .rules-notice{
-  margin: 15px 25px;
+  margin: 10px 25px;
   margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 .notice-content {
-  margin: 15px 25px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
+  margin: 5px 0;
+/*  display: flex;
+  justify-content: space-between;*/
 }
 
 .user-center .rules-notice .notice-content .notice-title {
@@ -18401,7 +18402,7 @@ body {
 }
 
 .user-center .rules-notice .notice-content .new-notice {
-  padding: 15px 0;
+  padding: 5px 0;
   border-bottom: 1px dashed #eee
 }
 
@@ -18422,8 +18423,8 @@ body {
 
 .user-center .rules-notice .notice-content .new-notice a .new-info {
   align-self: center;
-  display: block;
-  width: 230px
+  display: flex;
+  width: 100%;
 }
 
 .user-center .rules-notice .notice-content .new-notice a .new-info .new-title {
@@ -18432,7 +18433,8 @@ body {
   line-height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap
+  white-space: nowrap;
+  width: 100%;
 }
 
 .user-center .rules-notice .notice-content .new-notice a .new-info .new-detail {
@@ -20393,7 +20395,7 @@ body {
 
 .work-list ul {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   list-style: none;
   padding: 0;
   margin: 0
@@ -20407,8 +20409,8 @@ body {
 .work-list ul li a.book-item-inner {
   color: #333;
   display: inline-block;
-  width: 192px;
-  height: 108px;
+  width: 160px;
+  height: 225px;
   text-decoration: none
 }
 
@@ -20426,8 +20428,8 @@ body {
 
 .work-list ul li a.book-item-inner .cover {
   position: relative;
-  width: 192px;
-  height: 108px;
+  width: 160px;
+  height: 225px;
   background-color: #999
 }
 

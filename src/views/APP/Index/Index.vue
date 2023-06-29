@@ -170,146 +170,68 @@
     <div class="index-banner">
       <div class="container" style="display: flex;">
 
-        <div class="slide-recommend">
-          <el-carousel trigger="click" id="carousel-banner" class="carousel slide">
+        <div class="slide-recommend" style="height: 100%;">
+          <el-carousel trigger="click" id="carousel-banner" class="carousel slide" style="height: 100%;">
             <el-carousel-item v-for="item in activity_recommendation" :key="item" class="carousel-inner">
-              <a :href="item.link" class="item active" target="_blank">
+              <a :href="storySkip(item.storyId)" class="item active" target="_blank">
                 <img class="lazy" :data-original="original_cover" :src="item.coverUrl">
               </a>
             </el-carousel-item>
           </el-carousel>
         </div>
 
-<!--        <div class="slide-recommend">
-          <div id="carousel-banner" class="carousel slide" data-ride="carousel">
-
-            &lt;!&ndash; Indicators &ndash;&gt;
-            <ol class="carousel-indicators">
-              <li data-target="#carousel-banner" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-banner" data-slide-to="1" class=""></li>
-              <li data-target="#carousel-banner" data-slide-to="2" class=""></li>
-              <li data-target="#carousel-banner" data-slide-to="3" class=""></li>
-              <li data-target="#carousel-banner" data-slide-to="4" class=""></li>
-              <li data-target="#carousel-banner" data-slide-to="5" class=""></li>
-            </ol>
-
-            &lt;!&ndash; Wrapper for slides &ndash;&gt;
-            <div class="carousel-inner" role="listbox">
-              <a href="https://www.linovel.net/article/1239.html" class="item active" target="_blank">
-                <img class="lazy" data-original="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg">
-&lt;!&ndash;                <div class="carousel-caption">
-                  <img class="lazy" data-original="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" src="" style="left: 0px; opacity: 1;">
-                  <img class="lazy" data-original="" src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1ad5ad6eddc451da29f30946b6fd5266d0163211.jpg" style="left: 0px; opacity: 1;">
-                </div>&ndash;&gt;
-              </a>
-              <a href="https://www.linovel.net/article/detail?id=1236" class="item" target="_blank">
-                <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1119852_604cc7fd08b28413baf8432a7403ec14.jpg" src="https://rin.linovel.net/v3_recommend/1119852_604cc7fd08b28413baf8432a7403ec14.jpg" style="display: block;">
-                <div class="carousel-caption item-banner">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                </div>
-              </a>
-              <a href="https://www.linovel.net/book/122429.html" class="item" target="_blank">
-                <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1119852_e390eae52f9539cf93b3dd637d42c13b.jpg" src="https://rin.linovel.net/v3_recommend/1119852_e390eae52f9539cf93b3dd637d42c13b.jpg" style="display: block; width: auto; height: 360px;">
-                <div class="carousel-caption item-banner">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                </div>
-              </a>
-              <a href="https://www.linovel.net/article/detail?id=1217" class="item" target="_blank">
-                <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1218075_54af67e1e07ba0dd47378bf98573cb58.jpg" src="https://rin.linovel.net/v3_recommend/1218075_54af67e1e07ba0dd47378bf98573cb58.jpg" style="display: block; width: auto; height: 360px;">
-                <div class="carousel-caption item-banner">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                  <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1218075_54af67e1e07ba0dd47378bf98573cb58.jpg" src="https://rin.linovel.net/v3_recommend/1218075_54af67e1e07ba0dd47378bf98573cb58.jpg" style="display: block; opacity: 1; width: auto; height: 360px; left: 0px;">
-                </div>
-              </a>
-              <a href="https://www.linovel.net/article/detail?id=1215" class="item" target="_blank">
-                <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1218075_c8945e1398633e6666c113a4d41ec576.jpg" src="https://rin.linovel.net/v3_recommend/1218075_c8945e1398633e6666c113a4d41ec576.jpg" style="display: block; width: auto; height: 360px;">
-                <div class="carousel-caption item-banner">
-                  <img class="lazy" data-original="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" style="left: 0px; opacity: 1;">
-                  <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1218075_c8945e1398633e6666c113a4d41ec576.jpg" src="https://rin.linovel.net/v3_recommend/1218075_c8945e1398633e6666c113a4d41ec576.jpg" style="display: block; opacity: 1; width: auto; height: 360px; left: 0px;">
-                </div>
-              </a>
-              <a href="https://www.linovel.net/article/detail?id=819" class="item" target="_blank">
-                <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1130871_60a77e33230aa5cde3cea8ce6e79711d.png" src="https://rin.linovel.net/v3_recommend/1130871_60a77e33230aa5cde3cea8ce6e79711d.png" style="display: block; width: auto; height: 360px;">
-                <div class="carousel-caption item-banner">
-                  <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1130871_69cd004543713d3a9ec2e1ce430799d8.png" src="https://rin.linovel.net/v3_recommend/1130871_69cd004543713d3a9ec2e1ce430799d8.png" style="display: block; opacity: 1; width: auto; height: 360px; top: 0px; left: 0px; z-index: 2;">
-                  <img class="lazy" data-original="https://rin.linovel.net/v3_recommend/1130871_299c99b84e317f366d586cf491e41a19.png" src="https://rin.linovel.net/v3_recommend/1130871_299c99b84e317f366d586cf491e41a19.png" style="display: block; opacity: 1; width: auto; height: 360px; bottom: 0px; left: 0px; z-index: 1;">
-                </div>
-              </a>
-            </div>
-
-            &lt;!&ndash; Controls &ndash;&gt;
-            <a class="left carousel-control" href="#carousel-banner" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left left-banner" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-banner" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right right-banner" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>-->
-
         <div class="user-center">
           <div class="rules-notice">
+
             <div class="rules-list">
               <a href="/page/signRule" target="_blank">
-                <i class="signing-welfare"></i>
                 <p>公告</p>
               </a>
-            </div>
-            <div class="notice-title">
-              <span class="notice-icon"></span>
-              <a href="/article/list?cat=2" target="_blank">全部</a>
+
+              <div class="notice-content">
+                <div class="new-notice">
+                  <a href="/article/765.html" target="_blank">
+                    <div class="new-info">
+                      <div class="new-title">
+                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
+                      <div class="new-detail" style="width: 50px; text-align: right">
+                        06-15                                        </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="new-notice">
+                  <a href="/article/765.html" target="_blank">
+                    <div class="new-info">
+                      <div class="new-title">
+                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
+                      <div class="new-detail" style="width: 50px; text-align: right">
+                        06-15                                        </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="new-notice">
+                  <a href="/article/765.html" target="_blank">
+                    <div class="new-info">
+                      <div class="new-title">
+                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
+                      <div class="new-detail" style="width: 50px; text-align: right">
+                        06-15                                        </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="new-notice">
+                  <a href="/article/765.html" target="_blank">
+                    <div class="new-info">
+                      <div class="new-title">
+                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
+                      <div class="new-detail" style="width: 50px; text-align: right">
+                        06-15                                        </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div class="notice-content">
-<!--              <div class="work-list clearfix">
-                <ul>
-                  <li>
-                    <a href="/book/115053.html" target="_blank" class="book-item-inner">
-                      <div class="cover">
-                        <div class="img-loading">
-                          <img data-original="https://ts1.cn.mm.bing.net/th/id/R-C.57a05fcafaec1212e5c393ace0e5d957?rik=jx4FMa4HXHknqg&riu=http%3a%2f%2fpic.rmb.bdstatic.com%2f57a05fcafaec1212e5c393ace0e5d957.jpeg&ehk=OG3yy6GRS8Jj9ODlMArjrlPxOb4z2%2fV5vyYoWRWZpcM%3d&risl=&pid=ImgRaw&r=0" alt="" src="https://ts1.cn.mm.bing.net/th/id/R-C.57a05fcafaec1212e5c393ace0e5d957?rik=jx4FMa4HXHknqg&riu=http%3a%2f%2fpic.rmb.bdstatic.com%2f57a05fcafaec1212e5c393ace0e5d957.jpeg&ehk=OG3yy6GRS8Jj9ODlMArjrlPxOb4z2%2fV5vyYoWRWZpcM%3d&risl=&pid=ImgRaw&r=0" class="lazy">
-                        </div>
-                        <div class="mask">
-                          <div class="mask-avatar">
-                            <img data-original="https://avatar.linovel.net/1090/1090400_1554478952.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy">
-                          </div>
-                          <div class="mask-author"> 月之咲夜空/著 </div>
-                          <div class="mask-detail">
-                            <p>字数 : 18.6万</p>
-                            <p>热度 : 333.9万</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="book-item-name"> 祖师爷今天也依旧是一条咸鱼 </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/book/106381.html" target="_blank" class="book-item-inner"><div class="cover"><div class="img-loading"><img data-original="https://rin.linovel.net/cover/106381_2bf19aaa268a443db60389fc31a9feac.jpg!min300jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask"><div class="mask-avatar"><img data-original="https://avatar.linovel.net/1052/1052957_1572959540.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask-author"> 德川家康的鱼/著 </div><div class="mask-detail"><p>字数 : 79.6万</p><p>热度 : 399.8万</p></div></div></div><div class="book-item-name"> 一部充满烂梗且通俗易懂（存疑）的转生冒险喜剧 </div></a></li><li><a href="/book/117288.html" target="_blank" class="book-item-inner"><div class="cover"><div class="img-loading"><img data-original="https://rin.linovel.net/cover/20200609/117288_0_d747f48ff5c88863bb0994dd786c8cc8.jpg!min300jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask"><div class="mask-avatar"><img data-original="https://avatar.linovel.net/1143/1143337_1585577109.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask-author"> 蒟蒻の秋竹同学/著 </div><div class="mask-detail"><p>字数 : 8万</p><p>热度 : 60.9万</p></div></div></div><div class="book-item-name"> 名为青春的美食研究社 </div></a></li><li><a href="/book/114774.html" target="_blank" class="book-item-inner"><div class="cover"><div class="img-loading"><img data-original="https://rin.linovel.net/cover/20201104/114774_0_c9542484e0f5743f0a27e74a4a741277.jpg!min300jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask"><div class="mask-avatar"><img data-original="https://avatar.linovel.net/1184/1184187_1587814193.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask-author"> Aaaaaaaapi/著 </div><div class="mask-detail"><p>字数 : 40.4万</p><p>热度 : 169.5万</p></div></div></div><div class="book-item-name"> 不良穿越——在异世界也依旧我行我素 </div></a></li><li><a href="/book/116479.html" target="_blank" class="book-item-inner"><div class="cover"><div class="img-loading"><img data-original="https://rin.linovel.net/cover/20210622/116479_0_1ca93f61100eeffe0b61767cffd7efdc.jpg!min300jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask"><div class="mask-avatar"><img data-original="https://avatar.linovel.net/1053/1053999_1645542004.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask-author"> 叶声雪痕/著 </div><div class="mask-detail"><p>字数 : 49.4万</p><p>热度 : 570.1万</p></div></div></div><div class="book-item-name"> 春秋战国第一毒士又要被迫行善？ </div></a></li><li><a href="/book/114929.html" target="_blank" class="book-item-inner"><div class="cover"><div class="img-loading"><img data-original="https://rin.linovel.net/cover/20201225/114929_0_b5b667d1fccbb85b7cb03b52a5935361.jpg!min300jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask"><div class="mask-avatar"><img data-original="https://avatar.linovel.net/1185/1185042_1582543340.jpg!min140jpg" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" class="lazy"></div><div class="mask-author"> 琉璃喵/著 </div><div class="mask-detail"><p>字数 : 19.3万</p><p>热度 : 170.8万</p></div></div></div><div class="book-item-name"> 山海一锅 </div></a></li></ul></div>-->
-<!--              <div class="new-notice">
-                <a href="/article/765.html" target="_blank">
-                  <div class="new-info">
-                    <div class="new-title">
-                      轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
-                    <div class="new-detail">
-                      轻之文库编辑部 / 06-15                                        </div>
-                  </div>
-                </a>
-              </div>
-              <div class="new-notice">
-                <a href="/article/764.html" target="_blank">
-                  <div class="new-info">
-                    <div class="new-title">
-                      轻之文库第四回轻小说新人赏中篇入围作品公布                                        </div>
-                    <div class="new-detail">
-                      轻之文库编辑部 / 06-15                                        </div>
-                  </div>
-                </a>
-              </div>-->
-            </div>
           </div>
         </div>
 
@@ -327,7 +249,7 @@
           <div class="work-list clearfix">
             <ul>
               <li v-for="item in personal_recommendation" :key="item" span="4">
-                <a :href="item.link" class="book-item-inner" target="_blank" >
+                <a :href="storySkip(item.storyId)" class="book-item-inner" target="_blank" >
                   <div class="cover">
                     <div class="img-loading">
                       <el-image
@@ -582,10 +504,13 @@ export default {
         this.personal_recommendation = res.data;
       })
 
-      this.request.get("story/activityRecommend").then(res=>{
+      this.request.get("story/slideShow").then(res=>{
         console.log(res)
         this.activity_recommendation = res.data;
       })
+    },
+    storySkip(storyId) {
+      return "StoryInfo/?storyid=" + storyId;
     },
     jumpToStoryRelay(){
       this.$router.push("/APP/StoryRelay")
