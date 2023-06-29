@@ -55,7 +55,6 @@ body {
 }
 .common-flex{
   width: 100%;
-  height: 100%;
   padding-right: 40px;
   position: absolute;
   display: flex;
@@ -526,29 +525,65 @@ jmexpander {
       border-radius: 20px;
       padding: 0px 20px 0px 20px;
       background: rgba(255, 255, 255, 0.8);
-      .fragmentTop{
+      .fragmentTop {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height:10%;
+        height: 10%;
         width: 100%;
         font-size: 20px;
         color: #36002b;
-        text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; /* 添加白色描边 */
+      }
+      .allowRelay{
+        background-color: #67c23a;
+        border-color: #67c23a;
+        color: #fff;
+        height: 28px;
+        width: 80px;
+        line-height: 26px;
+        font-size: 14px;
+        padding-left:10px ;
+        border: 1px solid #d9ecff;
+        border-radius: 4px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+        font-weight: 400;
+        box-shadow: 2px 2px 4px 2px rgb(31 35 41 / 10%);
+      }
+      .notAllowRelay{
+        background-color: #f56c6c;
+        border-color: #f56c6c;
+        color: #fff;
+        height: 28px;
+        width: 100px;
+        line-height: 26px;
+        font-size: 14px;
+        padding-left:13px ;
+        border: 1px solid #d9ecff;
+        border-radius: 4px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+        font-weight: 400;
+        box-shadow: 2px 2px 4px 2px rgb(31 35 41 / 10%);
       }
       .fragmentTopic{
         width: 50%;
+        text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; /* 添加白色描边 */
         text-align: center;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
       }
       .fragmentContent{
-        font-size:16px;
+        height: 100%;
+        font-size:18px;
         letter-spacing: 2px;
-        line-height: 22px;
-        white-space: pre-wrap;
-        word-wrap: break-word;
+        line-height: 30px;
+        white-space: pre-wrap;       /* css-3 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+        word-break: break-all;
         color: #000000;
         max-height: calc(90% - 25px); /* 设置最大高度，超出时将出现垂直滚动条 */
         overflow-y:auto; /* 允许垂直滚动 */

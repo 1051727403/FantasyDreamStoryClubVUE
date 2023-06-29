@@ -101,13 +101,13 @@
             <div class="backIcon"@click="closeSideBar">
               <svg  style="width: 25px;height: 25px;" t="1687598692787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10553" width="200" height="200"><path d="M428.31644444 679.92462223l76.91377778-19.11466667-30.49244445-25.03111111a145.89724445 145.89724445 0 0 0-224.22186666-184.51342222l-7.96444444-6.58773333-195.44746667 329.95555555 298.74631111-74.25137778c2.50311111 0.13653333 5.02897778 0.19342222 7.56622223 0.19342223a145.18044445 145.18044445 0 0 0 74.8999111-20.65066667z" fill="#1792E5" p-id="10554"></path><path d="M1011.83715556 511.21493333c7.82791111-6.62186667 12.62933333-17.44213333 12.62933333-28.8768a38.05866667 38.05866667 0 0 0-12.02631112-27.67075555L608.81351111 93.7528889c-6.61048889-5.41582222-14.4384-9.02257778-23.46097777-9.02257779-20.48 0-36.69333333 16.83911111-36.69333334 37.888v159.41404445c-308.57671111 51.72337778-526.336 286.32177778-547.38488889 587.69635555 1.20604445 12.62933333 11.37777778 22.85795555 23.46097778 22.85795556a24.62151111 24.62151111 0 0 0 13.23235555-4.22115556c53.47555555-39.09404445 99.24835555-68.57386667 135.39555556-87.82506666 87.22204445-49.92568889 222.57208889-89.62275555 374.74986667-105.87022222v147.97937777c0 21.06026667 16.24746667 37.89937778 36.7047111 37.89937778 8.41955555 0 16.23608889-3.60675555 22.85795557-8.41955555l114.91555555-102.8664889a35.98791111 35.98791111 0 0 0 10.74062222-33.1207111v-0.59164445c-6.01884445-24.66702222-35.48728889-34.89564445-54.73848889-18.05653333l-52.9408 46.33031111V614.67306667l-40.89173333 3.00373333c-150.99448889 11.37777778-347.69351111 52.9408-474.61262222 129.3312-11.37777778 7.22488889-25.27004445-4.8128-21.0488889-17.44213333 70.97457778-204.51555555 255.64728889-348.88817778 502.89777779-378.95964444l33.67822221-4.20977778V200.81777778l320.62577779 281.52035555L769.42222222 637.53102223c-9.6256 8.41955555-13.23235555 21.61777778-10.24 34.28124444v0.6144c6.61048889 23.4496 34.88426667 32.47217778 53.53244445 16.23608889z m0 0" fill="#424242" p-id="10555"></path></svg>
             </div>
-            <div class="sideBarTopItem" ><img style="width: 70px;height: 70px;  border-radius: 50%;" :src="selectNodeInfo.data.author.avatarUrl?selectNodeInfo.data.author.avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282'" alt="45"></div>
+            <div class="sideBarTopItem" ><img style="width: 70px;height: 70px;  border-radius: 50%;" :src="selectNodeInfo.data.authorInfo.avatarUrl?selectNodeInfo.data.authorInfo.avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282'" alt="45"></div>
             <div class="sideBarTopItem" style="margin-top: 20px;">
-              <span style="color: #7f7ffc;font-size: 18px;text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff; ">{{selectNodeInfo.data.author.nickname}}</span>
+              <span style="color: #7f7ffc;font-size: 18px;text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff; ">{{selectNodeInfo.data.authorInfo.nickname}}</span>
               <span class="label">作者</span>
             </div>
             <div class="sideBarTopItem" style="font-size: 14px;color:#fb9cad;margin-top: 15px; ">
-              {{selectNodeInfo.data.author.totalLike}}
+              {{selectNodeInfo.data.authorInfo.totalLike}}
               <svg t="1687761923860" style="width: 18px;height: 18px;margin-left: 8px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3569" width="200" height="200"><path d="M911.786667 493.312c-40.789333 208.896-254.933333 355.626667-345.088 409.045333a107.434667 107.434667 0 0 1-109.397334 0c-90.197333-53.418667-304.341333-200.106667-345.088-409.045333-17.024-87.338667 6.144-179.925333 61.994667-247.765333C225.322667 183.466667 296.362667 149.333333 374.314667 149.333333c48.981333 0 96.298667 12.416 137.685333 36.010667a277.461333 277.461333 0 0 1 137.728-36.010667c77.909333 0 148.949333 34.133333 200.106667 96.213334 55.765333 67.84 78.933333 160.426667 61.909333 247.765333z" fill="#FF3D3F" p-id="3570"></path><path d="M849.792 245.546667a297.984 297.984 0 0 1 61.013333 128.256L411.221333 873.429333c-48.213333-32.128-109.482667-78.549333-164.522666-137.386666L790.912 192c21.632 14.421333 41.386667 32.384 58.88 53.589333z" fill="#FF5052" p-id="3571"></path><path d="M649.728 149.333333c51.285333 0 99.584 14.805333 141.226667 42.624L246.741333 736.128c-48.725333-52.053333-92.544-113.749333-118.058666-183.722667l372.821333-372.736c3.541333 1.834667 6.997333 3.712 10.453333 5.674667a277.461333 277.461333 0 0 1 137.728-36.010667z" fill="#FF6365" p-id="3572"></path><path d="M374.272 149.333333c44.970667 0 88.448 10.410667 127.274667 30.336l-372.778667 372.778667a391.253333 391.253333 0 0 1-16.554667-59.136c-17.024-87.338667 6.144-179.925333 61.994667-247.765333C225.322667 183.466667 296.362667 149.333333 374.314667 149.333333z" fill="#FF8A8B" p-id="3573"></path></svg>
             </div>
 
@@ -150,7 +150,7 @@
     <transition name="sideBar">
       <div class="sideBarBottom" v-if="showSideBar">
         <el-button @click="addChild" style="border-radius: 8px;background-color: #00c752;color: white;margin-right: 20px;" v-if="selectNodeInfo.data.allowRelay==1">片段接龙</el-button>
-        <el-button @click="delCard"style="border-radius: 8px;background-color: #cc3d01;color: white; " v-if="user && selectNodeInfo.data.author.id==user.id">删除片段</el-button>
+        <el-button @click="delCard"style="border-radius: 8px;background-color: #cc3d01;color: white; " v-if="user && selectNodeInfo.data.authorInfo.id==user.id">删除片段</el-button>
       </div>
     </transition>
     <!-- 片段内容-->
@@ -158,35 +158,49 @@
       <div class="fragmentContainer" v-if="showFragmentContent">
         <div class="cover">
           <div class="fragmentTop">
-            <el-tag v-if="selectNodeInfo.data.allowRelay==1" type="success" size="medium"  style="font-size: 12px">允许接龙</el-tag>
-            <el-tag v-if="selectNodeInfo.data.allowRelay==0" type="danger" size="medium">不允许接龙</el-tag>
+            <div class="allowRelay" v-if="selectNodeInfo.data.allowRelay==1" >允许接龙</div>
+            <div class="notAllowRelay" v-if="selectNodeInfo.data.allowRelay==0" >不允许接龙</div>
             <div class="common-flex"><span class="fragmentTopic">{{selectNodeInfo.topic}}</span></div>
             <svg @click="closeFragment" t="1687692218899" style="height: 25px;width: 25px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9883" width="200" height="200"><path d="M232.9 928.7c-34.8 0-69.6-13.2-96-39.7-53-53-53-139.1 0-192.1L463.8 370c10.3-10.3 27.1-10.3 37.5 0 10.3 10.3 10.3 27.1 0 37.5l-327 326.9c-32.3 32.3-32.3 84.9 0 117.2s84.9 32.3 117.2 0L850 293.1c32.3-32.3 32.3-84.9 0-117.2s-84.9-32.3-117.2 0L648.6 260c-10.3 10.3-27.1 10.3-37.5 0-10.3-10.3-10.3-27.1 0-37.5l84.1-84.1c53-53 139.1-53 192.1 0s53 139.1 0 192.1L328.9 889c-26.5 26.5-61.3 39.7-96 39.7z m0 0" fill="#2197EF" p-id="9884"></path><path d="M868.7 870.3c-42.7 42.7-112 42.7-154.7 0L155.6 311.8c-42.7-42.7-42.7-111.9 0-154.6 42.7-42.7 111.9-42.7 154.6 0l558.5 558.5c42.7 42.7 42.7 111.9 0 154.6z m0 0" fill="#CEE8FA" p-id="9885"></path><path d="M791.3 928.8c-36.3 0-70.4-14.1-96-39.8L136.8 330.5c-53-53-53-139.1 0-192.1 25.7-25.7 59.8-39.8 96-39.8 36.3 0 70.4 14.1 96 39.8l558.5 558.5c25.7 25.7 39.8 59.8 39.8 96 0 36.3-14.1 70.4-39.8 96-25.6 25.8-59.7 39.9-96 39.9zM232.9 151.6c-22.1 0-42.9 8.6-58.6 24.3-32.3 32.3-32.3 84.9 0 117.2l558.5 558.5c15.6 15.7 36.5 24.3 58.6 24.3s42.9-8.6 58.6-24.3c15.6-15.6 24.3-36.5 24.3-58.6s-8.6-42.9-24.3-58.6L291.5 175.9c-15.7-15.6-36.5-24.3-58.6-24.3z m0 0" fill="#2197EF" p-id="9886"></path></svg>
           </div>
-          <div class="fragmentContent" ><pre>{{selectNodeInfo.data.content}}</pre></div>
+          <div class="fragmentContent" >{{selectNodeInfo.data.content}}</div>
         </div>
       </div>
     </transition>
     <!--接龙弹窗 start-->
     <el-dialog
-        :title="'插入子级'"
+        :title="'片段接龙'"
         :visible.sync="dialogVisible"
         width="600px"
         @closed="form = {}"
         :destroy-on-close="true"
         :lock-scroll="false"
         :append-to-body="true"
-        v-if="selectNodeInfo"
     >
       <el-form label-width="80px" class="form-con">
-        <el-form-item label="卡片标题">
+        <el-form-item label="片段标题">
           <el-input
-              type="textarea"
-              :rows="2"
+              type=""
               v-model="createNodeInfo.topic"
               class="ele-width"
-              maxLength="64"
+              maxLength="30"
+              placeholder="请输入片段标题，30字以内"
           ></el-input>
+        </el-form-item>
+        <el-form-item label="片段内容">
+          <el-input
+              type="textarea"
+              :rows="10"
+              v-model="createNodeInfo.content"
+              class="ele-width"
+              placeholder="请输入片段内容"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="是否允许他人接龙" label-width="200">
+          <el-radio-group v-model="createNodeInfo.allowRelay" value="1">
+            <el-radio-button :label="1">是</el-radio-button>
+            <el-radio-button :label="0">否</el-radio-button>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <template v-slot:footer>
@@ -196,11 +210,12 @@
               class="common-btn"
               @click="saveNode"
               size="medium"
-          >确 定</el-button
-          >
+          >确 定</el-button>
         </div>
       </template>
     </el-dialog>
+
+
     <!--接龙弹窗 end-->
   </div>
 </template>
@@ -261,7 +276,7 @@ export default {
         // data: {
         //   id: 'root',
         //   topic: '序幕',
-        //   author:{
+        //   authorInfo:{
         //     nickname:'小明',
         //     avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
         //     totalLike:12345
@@ -382,7 +397,7 @@ export default {
         //       id: 1, // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
         //       topic: 'Easy', // [必选] 节点上显示的内容
         //       direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
-        //       author:{
+        //       authorInfo:{
         //         nickname:'小小',
         //         avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
         //         totalLike:11451145
@@ -499,6 +514,8 @@ export default {
         rectOrginalColor: '#C3C6CB',
         rectActiveColor: '#BACEFD'
       },
+      //故事id
+      storyId:1,
       //用户信息
       user:null,
       //是否已登录
@@ -515,8 +532,9 @@ export default {
       },
       //接龙新建节点信息
       createNodeInfo:{
-        id: null,
-        topic: ''
+        topic: '',
+        content:'',
+        allowRelay:1
       },
       // 保存修改之前的信息
       tempNodeInfo: null,
@@ -529,7 +547,7 @@ export default {
     }
   },
   created() {
-    this.loadAllFragment(1);
+    this.loadAllFragment(this.storyId);
     let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
     console.log("user:",user)
     if(user==null){
@@ -620,11 +638,13 @@ export default {
         });
       }else {
         this.selectNodeInfo = this.selectNodeInfo.parent
+        this.loadauthorInfoAndComment()
       }
     },
     chooseFragment(child){
       // console.log("点击下一幕",child)
       this.selectNodeInfo=child
+      this.loadauthorInfoAndComment()
     },
     //根据传入故事id参数load页面内容
     loadAllFragment(storyID){
@@ -634,7 +654,7 @@ export default {
         //   id: "root",
         //   rootId:0,
         //   topic: '序幕',
-        //   author:{
+        //   authorInfo:{
         //     nickname:'小明',
         //     avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
         //     totalLike:12345
@@ -716,7 +736,7 @@ export default {
         //       id: 1, // [必选] ID, 所有节点的ID不应有重复，否则ID重复的结节将被忽略
         //       topic: 'Easy', // [必选] 节点上显示的内容
         //       direction: 'right', // [可选] 节点的方向，此数据仅在第一层节点上有效，目前仅支持 left 和 right 两种，默认为 right
-        //       author:{
+        //       authorInfo:{
         //         nickname:'小小',
         //         avatarUrl:'https://img2.baidu.com/it/u=2064684749,2471246240&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282',
         //         totalLike:11451145
@@ -767,7 +787,7 @@ export default {
         //   "id": "root",
         //   "rootId": 1,
         //   "topic": "序幕",
-        //   "author": {
+        //   "authorInfo": {
         //     "nickname": null,
         //     "avatarUrl": null,
         //     "totalLike": 0
@@ -783,7 +803,7 @@ export default {
         //     {
         //       "id": 3,
         //       "topic": "第一幕",
-        //       "author": {
+        //       "authorInfo": {
         //         "nickname": null,
         //         "avatarUrl": null,
         //         "totalLike": 0
@@ -799,7 +819,7 @@ export default {
         //         {
         //           "id": 4,
         //           "topic": "第二幕",
-        //           "author": {
+        //           "authorInfo": {
         //             "nickname": null,
         //             "avatarUrl": null,
         //             "totalLike": 0
@@ -815,7 +835,7 @@ export default {
         //             {
         //               "id": 6,
         //               "topic": "第三幕",
-        //               "author": {
+        //               "authorInfo": {
         //                 "nickname": null,
         //                 "avatarUrl": null,
         //                 "totalLike": 0
@@ -834,7 +854,7 @@ export default {
         //         {
         //           "id": 5,
         //           "topic": "第二幕plus",
-        //           "author": {
+        //           "authorInfo": {
         //             "nickname": null,
         //             "avatarUrl": null,
         //             "totalLike": 0
@@ -939,6 +959,22 @@ export default {
       }
 
     },
+    //加载作者和评论区信息
+    loadauthorInfoAndComment(){
+      let fragmentId=-1;
+      if(this.selectNodeInfo.id=='root')fragmentId=this.selectNodeInfo.data.rootId
+      else fragmentId=this.selectNodeInfo.id;
+      console.log(fragmentId)
+      this.request.get("/fragment/loadauthorInfoAndComment?fragmentId="+fragmentId).then(res=> {
+        if(res.code=='200'){
+          this.selectNodeInfo.data.authorInfo=res.data.authorInfo
+          this.selectNodeInfo.data.comments=res.data.comments
+        }else{
+          this.$message.error(res.msg)
+        }
+
+      })
+    },
     // 获取选中标签的 ID
     get_selected_nodeid () {
       //若重复选中
@@ -959,19 +995,7 @@ export default {
         this.showSideBar=true
         this.showFragmentContent=true
         //加载作者和评论区信息
-        let fragmentId=-1;
-        if(this.selectNodeInfo.id=='root')fragmentId=this.selectNodeInfo.data.rootId
-        else fragmentId=this.selectNodeInfo.id;
-        console.log(fragmentId)
-        this.request.get("/fragment/loadAuthorAndComment?fragmentId="+fragmentId).then(res=> {
-          if(res.code=='200'){
-            this.selectNodeInfo.data.author=res.data.author
-            this.selectNodeInfo.data.comments=res.data.comments
-          }else{
-            this.$message.error(res.msg)
-          }
-
-        })
+        this.loadauthorInfoAndComment()
         return selectedNode.id
       } else {
         this.showSideBar=false
@@ -983,46 +1007,43 @@ export default {
     // 保存节点
     saveNode () {
       if (!this.createNodeInfo.topic) {
-        this.$message.info('请输入接龙标题')
+        this.$message.info('请输入片段标题')
+        return
+      }
+      if (!this.createNodeInfo.content) {
+        this.$message.info('请输入片段内容')
         return
       }
       console.log("输入的接龙节点topic为：",this.createNodeInfo.topic)
-        // 添加接龙,使用数据库中返回的id作为newid
-        // TODO 调接口
-      let newid=this.selectNodeInfo.id+'1';
-      let newtopic=this.createNodeInfo.topic;
-      let data={
-        author: {
-          nickname:'小小',
-          avatarUrl:'',
-          totalLike:520
-        },
-        comments: [{
-          name: 'Lana Del Rey',
-          id: 19870621,
-          headImg: 'https://ae01.alicdn.com/kf/Hd60a3f7c06fd47ae85624badd32ce54dv.jpg',
-          comment: '我发布一张新专辑Norman Fucking Rockwell,大家快来听啊',
-          time: '2019年9月16日 18:43',
-          inputShow: false,
-          reply: [{
-            from: 'Taylor Swift',
-            fromId: 19891221,
-            fromHeadImg: 'https://ae01.alicdn.com/kf/H94c78935ffa64e7e977544d19ecebf06L.jpg',
-            to: 'Lana Del Rey',
-            toId: 19870621,
-            comment: '我很喜欢你的新专辑！！',
-            time: '2019年9月16日 18:43',
-            inputShow: false
-          }]
-        }],
-        content:'123456'
+      // 添加接龙
+      // TODO 调接口
+      let id
+      if(this.selectNodeInfo.id=="root")id=this.selectNodeInfo.data.rootId;
+      else id=this.selectNodeInfo.id;
+      let fragmentData={
+        userId:this.user.id,
+        storyId:this.storyId,
+        parentId:id,
+        fragmentName:this.createNodeInfo.topic,
+        content:this.createNodeInfo.content,
+        allowRelay:this.createNodeInfo.allowRelay
       }
-      let newnode=this.jm.add_node(this.selectNodeInfo,newid,newtopic,data);
-      this.jm.set_node_color(newnode.id, this.bgMap[2].original, '#fff')
-      console.log("newnode:",newnode)
+      this.request.post("/fragment/addFragment",fragmentData).then(res=>{
+        console.log("res:",res)
+        if(res.code=="200") {
+          console.log("添加节点成功")
+          this.$message.success("添加节点成功！")
+          location.reload();
+        }else{
+          this.$message.error(res.msg);
+        }
+
+      })
       this.dialogVisible = false
-      this.showSideBar=false
-      this.showFragmentContent=false
+      this.showSideBar = false
+      this.showFragmentContent = false
+
+
     },
     // 单击重置选中背景颜色
     nodeClick () {
@@ -1039,8 +1060,9 @@ export default {
       console.log("当前选中的节点：",this.selectNodeInfo)
       this.dialogVisible = true
       this.createNodeInfo={
-        id: null,
-        topic:''
+        topic: '',
+        content:'',
+        allowRelay:1
       }
     },
 
@@ -1057,17 +1079,43 @@ export default {
         });
         return;
       }
-      if (this.user.id!=this.selectNodeInfo.data.author.id){
+      if (this.user.id!=this.selectNodeInfo.data.authorInfo.id){
           this.$notify({
             title: '非作者！不可删除！',
             duration:1500
           });
       }
-      // TODO
-      this.jm.remove_node(this.selectNodeInfo.id)
-      this.selectNodeInfo=null
-      this.showSideBar = false
-      this.showFragmentContent=false
+      this.$confirm('确认删除该片段?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // TODO
+
+        this.request.delete('',res=>{
+          if(res.code=='200'){
+            //
+
+
+            this.jm.remove_node(this.selectNodeInfo.id)
+            this.selectNodeInfo=null
+            this.showSideBar = false
+            this.showFragmentContent=false
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }else{
+            this.$message.error(res.msg)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+
     },
 
     // 鼠标滚轮放大缩小
