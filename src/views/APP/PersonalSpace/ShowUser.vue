@@ -8,48 +8,9 @@
             <i class="icon-dot"></i>
             Ta的创作
           </div>
-          <div class="book">
-            <ul style="list-style: none">
-              <li >
-                <a href="#" class="book-item-inner">
-                  <img src="#" width="130" height="195">
-                </a>
-                <div class="caption">
-                  <p class="booktitle">书名</p>
-                </div>
-              </li>
-              <li >
-                <a href="#" class="book-item-inner">
-                  <img src="#" width="130" height="195">
-                </a>
-                <div class="caption">
-                  <p class="booktitle">书名</p>
-                </div>
-              </li>
-              <li >
-                <a href="#" class="book-item-inner">
-                  <img src="#" width="130" height="195">
-                </a>
-                <div class="caption">
-                    书名
-                </div>
-              </li>
-              <li >
-                <a href="#" class="book-item-inner">
-                  <img src="#" width="130" height="195">
-                </a>
-                <div class="caption">
-                  <p class="booktitle">书名</p>
-                </div>
-              </li>
-              <li >
-                <a href="#" class="book-item-inner">
-                  <img src="#" width="130" height="195">
-                </a>
-                <div class="caption">
-                  <p class="booktitle">书名</p>
-                </div>
-              </li>
+          <div class="book" style="margin-bottom: 10px">
+            <ul style="list-style: none" id="mybook" >
+
             </ul>
           </div>
         </div>
@@ -83,11 +44,67 @@ export default {
   data(){
     return{
       userinfo:{
+        userid:1,
         username:45,
         nickname:"nick",
         totalLike:520
-      }
+      },
+      mystoryies:{}
     }
+  },
+  created() {
+    //console.log(456)
+    this.userinfo.userid=this.$route.query["userid"]
+    //请求作者信息
+    this.request.get("/user/getUserInfo?userid="+this.userinfo.userid).then(res=>{
+      if(res.code==='200'){
+        this.userinfo=res.data
+
+        //console.log(this.userinfo)
+
+      }
+      else{
+        this.$message.error("error"+res.msg)
+      }
+    })
+    //Ta的创作
+    this.request.get("/story/usersStories?userid="+this.userinfo.userid).then(res=>{
+      if(res.code==='200'){
+        this.mystoryies=res.data
+        var books =document.getElementById("mybook")
+        for (const book of res.data) {
+          var tli= document.createElement("li")
+          var ta = document.createElement("a")
+          var tmg= document.createElement('img')
+          tmg.src=book.coverUrl
+          tmg.width=130
+          tmg.height=195
+          ta.href=book.link
+          ta.appendChild(tmg)
+          tli.appendChild(ta)
+          var tdiv = document.createElement("div")
+          tdiv.style=
+              "  font-size: 15px;" +
+              "  font-weight: normal;"+
+              "  text-align: center;"
+          var tp = document.createElement("p")
+          tp.style= " text-overflow:ellipsis;" +
+              "  width:120px;"+
+              " overflow:hidden;" +
+              " white-space:nowrap;"
+          tp.innerText=book.storyName
+          tdiv.appendChild(tp)
+          tli.appendChild(tdiv)
+          tli.style=
+              " float: left;\n" +
+              " margin-left: 20px;" +
+          books.append(tli)
+        }
+      }
+      else{
+        this.$message.error("error"+res.msg)
+      }
+    })
   }
 }
 </script>
@@ -119,11 +136,11 @@ export default {
 }
 .wrapper .user-info .info-left .item{
   margin-top: 10px;
-  margin-left: 20px;;
+  margin-left: 15px;;
   line-height: 34px;
   font-size: 16px;
   font-weight: 700;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   float: left;
   width: 620px;
 }
@@ -138,15 +155,6 @@ export default {
   background-color: #00a786;
   margin-right: 2px;
   display: inline-block;
-}
-.wrapper .user-info .info-left .item .book ul li{
-  float: left;
-  padding-left: 20px;
-}
-.wrapper .user-info .info-left .item .book ul li .caption{
-  text-align: center;
-  font-size: 15px;
-  font-weight: normal;
 }
 
 

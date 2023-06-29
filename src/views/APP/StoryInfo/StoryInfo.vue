@@ -91,7 +91,7 @@ export default {
   },
   created() {
     this.storyid=this.$route.query["storyid"]
-    this.request.get("/story/getstoryinfo?storyid="+this.storyid).then(res=>{
+    this.request.get("/story/getStoryInfo?storyid="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
         console.log(res.data)
@@ -107,7 +107,7 @@ export default {
           }
         })
         //生成标签
-        this.request.get("/story/getstorytag?storyid=1").then(res=>{
+        this.request.get("/story/getStoryTag?storyid="+this.storyid).then(res=>{
           if(res.code==="200"){
             var tags = res.data
             var parent=document.getElementById("cats")
