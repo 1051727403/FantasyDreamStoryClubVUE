@@ -149,8 +149,8 @@
     <!--      底部-->
     <transition name="sideBar">
       <div class="sideBarBottom" v-if="showSideBar">
-        <el-button @click="addChild" style="border-radius: 8px;background-color: #00c752;color: white;margin-right: 20px;">片段接龙</el-button>
-        <el-button @click="delCard"style="border-radius: 8px;background-color: #cc3d01;color: white; ">删除片段</el-button>
+        <el-button @click="addChild" style="border-radius: 8px;background-color: #00c752;color: white;margin-right: 20px;" v-if="selectNodeInfo.data.allowRelay==1">片段接龙</el-button>
+        <el-button @click="delCard"style="border-radius: 8px;background-color: #cc3d01;color: white; " v-if="user && selectNodeInfo.data.author.id==user.id">删除片段</el-button>
       </div>
     </transition>
     <!-- 片段内容-->
@@ -158,6 +158,8 @@
       <div class="fragmentContainer" v-if="showFragmentContent">
         <div class="cover">
           <div class="fragmentTop">
+            <el-tag v-if="selectNodeInfo.data.allowRelay==1" type="success" size="medium"  style="font-size: 12px">允许接龙</el-tag>
+            <el-tag v-if="selectNodeInfo.data.allowRelay==0" type="danger" size="medium">不允许接龙</el-tag>
             <div class="common-flex"><span class="fragmentTopic">{{selectNodeInfo.topic}}</span></div>
             <svg @click="closeFragment" t="1687692218899" style="height: 25px;width: 25px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9883" width="200" height="200"><path d="M232.9 928.7c-34.8 0-69.6-13.2-96-39.7-53-53-53-139.1 0-192.1L463.8 370c10.3-10.3 27.1-10.3 37.5 0 10.3 10.3 10.3 27.1 0 37.5l-327 326.9c-32.3 32.3-32.3 84.9 0 117.2s84.9 32.3 117.2 0L850 293.1c32.3-32.3 32.3-84.9 0-117.2s-84.9-32.3-117.2 0L648.6 260c-10.3 10.3-27.1 10.3-37.5 0-10.3-10.3-10.3-27.1 0-37.5l84.1-84.1c53-53 139.1-53 192.1 0s53 139.1 0 192.1L328.9 889c-26.5 26.5-61.3 39.7-96 39.7z m0 0" fill="#2197EF" p-id="9884"></path><path d="M868.7 870.3c-42.7 42.7-112 42.7-154.7 0L155.6 311.8c-42.7-42.7-42.7-111.9 0-154.6 42.7-42.7 111.9-42.7 154.6 0l558.5 558.5c42.7 42.7 42.7 111.9 0 154.6z m0 0" fill="#CEE8FA" p-id="9885"></path><path d="M791.3 928.8c-36.3 0-70.4-14.1-96-39.8L136.8 330.5c-53-53-53-139.1 0-192.1 25.7-25.7 59.8-39.8 96-39.8 36.3 0 70.4 14.1 96 39.8l558.5 558.5c25.7 25.7 39.8 59.8 39.8 96 0 36.3-14.1 70.4-39.8 96-25.6 25.8-59.7 39.9-96 39.9zM232.9 151.6c-22.1 0-42.9 8.6-58.6 24.3-32.3 32.3-32.3 84.9 0 117.2l558.5 558.5c15.6 15.7 36.5 24.3 58.6 24.3s42.9-8.6 58.6-24.3c15.6-15.6 24.3-36.5 24.3-58.6s-8.6-42.9-24.3-58.6L291.5 175.9c-15.7-15.6-36.5-24.3-58.6-24.3z m0 0" fill="#2197EF" p-id="9886"></path></svg>
           </div>
@@ -497,7 +499,10 @@ export default {
         rectOrginalColor: '#C3C6CB',
         rectActiveColor: '#BACEFD'
       },
-
+      //用户信息
+      user:null,
+      //是否已登录
+      isLogined:false,
       story_name:'永远的二十四岁(遠天、とある忘れ物)',
       //片段内容显示控制
       showFragmentContent:false,
@@ -525,6 +530,18 @@ export default {
   },
   created() {
     this.loadAllFragment(1);
+    let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
+    console.log("user:",user)
+    if(user==null){
+      //未登录
+      return false;
+    }else{
+      //已登录
+      this.isLogined=true
+      this.user=user
+      console.log("user:",this.user)
+      return true;
+    }
   },
   methods: {
     //验证是否登陆
@@ -540,6 +557,7 @@ export default {
         return false;
       }else{
         //已登录
+        this.isLogined=true
         return true;
       }
     },
@@ -547,6 +565,19 @@ export default {
     pressLike(){
       //登录验证
       if(!this.checkIsLogined())return;
+      if (this.selectNodeInfo.data.isLike==0){
+        this.$notify({
+          title: '点赞成功！',
+          type:"success",
+          duration:1500
+        });
+      }else{
+        this.$notify({
+          title: '取消点赞！',
+          type:"success",
+          duration:1500
+        });
+      }
       console.log("点赞")
       let nodeId=this.selectNodeInfo.id
       let nodeTopic=this.selectNodeInfo.topic
@@ -557,12 +588,19 @@ export default {
     //收藏片段
     pressCollect(){
       //登录验证
-      if(!this.checkIsLogined()){
+      if(!this.checkIsLogined())return;
+      if (this.selectNodeInfo.data.isCollected==0){
         this.$notify({
-          title: '请登录后再进行操作！',
+          title: '收藏成功！',
+          type:"success",
           duration:1500
         });
-        return;
+      }else{
+        this.$notify({
+          title: '取消收藏！',
+          type:"success",
+          duration:1500
+        });
       }
       console.log("点击收藏")
       let nodeId=this.selectNodeInfo.id
@@ -570,6 +608,7 @@ export default {
       let isLike=this.selectNodeInfo.data.isLike
       let isCollected=!this.selectNodeInfo.data.isCollected
       this.jm.update_node(nodeId,nodeTopic,isLike,isCollected)
+
 
     },
     //返回上一个父片段
@@ -996,6 +1035,7 @@ export default {
 
     // 点击接龙按钮插入子级
     addChild () {
+      if (!this.checkIsLogined())return;
       console.log("当前选中的节点：",this.selectNodeInfo)
       this.dialogVisible = true
       this.createNodeInfo={
@@ -1006,16 +1046,28 @@ export default {
 
     // 删除节点
     delCard () {
-      const selectedNode = this.jm.get_selected_node()
-      if (selectedNode.data) {
-        // TODO
-        this.jm.remove_node(selectedNode.id)
-        // 获取数据
-        console.log(this.jm.get_data('node_tree'))
-      } else {
-        this.$message.error('请选择卡片')
+      if (!this.checkIsLogined())return;
+      if(this.selectNodeInfo.children.length!=0){
+        //已有接龙则不允许删除片段
+        this.$notify({
+          title: '提示',
+          duration:1500,
+          type:"warning",
+          message: '存在后续接龙，不可删除！'
+        });
+        return;
       }
+      if (this.user.id!=this.selectNodeInfo.data.author.id){
+          this.$notify({
+            title: '非作者！不可删除！',
+            duration:1500
+          });
+      }
+      // TODO
+      this.jm.remove_node(this.selectNodeInfo.id)
+      this.selectNodeInfo=null
       this.showSideBar = false
+      this.showFragmentContent=false
     },
 
     // 鼠标滚轮放大缩小
