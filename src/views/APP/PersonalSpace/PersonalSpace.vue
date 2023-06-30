@@ -11,9 +11,9 @@
       </div>
       <div class="nav">
       <ul class="nav-menu">
-        <li><a href="javascript:;"  @click="clickstory">我的收藏</a></li>
+        <li><a href="javascript:;"  @click="mycollect">我的收藏</a></li>
         <li><a href="javascript:;" @click="mystory">我的故事</a></li>
-        <li><a href="javascript:;" >我的片段</a></li>
+        <li><a href="javascript:;" @click="myfragment">我的片段</a></li>
       </ul>
     </div>
     </div>
@@ -22,8 +22,8 @@
           <i class="icon-dot"></i>
           <span id="titlename"></span>
         </div>
-        <div class="book" style="margin-bottom: 10px">
-          <ul style="list-style: none" >
+        <div class="book">
+          <ul style="list-style: none;width: 600px">
             <li style=" float: left;margin-left: 20px;" v-for="(item,_) in books">
               <a :href=item.link>
                 <img :src=item.coverUrl width="130" height="195">
@@ -32,7 +32,30 @@
                 <p style="text-overflow:ellipsis;width:120px;overflow:hidden;white-space:nowrap;">{{item.storyName}}</p>
               </div>
             </li>
-
+          </ul>
+        </div>
+        <div class="fragment">
+          <ul  style="list-style: none">
+            <li v-for="(item,_) in fragments">
+              <div style="height: 22px;margin-top: 10px">
+                <i class="el-icon-notebook-2" style="float: left;margin-left: 12px;margin-top: 4px"></i>
+                <div style="float: left;margin-left: 6px;line-height: 20px">
+                    <span class="storyName">
+                      {{item.storyName}}
+                    </span>
+                </div>
+              </div>
+              <div style="margin-left: 10px">
+                <a :href=item.link style="text-decoration: none">
+                    <span class="fragmentName">
+                        {{item.fragName}}
+                    </span>
+                  <span class="fragmentContent">
+                     {{ item.content }}
+                    </span>
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
     </div>
@@ -55,6 +78,7 @@ export default {
       userid:0,
       userinfo:{},
       books:[],
+      fragments:[],
       ok:false,
       loc:{}
     }
@@ -90,8 +114,8 @@ export default {
     })
   },
   methods:{
-    clickstory(){
-      this.userid=this.loc.id
+    mycollect(){
+      this.fragments=[]
       const t = document.getElementById("titlename");
       t.innerText="我的收藏";
       this.request.get("/story/usersCollectStories?userid="+this.userid).then(res=>{
@@ -107,7 +131,7 @@ export default {
       })
     },
     mystory(){
-      this.userid=this.loc.id
+      this.fragments=[]
       const t = document.getElementById("titlename");
       t.innerText="我的创作"
       this.request.get("/story/usersStories?userid="+this.userid).then(res=>{
@@ -121,6 +145,22 @@ export default {
           this.$message.error("error"+res.msg)
         }
       });
+    },
+    myfragment(){
+      this.books=[]
+      const t = document.getElementById("titlename");
+      t.innerText="我的片段";
+      this.request.get("/fragment/getFragInfo?userid="+this.userid).then(res=>{
+        if(res.code==='200'){
+          this.fragments=res.data
+          // for (var re of this.fragments) {
+          //   re.link="/APP/storyinfo?storyid="+re.storyId
+          // }
+        }
+        else{
+          this.$message.error("error"+res.msg)
+        }
+      })
     }
   }
 }
@@ -203,21 +243,68 @@ export default {
 .wrapper .main-info{
   position:relative;
   float: left;
-  background-color: beige;
   margin: 120px 300px;
   width: 1000px;
   height: 800px;
+  background-color: beige;
+  border-radius: 20px;
+
 }
 .wrapper .main-info .book{
-  margin-top: 10px;
   margin-left: 15px;;
   line-height: 34px;
   font-size: 16px;
   font-weight: 700;
-  padding-bottom: 5px;
   float: left;
-  width: 620px;
+  width: 650px;
 }
+.wrapper .main-info .fragment {
+  float: left;
+  width: 650px;
+
+}
+.wrapper .main-info .fragment ul li{
+  position: relative;
+  float: left;
+  width: 700px;
+  margin-left: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+.wrapper .main-info .fragment ul li .storyName{
+  font-size: 20px;
+  font-weight: initial;
+  width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrapper .main-info .fragment ul li .fragmentName{
+  position: relative;
+  float: left;
+  top: 2px;
+  width: 700px;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: bold;
+  color: black;
+}
+.wrapper .main-info .fragment ul li .fragmentContent{
+  position: relative;
+  float: left;
+  font-size: 16px;
+  color: black;
+  font-weight: revert;
+  line-height: 24px;
+  width: 650px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrapper .main-info .fragment li+li{
+  margin-top: 7px;
+}
+
 
 .wrapper .main-info .title{
   margin-top: 10px;
@@ -228,7 +315,6 @@ export default {
   padding-bottom: 5px;
   float: left;
   width: 620px;
-  margin-bottom: 15px;
 }
 .icon-dot {
   width: 14px;

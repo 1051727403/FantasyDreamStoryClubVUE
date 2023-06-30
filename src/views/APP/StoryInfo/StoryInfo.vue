@@ -25,7 +25,7 @@
           <div class="book-controls">
             <div class="primary">
               <el-button type="success" plain>开始阅读</el-button>
-              <el-button plain @click="collect">收藏</el-button>
+              <el-button plain @click="collect" >收藏</el-button>
             </div>
           </div>
         </div>
@@ -60,7 +60,18 @@
         </div>
       </div>
     </div>
+    <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%">
+      <span>你已收藏,是否取消收藏</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="uncollect">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
@@ -71,6 +82,7 @@ export default {
     return {
       plate: "",
       func: "",
+      dialogVisible:false,
       storyid:0,
       storyinfo:{},
       editorinfo:{},
@@ -133,19 +145,32 @@ export default {
     collect(){
       if(localStorage.getItem("user")){
         var userid =  JSON.parse(localStorage.getItem("user")).id;
-        this.request.post("/story/collectestory?userid="+userid+"&storyid="+this.storyid).then(res=>{
+        this.request.post("/story/collecteStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
           if(res.code==="200"){
             this.$message.success("收藏成功")
           }
           else{
-            this.$message.warning("已收藏")
+            this.dialogVisible = true
           }
         })
-        console.log("collecte")
       }
       else{
         this.$router.push('/login')
       }
+    },
+    uncollect(){
+      this.dialogVisible = false
+      var userid =  JSON.parse(localStorage.getItem("user")).id;
+      this.request.post("/story/uncollectStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
+        console.log(res)
+        if(res.code==="200"&& res.data===true){
+          this.$message.success("取消收藏成功")
+        }
+        else{
+          this.$message.error("出错")
+        }
+      })
+
     }
   }
 }
