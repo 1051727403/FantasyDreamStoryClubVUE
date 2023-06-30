@@ -483,7 +483,7 @@ export default {
           hmargin: 120, // 思维导图距容器外框的最小水平距离
           vmargin: 50, // 思维导图距容器外框的最小垂直距离
           line_width: 2, // 思维导图线条的粗细
-          line_color: 'rgba(87,94,127,0.4)' // 思维导图线条的颜色
+          line_color: 'rgba(255,255,255,0.2)' // 思维导图线条的颜色
         },
         layout: {
           hspace: 80, // 节点之间的水平间距
