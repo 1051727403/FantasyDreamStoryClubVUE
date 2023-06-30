@@ -107,7 +107,6 @@ export default {
       if(res.code==='200'){
         this.storyinfo=res.data
         console.log(res.data)
-        console.log(this.storyinfo.coverUrl)
         // 请求作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
@@ -124,6 +123,7 @@ export default {
           if(res.code==="200"){
             var tags = res.data
             var parent=document.getElementById("cats")
+            console.log(tags)
             for (const tag of tags) {
               var a = document.createElement("a")
               a.style=this.astyle
@@ -239,12 +239,10 @@ export default {
   width: 160px;
   height: 251px;
 }
-
 .book-wrapper .detail-layout .detail .meta-info .book-cats{
   margin-top: 12px;
   box-sizing: border-box;
 }
-
 .book-wrapper .detail-layout .detail .meta-info .book-data{
   margin-top: 10px;
   font-size: 17px;
@@ -305,14 +303,6 @@ export default {
 .book-wrapper .detail-layout .detail .introduction .section{
   padding: 22px 0;
 }
-.book-wrapper .detail-layout .detail .section-title{
-  font-weight: 500;
-  height: 21px;
-  line-height: 20px;
-  font-size: 15px;
-  color: #333;
-  text-align: left;
-}
 .book-wrapper .detail-layout .detail .introduction .section .introduction-text{
   font-size: 14px;
   color: #777;
@@ -320,6 +310,19 @@ export default {
   text-align: left;
   position: relative;
 
+}
+.book-wrapper .detail-layout .detail .comment{
+  display: block;
+  padding: 40px 40px;
+  border-bottom: 1px solid #eee;
+}
+.book-wrapper .detail-layout .detail .section-title{
+  font-weight: 500;
+  height: 21px;
+  line-height: 20px;
+  font-size: 15px;
+  color: #333;
+  text-align: left;
 }
 
 .book-wrapper .detail-layout .sidebar {
@@ -383,9 +386,5 @@ export default {
 
 }
 
-.book-wrapper .detail-layout .detail .comment{
-  display: block;
-  padding: 40px 40px;
-  border-bottom: 1px solid #eee;
-}
+
 </style>

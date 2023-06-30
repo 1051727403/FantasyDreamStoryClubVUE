@@ -59,6 +59,52 @@
           </ul>
         </div>
     </div>
+    <div class="left-bar">
+      <a href="#" class="createStory" @click="storydialogVisible=true">
+        <i class="el-icon-notebook-1"></i>
+        <span>
+          投稿故事
+        </span>
+      </a>
+      <a href="#" class="createFragment" @click="createFragment">
+        <i class="el-icon-tickets"></i>
+        <span>
+          投稿片段
+        </span>
+      </a>
+    </div>
+    <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%">
+      <el-form :model="form">
+        <el-form-item label="故事名" label-width=120>
+          <el-input v-model="form.storyName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="封面" label-width=120>
+          <el-upload
+              class="avatar-uploader"
+              action="http://localhost:9090/upload/image"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              name="photo">
+            <img v-if="form.coverUrl" :src="form.coverUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="介绍" label-width=120>
+          <el-input v-model="form.introduce" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="序幕名称" label-width=120>
+          <el-input v-model="form.firsttitle" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="序幕内容" label-width=120>
+          <el-input v-model="form.firstcontent" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="storydialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createStory">确 定</el-button>
+      </div>
+  </el-dialog>
   </div>
 </template>
 
@@ -75,12 +121,20 @@ export default {
       func: "",
       isCollapse:false,
       sideWidth:'200',
+      storydialogVisible:false,
       userid:0,
       userinfo:{},
       books:[],
       fragments:[],
       ok:false,
-      loc:{}
+      loc:{},
+      form:{
+        storyName:"",
+        coverUrl:"",
+        introduce:"",
+        firsttitle:"",
+        firstcontent:""
+      }
     }
   },
   created() {
@@ -153,14 +207,61 @@ export default {
       this.request.get("/fragment/getFragInfo?userid="+this.userid).then(res=>{
         if(res.code==='200'){
           this.fragments=res.data
-          // for (var re of this.fragments) {
-          //   re.link="/APP/storyinfo?storyid="+re.storyId
-          // }
         }
         else{
           this.$message.error("error"+res.msg)
         }
       })
+    },
+    createStory(){
+      this.storydialogVisible=false
+      this.request.post("/story/saveStory?userid="+this.userid+"&storyName=" + this.form.storyName+
+          "&introduce="+this.form.introduce+"&coverUrl="+this.form.coverUrl).then(res=>{
+            if(res.code==="200"){
+              this.request.post("/fragment/addFragment",
+                  {
+                    "userId":this.userid,
+                    "storyId":res.data,
+                    "parentId":0,
+                    "fragmentName":this.form.firsttitle,
+                    "content":this.form.firstcontent,
+                    "allowRelay":1
+                }).then(res=>{
+                  if(res.code==="200"){
+                    console.log("上传成功")
+                  }
+                  else{
+                    console.log("上传失败")
+                  }
+              })
+            }
+            else {
+              console.log("上传失败")
+            }
+      })
+    },
+    createFragment(){
+      console.log("我要片段")
+    },
+    handleAvatarSuccess(res) {
+      console.log(res)
+      if(res.code === "200"){
+        this.form.coverUrl="http://localhost:9090/img/"+res.data
+      }else{
+        console.log("上传错误")
+      }
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     }
   }
 }
@@ -304,8 +405,6 @@ export default {
 .wrapper .main-info .fragment li+li{
   margin-top: 7px;
 }
-
-
 .wrapper .main-info .title{
   margin-top: 10px;
   margin-left: 15px;;
@@ -326,5 +425,61 @@ export default {
   display: inline-block;
   position: relative;
   top: 1px;
+}
+
+.wrapper .left-bar {
+  position: fixed;
+  top: 280px;
+  left: 100px;
+  width: 120px;
+  height: 80px;
+  background-color: #00A1D6;
+  border-radius: 10px;
+  font-size: 18px;
+}
+.wrapper .left-bar .createStory {
+  position: relative;
+  float: left;
+  color: white;
+  margin-top: 15px;
+  margin-left: 10px;
+  border-bottom: 2px solid white;
+  width: 100px;
+  text-decoration: none;
+  text-align: center;
+}
+.wrapper .left-bar .createFragment {
+  position: relative;
+  float: left;
+  color: white;
+  margin-left: 10px;
+  width: 100px;
+  text-decoration: none;
+  text-align: center;
+}
+.avatar-uploader {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 178px;
+  height: 178px;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar-uploader .avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

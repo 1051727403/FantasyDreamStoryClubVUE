@@ -59,7 +59,7 @@ export default {
       }
     })
     //Ta的创作
-    this.request.get("/story/usersStories?userid="+this.userinfo.userid).then(res=>{
+    this.request.get("/story/usersStoriesWithFragment?userid="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
         this.showbook(res.data,"my_book")
       }
