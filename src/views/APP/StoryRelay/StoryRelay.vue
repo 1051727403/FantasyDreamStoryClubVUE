@@ -8,6 +8,7 @@
 
 <script>
 import JsMind from '@/components/Jsmind.vue'
+import '@/assets/css/reset.less';
 // import Demo from '@/components/Demo.vue'
 
 
@@ -20,6 +21,6 @@ export default {
 }
 </script>
 
-<style lang="less">
-@import '@/assets/css/reset.less';
+<style scoped>
+
 </style>
