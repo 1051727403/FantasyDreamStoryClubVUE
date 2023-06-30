@@ -78,7 +78,7 @@
 
 <!--    顶部菜单栏-->
     <div class="top-bar">
-      <svg @click="GoBackPage" t="1687590289426" style="height: 35px;width: 35px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1622" width="200" height="200"><path d="M728 212.182v-82.183a8 8 0 0 0-13.327-5.968L306.69 488.138c-0.9 0.803-1.754 1.657-2.558 2.557-11.772 13.178-10.626 33.4 2.558 45.167l407.984 364.107A8 8 0 0 0 728 894.001v-82.183a16 16 0 0 0-5.346-11.937L400.082 512l322.572-287.88A16 16 0 0 0 728 212.181z" fill="#5090F1" p-id="1623"></path></svg>
+      <svg @click="GoBackPage" t="1687590289426" style="height: 35px;width: 35px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1622" width="200" height="200"><path d="M728 212.182v-82.183a8 8 0 0 0-13.327-5.968L306.69 488.138c-0.9 0.803-1.754 1.657-2.558 2.557-11.772 13.178-10.626 33.4 2.558 45.167l407.984 364.107A8 8 0 0 0 728 894.001v-82.183a16 16 0 0 0-5.346-11.937L400.082 512l322.572-287.88A16 16 0 0 0 728 212.181z" fill="#fefac1" p-id="1623"></path></svg>
       <div class="story_name"><span>{{story_name}}</span></div>
     </div>
 
@@ -589,50 +589,78 @@ export default {
     pressLike(){
       //登录验证
       if(!this.checkIsLogined())return;
-      if (this.selectNodeInfo.data.isLike==0){
-        this.$notify({
-          title: '点赞成功！',
-          type:"success",
-          duration:1500
-        });
-      }else{
-        this.$notify({
-          title: '取消点赞！',
-          type:"success",
-          duration:1500
-        });
-      }
+
+      let nodeid
+      if (this.selectNodeInfo.id=='root')nodeid=this.selectNodeInfo.data.rootId
+      else nodeid=this.selectNodeInfo.id
       console.log("点赞")
-      let nodeId=this.selectNodeInfo.id
-      let nodeTopic=this.selectNodeInfo.topic
-      let isLike=!this.selectNodeInfo.data.isLike
-      let isCollected=this.selectNodeInfo.data.isCollected
-      this.jm.update_node(nodeId,nodeTopic,isLike,isCollected)
+      this.request.get("/fragment/changeLike?userId="+this.user.id+"&fragmentId="+nodeid+"&beLike="+!this.selectNodeInfo.data.isLike).then(res=>{
+        if (res.code=="200") {
+          if (this.selectNodeInfo.data.isLike == false) {
+            this.selectNodeInfo.data.authorInfo.totalLike = this.selectNodeInfo.data.authorInfo.totalLike + 1
+          } else {
+            this.selectNodeInfo.data.authorInfo.totalLike = this.selectNodeInfo.data.authorInfo.totalLike - 1
+          }
+          let nodeId = this.selectNodeInfo.id
+          let nodeTopic = this.selectNodeInfo.topic
+          let isLike = !this.selectNodeInfo.data.isLike
+          let isCollected = this.selectNodeInfo.data.isCollected
+          this.jm.update_node(nodeId, nodeTopic, isLike, isCollected)
+          if (this.selectNodeInfo.data.isLike!=0){
+            this.$notify({
+              title: '点赞成功！',
+              type:"success",
+              duration:1500
+            });
+          }else{
+            this.$notify({
+              title: '取消点赞！',
+              type:"success",
+              duration:1500
+            });
+          }
+        }else{
+          this.$message.error(res.msg)
+        }
+      })
     },
     //收藏片段
     pressCollect(){
       //登录验证
       if(!this.checkIsLogined())return;
-      if (this.selectNodeInfo.data.isCollected==0){
-        this.$notify({
-          title: '收藏成功！',
-          type:"success",
-          duration:1500
-        });
-      }else{
-        this.$notify({
-          title: '取消收藏！',
-          type:"success",
-          duration:1500
-        });
-      }
-      console.log("点击收藏")
-      let nodeId=this.selectNodeInfo.id
-      let nodeTopic=this.selectNodeInfo.topic
-      let isLike=this.selectNodeInfo.data.isLike
-      let isCollected=!this.selectNodeInfo.data.isCollected
-      this.jm.update_node(nodeId,nodeTopic,isLike,isCollected)
-
+      let nodeid
+      if (this.selectNodeInfo.id=='root')nodeid=this.selectNodeInfo.data.rootId
+      else nodeid=this.selectNodeInfo.id
+      console.log("收藏")
+      this.request.get("/fragment/changeCollection?userId="+this.user.id+"&fragmentId="+nodeid+"&beCollection="+!this.selectNodeInfo.data.isCollected).then(res=>{
+        if (res.code=="200") {
+          if (this.selectNodeInfo.data.isCollected == false) {
+            this.selectNodeInfo.data.authorInfo.totalCollection = this.selectNodeInfo.data.authorInfo.totalCollection + 1
+          } else {
+            this.selectNodeInfo.data.authorInfo.totalCollection = this.selectNodeInfo.data.authorInfo.totalCollection - 1
+          }
+          let nodeId = this.selectNodeInfo.id
+          let nodeTopic = this.selectNodeInfo.topic
+          let isLike = this.selectNodeInfo.data.isLike
+          let isCollected =!this.selectNodeInfo.data.isCollected
+          this.jm.update_node(nodeId, nodeTopic, isLike, isCollected)
+          if (this.selectNodeInfo.data.isCollected!=0){
+            this.$notify({
+              title: '收藏成功！',
+              type:"success",
+              duration:1500
+            });
+          }else{
+            this.$notify({
+              title: '取消收藏！',
+              type:"success",
+              duration:1500
+            });
+          }
+        }else{
+          this.$message.error(res.msg)
+        }
+      })
 
     },
     //返回上一个父片段
@@ -976,10 +1004,14 @@ export default {
       if(this.selectNodeInfo.id=='root')fragmentId=this.selectNodeInfo.data.rootId
       else fragmentId=this.selectNodeInfo.id;
       console.log(fragmentId)
-      this.request.get("/fragment/loadauthorInfoAndComment?fragmentId="+fragmentId).then(res=> {
+      let userId=0;
+      if (this.user!=null)userId=this.user.id
+      this.request.get("/fragment/loadauthorInfoAndComment?fragmentId="+fragmentId+"&userId="+userId).then(res=> {
         if(res.code=='200'){
           this.selectNodeInfo.data.authorInfo=res.data.authorInfo
           this.selectNodeInfo.data.comments=res.data.comments
+          this.selectNodeInfo.data.isLike=res.data.isLike
+          this.selectNodeInfo.data.isCollected=res.data.isCollected
         }else{
           this.$message.error(res.msg)
         }

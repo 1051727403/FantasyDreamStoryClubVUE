@@ -77,9 +77,9 @@ jmexpander {
   padding: 0px 0px 60px 0px;
   height: 100vh;
   z-index: 998;
-  background-color: rgba(251, 245, 224);
-  //background-image: url("../../../image/sakura.jpg");
-
+  //background-color: rgba(251, 245, 224);
+  background-image: url("../../../image/photo95.png");
+  background-size: cover ;
   &.full {
     position: fixed;
     left: 0;
@@ -220,8 +220,8 @@ jmexpander {
   .top-bar {
     height: 60px;
     width: 100%;
-    background-color: #e6ffe7;
-    box-shadow: 0 0 15px #bebebe;
+    background-color: rgba(230, 255, 231,0.3);
+    box-shadow: 0 0 5px #bebebe;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -232,9 +232,16 @@ jmexpander {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
-      color: #ff9cad; /* 设置字体颜色为粉色 */
-      text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff; /* 添加白色描边 */
+      font-size: 24px;
+      font-weight: bold;
+      font-family:楷体;
+      letter-spacing: 2px;
+      //color: #ff869a; /* 设置字体颜色为粉色 */
+      background: linear-gradient(to right, rgb(255, 93, 117) 30%, rgba(255, 229, 190, .8) 50%, rgb(176, 37, 214) 80%);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-align: center;
+      //text-shadow: 1px 1px 0px #ffe5ea, -1px -1px 0px #ffe5ea,1px -1px 0px #ffe5ea, -1px 1px 0px #ffe5ea; /* 添加白色描边 */
     }
     .filter {
       float: left;
@@ -512,6 +519,7 @@ jmexpander {
     flex-direction: column;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
     background-image: url('../../../image/sakura.jpg');
+    background-size: cover;
     background-size: auto 100%;
 
     .cover {
