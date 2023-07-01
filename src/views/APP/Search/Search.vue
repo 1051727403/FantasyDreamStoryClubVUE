@@ -15,7 +15,7 @@
                   <a rel="nofollow" :href="tagSearch(-1)" :class="tagChooseClass(-1)">
                     全部</a>
                 </li>
-                <li class="special" v-for="tag in allTags" :key="tag">
+                <li class="special" v-for="(tag, index) in allTags" :key="'tag_' + index">
                   <a rel="nofollow" :href="tagSearch(tag.tagId)" :class="tagChooseClass(tag.tagId)">
                     {{tag.tagName}}</a>
                 </li>
@@ -51,10 +51,18 @@
         <div class="rank-content">
           <div class="rank-book-list">
 
-            <div class="rank-book" v-for="book in allBooks" :key="book">
+            <div class="rank-book" v-for="(book, index) in allBooks" :key="'story_' + index">
               <div class="book-draw">
                 <div class="book-cover">
-                  <img :src="book.coverUrl" alt="">
+                  <a :href="storySkip(book.storyId)" target="_blank">
+                    <el-image
+                        style="width: 100%; height: 100%"
+                        fit="cover"
+                        class="lazy"
+                        alt=""
+                        :src="book.coverUrl"
+                        lazy></el-image>
+                  </a>
                 </div>
                 <div class="book-box">
                   <div class="book-box-mask"></div>
@@ -62,7 +70,7 @@
                     <a :href="storySkip(book.storyId)" target="_blank" class="book-name">
                       {{book.storyName}}</a>
                     <div class="book-tags">
-                      <a class="book-tag" href="/cat/1.html" target="_blank" v-for="tag in book.tags" :key="tag">
+                      <a class="book-tag" href="/cat/1.html" target="_blank" v-for="(tag, index) in book.tags" :key="'book_tag_' + index">
                         {{tag.tagName}}</a>
                     </div>
                     <div class="book-intro">
@@ -73,48 +81,6 @@
                 </div>
               </div>
 
-              <div class="rank-book-mask">
-                <a href="/book/100818.html" target="_blank" class="book-mask-left">
-                  <div class="vol-name">
-                    第14卷					</div>
-                  <div class="vol-intro">
-                    艾卡等人即刻前往中部海域寻找唤醒薇汐的唯一希望——世界树。在那里，艾卡回忆起了被遗忘的童年时光，以及与她的初次相遇。
-                    与此同时，世界树的魔力以不完整的状态被激活，世界的根基剧烈动摇。					</div>
-                </a>
-
-                <div class="book-mask-line"></div>
-
-                <div class="book-mask-right">
-                  <ul class="vol-chapter">
-                    <li>
-                      <a href="/book/100818/106886.html" target="_blank">
-                        <p>第三章 星落（8）</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/book/100818/86084.html" target="_blank">
-                        <p>终章 樱开一度亦是樱</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/book/100818/106889.html" target="_blank">
-                        <p>终章 樱开一度亦是樱（2）</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/book/100818/96615.html" target="_blank">
-                        <p>后记</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/book/100818/228633.html" target="_blank">
-                        <div class="new-vol"></div>
-                        <p>漫画版人设图（轻之文库ver.）</p>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
 
           </div>
@@ -177,6 +143,7 @@ export default {
       allBooks: [],
       sortTag: 'date',
       typeTag: -1,
+      page: 1,
     }
   },
   computed: {
@@ -198,14 +165,14 @@ export default {
     load() {
       const sort = this.$route.query.sort;
       const tag = this.$route.query.tag;
+      const page = this.$route.query.page;
       console.log('sort:', sort);
       console.log('tag:', tag);
+      console.log('tag:', page);
 
       if (sort) this.sortTag = sort;
       if (tag) this.typeTag = parseInt(tag);
-
-      console.log('sortTag:', this.sortTag);
-      console.log('typeTag:', this.typeTag);
+      if (page) this.page = parseInt(page);
 
       this.request.get("search/allTags").then(res=>{
         console.log(res);
@@ -216,6 +183,7 @@ export default {
           params: {
             tag: this.typeTag,
             sort: this.sortTag,
+            page: this.page
           }
         }).then(res=>{
         console.log(res);
@@ -228,10 +196,10 @@ export default {
       this.prevScrollPos = currentScrollPos;
     },
     sortSearch(sort) {
-      return '/APP/Search/?tag=' + this.typeTag + '&sort=' + sort;
+      return '/APP/Search/?tag=' + this.typeTag + '&sort=' + sort + '&page=' + this.page;
     },
     tagSearch(tag) {
-      return '/APP/Search/?tag=' + tag + '&sort=' + this.sortTag;
+      return '/APP/Search/?tag=' + tag + '&sort=' + this.sortTag  + '&page=' + this.page;
     },
     storySkip(storyId) {
       return "/APP/StoryInfo/?storyid=" + storyId;
