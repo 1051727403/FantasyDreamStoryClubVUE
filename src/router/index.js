@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/Management/Manage.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,11 +30,7 @@ const routes = [
         component:()=>import('../views/APP/Index/Index.vue'),
         meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
-      {
-        path:'PersonalSpace',
-        name:'usercenter',
-        component:()=>import('../views/APP/PersonalSpace/PersonalSpace.vue'),
-      },
+
       {
         path:'StoryInfo',
         name:'AppStoryInfo',
@@ -69,14 +64,31 @@ const routes = [
     meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
 
-
-
-
-
-
     //后台管理页面
-
-
+  {
+    path:'/PersonalSpace',
+    component:()=>import('../views/APP/AppHome.vue'),
+    redirect:'/PersonalSpace/myCollect',
+    children:[{
+        path: 'myCollect',
+        name:'个人中心',
+        component:()=>import('../views/APP/PersonalSpace/PersonalCenter.vue'),
+        redirect:'/PersonalSpace/myCollect',
+        children:[
+          {
+            path:'/PersonalSpace/myCollect',
+            name: '我的收藏',
+            component:()=>import('../views/APP/PersonalSpace/MyCollect.vue')
+          },
+          {
+            path:'/PersonalSpace/myStory',
+            name: '我的故事',
+            component:()=>import('../views/APP/PersonalSpace/MyStory.vue')
+          },
+        ]
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

@@ -73,7 +73,7 @@ export default {
         this.$router.push("/Manage/userInfo")
       }else{
         console.log(this.user)
-        this.$router.push("/App/PersonalSpace?userid="+this.user.id)
+        this.$router.push("/PersonalSpace")
       }
     },
     gotowhat(){
