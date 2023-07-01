@@ -1106,12 +1106,11 @@ export default {
       //若重复选中
       const selectedNode = this.jm.get_selected_node()
       if (this.selectNodeInfo===selectedNode && selectedNode!=null){
-        this.showSideBar=!this.showSideBar
         this.showFragmentContent=!this.showFragmentContent
         //取消选中
         this.jm.select_clear()
         console.log("重复选中同一node")
-        return null
+        //return null
       }else {
         this.selectNodeInfo = selectedNode
       }
@@ -1140,20 +1139,20 @@ export default {
         return
       }
       //当选择不允许他人接龙时先判断子节点有无其他人接龙
-      if(this.updateNodeInfo.allowRelay==0){
-        let children=this.selectNodeInfo.children
-        let f=false;
-        for(let i=0;i<children.length;i++){
-          if (children[i].data.authorInfo.id!=this.user.id){
-            f=true
-            break
-          }
-        }
-        if(f){
-          this.$message.warning('他人已接龙，不可修改为不可接龙状态！')
-          return
-        }
-      }
+      // if(this.updateNodeInfo.allowRelay==0){
+      //   let children=this.selectNodeInfo.children
+      //   let f=false;
+      //   for(let i=0;i<children.length;i++){
+      //     if (children[i].data.authorInfo.id!=this.user.id){
+      //       f=true
+      //       break
+      //     }
+      //   }
+      //   if(f){
+      //     this.$message.warning('他人已接龙，不可修改为不可接龙状态！')
+      //     return
+      //   }
+      // }
       console.log("输入的接龙节点topic为：",this.updateNodeInfo.topic)
       // 添加接龙
       // TODO 调接口
