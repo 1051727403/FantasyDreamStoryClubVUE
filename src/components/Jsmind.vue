@@ -152,6 +152,8 @@
     <transition name="sideBar">
       <div class="sideBarBottom" v-if="showSideBar">
         <el-button @click="addChild" style="border-radius: 8px;background-color: #00c752;color: white;margin-right: 20px;" v-if="selectNodeInfo.data.allowRelay==1">片段接龙</el-button>
+        <el-button @click="addChild" style="border-radius: 8px;background-color: #00c752;color: white;margin-right: 20px;" v-if="selectNodeInfo.data.allowRelay!=1 && user && selectNodeInfo.data.authorInfo && selectNodeInfo.data.authorInfo.id==user.id">片段接龙</el-button>
+        <el-button @click="updateFragment" style="border-radius: 8px;background-color: #23abff;color: white;margin-right: 20px;" v-if="user && selectNodeInfo.data.authorInfo && selectNodeInfo.data.authorInfo.id==user.id">修改片段</el-button>
         <el-button @click="delCard"style="border-radius: 8px;background-color: #cc3d01;color: white; " v-if="user && selectNodeInfo.data.authorInfo && selectNodeInfo.data.authorInfo.id==user.id">删除片段</el-button>
       </div>
     </transition>
@@ -161,7 +163,7 @@
         <div class="cover">
           <div class="fragmentTop">
             <div class="allowRelay" v-if="selectNodeInfo.data.allowRelay==1" >允许接龙</div>
-            <div class="notAllowRelay" v-if="selectNodeInfo.data.allowRelay==0" >不允许接龙</div>
+            <div class="notAllowRelay" v-if="selectNodeInfo.data.allowRelay==0" >不允许他人接龙</div>
             <div class="common-flex" style="width: 90%;"><span class="fragmentTopic">{{selectNodeInfo.topic}}</span></div>
             <svg @click="closeFragment" t="1687692218899" style="height: 25px;width: 25px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9883" width="200" height="200"><path d="M232.9 928.7c-34.8 0-69.6-13.2-96-39.7-53-53-53-139.1 0-192.1L463.8 370c10.3-10.3 27.1-10.3 37.5 0 10.3 10.3 10.3 27.1 0 37.5l-327 326.9c-32.3 32.3-32.3 84.9 0 117.2s84.9 32.3 117.2 0L850 293.1c32.3-32.3 32.3-84.9 0-117.2s-84.9-32.3-117.2 0L648.6 260c-10.3 10.3-27.1 10.3-37.5 0-10.3-10.3-10.3-27.1 0-37.5l84.1-84.1c53-53 139.1-53 192.1 0s53 139.1 0 192.1L328.9 889c-26.5 26.5-61.3 39.7-96 39.7z m0 0" fill="#2197EF" p-id="9884"></path><path d="M868.7 870.3c-42.7 42.7-112 42.7-154.7 0L155.6 311.8c-42.7-42.7-42.7-111.9 0-154.6 42.7-42.7 111.9-42.7 154.6 0l558.5 558.5c42.7 42.7 42.7 111.9 0 154.6z m0 0" fill="#CEE8FA" p-id="9885"></path><path d="M791.3 928.8c-36.3 0-70.4-14.1-96-39.8L136.8 330.5c-53-53-53-139.1 0-192.1 25.7-25.7 59.8-39.8 96-39.8 36.3 0 70.4 14.1 96 39.8l558.5 558.5c25.7 25.7 39.8 59.8 39.8 96 0 36.3-14.1 70.4-39.8 96-25.6 25.8-59.7 39.9-96 39.9zM232.9 151.6c-22.1 0-42.9 8.6-58.6 24.3-32.3 32.3-32.3 84.9 0 117.2l558.5 558.5c15.6 15.7 36.5 24.3 58.6 24.3s42.9-8.6 58.6-24.3c15.6-15.6 24.3-36.5 24.3-58.6s-8.6-42.9-24.3-58.6L291.5 175.9c-15.7-15.6-36.5-24.3-58.6-24.3z m0 0" fill="#2197EF" p-id="9886"></path></svg>
           </div>
@@ -216,9 +218,55 @@
         </div>
       </template>
     </el-dialog>
-
-
     <!--接龙弹窗 end-->
+    <!--修改片段弹窗 start-->
+    <el-dialog
+        :title="'片段接龙'"
+        :visible.sync="updateVisible"
+        width="600px"
+        @closed="form = {}"
+        :destroy-on-close="true"
+        :lock-scroll="false"
+        :append-to-body="true"
+    >
+      <el-form label-width="80px" class="form-con">
+        <el-form-item label="片段标题">
+          <el-input
+              type=""
+              v-model="updateNodeInfo.topic"
+              class="ele-width"
+              maxLength="30"
+              placeholder="请输入片段标题，30字以内"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="片段内容">
+          <el-input
+              type="textarea"
+              :rows="10"
+              v-model="updateNodeInfo.content"
+              class="ele-width"
+              placeholder="请输入片段内容"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="是否允许他人接龙" label-width="200">
+          <el-radio-group v-model="updateNodeInfo.allowRelay" value="1">
+            <el-radio-button :label="1">是</el-radio-button>
+            <el-radio-button :label="0">否</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <template v-slot:footer>
+        <div class="right mr-10">
+          <el-button
+              type="primary"
+              class="common-btn"
+              @click="updateNode"
+              size="medium"
+          >确 定</el-button>
+        </div>
+      </template>
+    </el-dialog>
+    <!--修改片段弹窗 end-->
   </div>
 </template>
 
@@ -531,6 +579,8 @@ export default {
       showFragmentContent:false,
       //新增子节点填写信息窗口显示控制
       dialogVisible: false,
+      //修改节点信息窗口控制
+      updateVisible:false,
       // 选中节点信息
       selectNodeInfo: {
         id: null,
@@ -538,6 +588,12 @@ export default {
       },
       //接龙新建节点信息
       createNodeInfo:{
+        topic: '',
+        content:'',
+        allowRelay:1
+      },
+      //接龙修改片段信息
+      updateNodeInfo:{
         topic: '',
         content:'',
         allowRelay:1
@@ -553,7 +609,9 @@ export default {
     }
   },
   created() {
-    this.loadAllFragment(this.storyId);
+    let storyId=this.$route.query["storyId"];
+    this.storyId=storyId;
+    this.loadAllFragment(storyId);
     let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
     console.log("user:",user)
     if(user==null){
@@ -568,6 +626,26 @@ export default {
     }
   },
   methods: {
+    //根据片段名定位到对应页面
+    jumpToFragment(fragmentId){
+      console.log("jumpToFragment:",fragmentId)
+      if (fragmentId!=null) {
+
+        this.selectNodeInfo = this.jm.get_node(fragmentId)
+        const nodeObj = this.jm.get_root()
+        if(fragmentId==nodeObj.data.rootId){
+          this.selectNodeInfo=nodeObj
+        }
+        this.jm.select_node(this.selectNodeInfo)
+        console.log("selectNodeInfo:",this.selectNodeInfo)
+        this.loadauthorInfoAndComment()
+        this.jm.set_node_color(this.selectNodeInfo.id, this.selectNodeInfo.data['background-color'], '#500d41')
+        this.showFragmentContent=true;
+        this.showSideBar=true;
+      }
+
+
+    },
     //验证是否登陆
     checkIsLogined(){
       let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null;
@@ -673,12 +751,14 @@ export default {
       }else {
         this.selectNodeInfo = this.selectNodeInfo.parent
         this.loadauthorInfoAndComment()
+        this.jm.set_node_color(this.selectNodeInfo.id, this.selectNodeInfo.data['background-color'], '#500d41')
       }
     },
     chooseFragment(child){
       // console.log("点击下一幕",child)
       this.selectNodeInfo=child
       this.loadauthorInfoAndComment()
+      this.jm.set_node_color(this.selectNodeInfo.id, this.selectNodeInfo.data['background-color'], '#500d41')
     },
     //根据传入故事id参数load页面内容
     loadAllFragment(storyID){
@@ -914,6 +994,9 @@ export default {
           this.init()
           this.mouseWheel()
           this.mouseDrag()
+          //跳转到节点
+          let fragmentId=this.$route.query["fragmentId"];
+          this.jumpToFragment(fragmentId)
         }else{
           this.$message.error(res.msg)
         }
@@ -1046,8 +1129,73 @@ export default {
         return null
       }
     },
+    //更新节点信息
+    updateNode(){
+      if (!this.updateNodeInfo.topic) {
+        this.$message.info('请输入片段标题')
+        return
+      }
+      if (!this.updateNodeInfo.content) {
+        this.$message.info('请输入片段内容')
+        return
+      }
+      //当选择不允许他人接龙时先判断子节点有无其他人接龙
+      if(this.updateNodeInfo.allowRelay==0){
+        let children=this.selectNodeInfo.children
+        let f=false;
+        for(let i=0;i<children.length;i++){
+          if (children[i].data.authorInfo.id!=this.user.id){
+            f=true
+            break
+          }
+        }
+        if(f){
+          this.$message.warning('他人已接龙，不可修改为不可接龙状态！')
+          return
+        }
+      }
+      console.log("输入的接龙节点topic为：",this.updateNodeInfo.topic)
+      // 添加接龙
+      // TODO 调接口
+      let id
+      if(this.selectNodeInfo.id=="root")id=this.selectNodeInfo.data.rootId;
+      else id=this.selectNodeInfo.id;
+      let fragmentData={
+        fragmentId:id,
+        fragmentName:this.updateNodeInfo.topic,
+        content:this.updateNodeInfo.content,
+        allowRelay:this.updateNodeInfo.allowRelay
+      }
+      this.request.post("/fragment/updateFragment",fragmentData).then(res=>{
+        console.log("res:",res)
+        if(res.code=="200") {
+          console.log("更新节点成功")
+          this.$message.success("更新节点成功！")
+          // location.reload();
+          let nodedata={
+            allowRelay:res.data.allowRelay,
+            authorInfo:null,
+            comments:[],
+            content:res.data.content,
+            isCollected:0,
+            isLike:0,
+            totalLike:res.data.totalLike,
+            totalCollection:res.data.totalCollection,
+            totalComment:res.data.totalComment
+          }
+          this.jm.update_node(res.data.id,res.data.fragmentName,0,0,nodedata)
+          this.jm.set_node_color(res.data.id, res.data.allowRelay?this.bgMap[2].original:this.bgMap[3].original, '#fff')
+        }else{
+          this.$message.error(res.msg);
+        }
 
-    // 保存节点
+      })
+      this.updateVisible = false
+      this.showSideBar = false
+      this.showFragmentContent = false
+
+    },
+    // 保存节点添加片段
     saveNode () {
       if (!this.createNodeInfo.topic) {
         this.$message.info('请输入片段标题')
@@ -1089,7 +1237,7 @@ export default {
             totalComment:0
           }
           this.jm.add_node(this.selectNodeInfo,res.data.id,res.data.fragmentName,nodedata)
-          this.jm.set_node_color(res.data.id, this.bgMap[2].original, '#fff')
+          this.jm.set_node_color(res.data.id, res.data.allowRelay?this.bgMap[2].original:this.bgMap[3].original, '#fff')
         }else{
           this.$message.error(res.msg);
         }
@@ -1098,8 +1246,6 @@ export default {
       this.dialogVisible = false
       this.showSideBar = false
       this.showFragmentContent = false
-
-
     },
     // 单击重置选中背景颜色
     nodeClick () {
@@ -1109,7 +1255,17 @@ export default {
       const nodeObj = this.jm.get_node(selectedId)
       this.jm.set_node_color(selectedId, nodeObj.data['background-color'], '#500d41')
     },
-
+    //修改片段
+    updateFragment(){
+      if (!this.checkIsLogined())return;
+      console.log("当前选中的节点：",this.selectNodeInfo)
+      this.updateVisible = true
+      this.updateNodeInfo={
+        topic: this.selectNodeInfo.topic,
+        content:this.selectNodeInfo.data.content,
+        allowRelay:this.selectNodeInfo.data.allowRelay
+      }
+    },
     // 点击接龙按钮插入子级
     addChild () {
       if (!this.checkIsLogined())return;
@@ -1264,6 +1420,7 @@ export default {
   },
   //挂载
   mounted () {
+
 
   },
   beforeDestroy () {

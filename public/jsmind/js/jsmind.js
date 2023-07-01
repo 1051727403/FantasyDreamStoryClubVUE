@@ -1427,7 +1427,7 @@
             }
         },
 
-        update_node:function(nodeid, topic,isLike,isCollected){
+        update_node:function(nodeid, topic,isLike,isCollected,data=null){
             if(this.get_editable()){
                 if(jm.util.text.is_empty(topic)){
                     logger.warn('fail, topic can not be empty');
@@ -1447,6 +1447,9 @@
                     }
                     node.data.isLike=isLike;
                     node.data.isCollected=isCollected
+                    if(data!=null){
+                        node.data=data
+                    }
                     this.view.update_node(node);
                     this.layout.layout();
                     this.view.show(false);
