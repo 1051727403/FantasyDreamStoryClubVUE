@@ -66,12 +66,6 @@
           投稿故事
         </span>
       </a>
-      <a href="#" class="createFragment" @click="createFragment">
-        <i class="el-icon-tickets"></i>
-        <span>
-          投稿片段
-        </span>
-      </a>
     </div>
     <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%">
       <el-form :model="form">
@@ -90,14 +84,29 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
+        <el-form-item label="标签" label-width=120>
+          <el-select
+              v-model="form.tags"
+              multiple
+              collapse-tags
+              style="margin-left: 20px;"
+              placeholder="请选择">
+            <el-option
+                v-for="item in tags"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="介绍" label-width=120>
           <el-input v-model="form.introduce" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="序幕名称" label-width=120>
-          <el-input v-model="form.firsttitle" autocomplete="off"></el-input>
+          <el-input v-model="firsttitle" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="序幕内容" label-width=120>
-          <el-input v-model="form.firstcontent" autocomplete="off"></el-input>
+          <el-input v-model="firstcontent" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -132,9 +141,18 @@ export default {
         storyName:"",
         coverUrl:"",
         introduce:"",
-        firsttitle:"",
-        firstcontent:""
-      }
+        tags:[],
+      },
+      firsttitle:"",
+      firstcontent:"",
+      tags:[
+        {
+          value:1,
+          label:"幻想"},
+        {
+          value:2,
+          label:"恋爱"},
+      ]
     }
   },
   created() {
@@ -215,33 +233,32 @@ export default {
     },
     createStory(){
       this.storydialogVisible=false
-      this.request.post("/story/saveStory?userid="+this.userid+"&storyName=" + this.form.storyName+
-          "&introduce="+this.form.introduce+"&coverUrl="+this.form.coverUrl).then(res=>{
+      console.log(this.form.tag)
+      this.form.userId = this.userid
+      this.request.post("/story/saveStory",this.form).then(res=>{
+            console.log(res)
             if(res.code==="200"){
               this.request.post("/fragment/addFragment",
                   {
                     "userId":this.userid,
                     "storyId":res.data,
                     "parentId":0,
-                    "fragmentName":this.form.firsttitle,
-                    "content":this.form.firstcontent,
+                    "fragmentName":this.firsttitle,
+                    "content":this.firstcontent,
                     "allowRelay":1
                 }).then(res=>{
                   if(res.code==="200"){
                     console.log("上传成功")
                   }
                   else{
-                    console.log("上传失败")
+                    console.log("上传失败2")
                   }
               })
             }
             else {
-              console.log("上传失败")
+              console.log("上传失败1")
             }
       })
-    },
-    createFragment(){
-      console.log("我要片段")
     },
     handleAvatarSuccess(res) {
       console.log(res)
@@ -254,7 +271,6 @@ export default {
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!');
       }
@@ -441,22 +457,15 @@ export default {
   position: relative;
   float: left;
   color: white;
-  margin-top: 15px;
+  margin-top: 25px;
   margin-left: 10px;
   border-bottom: 2px solid white;
   width: 100px;
   text-decoration: none;
   text-align: center;
 }
-.wrapper .left-bar .createFragment {
-  position: relative;
-  float: left;
-  color: white;
-  margin-left: 10px;
-  width: 100px;
-  text-decoration: none;
-  text-align: center;
-}
+
+
 .avatar-uploader {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
