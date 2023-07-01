@@ -26,7 +26,7 @@
         <div style="display: flex;justify-content: space-between;align-items: center; width: 235px;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
-            <span class="author-time">{{item.time}}</span>
+            <span class="author-time">{{item.time[0]}}.{{item.time[1]}}.{{item.time[2]}}&nbsp;{{item.time[3]}}:{{item.time[4]}} </span>
           </div>
           <div class="icon-btn" style="font-size: 12px;">
             <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">回复</i></span>
@@ -38,14 +38,17 @@
           <span class="reply">{{item.comment}}</span>
         </p>
       </div>
+
+
+
       <div class="reply-box">
-        <div v-for="(reply,j) in item.reply" :key="j" class="author-title">
+        <div v-for="(reply, j) in item.reply" :key="j" class="author-title" v-show="shouldShowReply(i, j)">
           <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
             <el-avatar class="header-img" :size="30" :src="reply.fromHeadImg"></el-avatar>
             <div style="display: flex;justify-content: space-between;align-items: center; width: 205px;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
-                <span class="author-time">{{reply.time}}</span>
+                <span class="author-time">{{reply.time[0]}}.{{reply.time[1]}}.{{reply.time[2]}}&nbsp;{{reply.time[3]}}:{{reply.time[4]}}</span>
               </div>
               <div class="icon-btn"style="font-size: 12px;">
                 <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
@@ -64,7 +67,15 @@
           </div>
         </div>
       </div>
-      <div v-show="_inputShow(i)" class="my-reply my-comment-reply">
+
+      <!-- 展开按钮 -->
+      <div v-if="shouldShowExpandButton(item.reply)" class="expand-btn" @click="toggleExpand(i)">
+        <span v-if="expandReplies[i]">收起</span>
+        <span v-else>展开剩余{{ item.reply.length - 2 }}评论</span>
+      </div>
+
+
+      <div v-show="_inputShow(i)" class="my-reply my-comment-reply" ref="replyElement">
         <el-avatar class="header-img" :size="30" :src="myHeader"></el-avatar>
         <div class="reply-info">
           <div tabindex="0" contenteditable="true" spellcheck="false" placeholder="输入评论..."
@@ -81,6 +92,8 @@
 
 <!--https://blog.csdn.net/zLanaDelRey/article/details/100997792-->
 <script>
+import user from "@/views/Management/User";
+
 const clickoutside = {
   // 初始化指令
   bind(el, binding, vnode) {
@@ -116,10 +129,15 @@ export default {
     comments: {
       type: Array,
       required:true
+    },
+    fragmentId:{
+      type:Number,
+      required:true
     }
   },
   data() {
     return {
+      expandReplies: [], // 用于存储每个 reply-box 的展开/折叠状态的数组
       btnShow: false,
       index: '0',
       replyComment: '',
@@ -203,6 +221,15 @@ export default {
     }
   },
   methods: {
+    shouldShowReply(i, j) {
+      return j < 2 || this.expandReplies[i];
+    },
+    shouldShowExpandButton(reply) {
+      return reply.length > 2;
+    },
+    toggleExpand(i) {
+      this.$set(this.expandReplies, i, !this.expandReplies[i]);
+    },
     messageTitleClick(num) { // 点击了具体某条消息
       console.log("点击了消息", num);
     },
@@ -244,9 +271,42 @@ export default {
       this.comments[i].inputShow = true
       this.to = name
       this.toId = id
+      const targetElement = this.$refs.replyElement[i];
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
     },
     _inputShow(i) {
       return this.comments[i].inputShow
+    },
+    //保存评论
+    saveComment(userId,fragmentId,parentId,content,topicId){
+      let fragmentComment={
+        userId:userId,
+        fragmentId:fragmentId,
+        parentId:parentId,
+        content:content,
+        topicId:topicId
+      }
+      this.request.post("/fragmentComment/saveComment",fragmentComment).then(res=>{
+        if (res.code=='200'){
+          this.$notify({
+            title: '发表成功！',
+            type:"success",
+            duration:1500
+          });
+          this.$emit('updateTotalComment', 1);
+        }else{
+          this.$notify({
+            title: res.msg,
+            type:"success",
+            duration:1500
+          });
+        }
+      })
     },
     sendComment() {
       if(!this.checkIsLogined())return;
@@ -259,8 +319,19 @@ export default {
       } else {
         let a = {}
         let input = document.getElementById('replyInput')
-        let timeNow = new Date().getTime();
-        let time = this.dateStr(timeNow);
+        // 创建一个新的 Date 对象
+        var date = new Date();
+
+        // 获取年份、月份、日期、小时和分钟
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+
+        // 创建包含时间值的数组
+        var timeArray = [year, month, day, hour, minute];
+        let time = timeArray;
         a.name = this.myName
         a.comment = this.replyComment
         a.headImg = this.myHeader
@@ -268,14 +339,12 @@ export default {
         a.id=this.myId
         a.reply=[]
         this.comments.push(a)
-        this.replyComment = ''
         input.innerHTML = '';
+        this.saveComment(this.myId,this.fragmentId,0,this.replyComment,0);
+        // console.log("当前发表的fragmentId:",this.fragmentId)
+        console.log(this.replyComment)
         console.log(this.comments)
-        this.$notify({
-          title: '发表成功！',
-          type:"success",
-          duration:1500
-        });
+        this.replyComment = ''
       }
     },
     sendCommentReply(i) {
@@ -288,8 +357,19 @@ export default {
         })
       } else {
         let a = {}
-        let timeNow = new Date().getTime();
-        let time = this.dateStr(timeNow);
+        // 创建一个新的 Date 对象
+        var date = new Date();
+
+        // 获取年份、月份、日期、小时和分钟
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+
+        // 创建包含时间值的数组
+        var timeArray = [year, month, day, hour, minute];
+        let time = timeArray
         a.from = this.myName
         a.to = this.to
         a.fromHeadImg = this.myHeader
@@ -298,13 +378,12 @@ export default {
         a.fromId=this.myId
         a.toId=this.toId
         this.comments[i].reply.push(a)
-        this.replyComment = ''
         console.log(this.to)
         document.getElementsByClassName("reply-comment-input")[i].innerHTML = ""
-        this.$notify({
-          title: '发表成功！',
-          duration:1500
-        });
+        this.saveComment(this.myId,this.fragmentId,this.toId,this.replyComment,this.comments[i].topicId);
+        // console.log("comment[i]:",this.comments[i])
+        console.log(this.replyComment)
+        this.replyComment = ''
       }
     },
     onDivInput: function (e) {
@@ -494,5 +573,23 @@ export default {
   background-color:#fafbfc;
   border-radius: 5px;
 }
+.expand-btn {
+  display: inline-block;
+  margin-top: 8px;
+  cursor: pointer;
+  color: #4471d2;
+  font-size: 12px;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
+
+.expand-btn:hover {
+  color: #830072;
+}
+
+.expand-btn span {
+  padding-left: 4px;
+}
+
 
 </style>

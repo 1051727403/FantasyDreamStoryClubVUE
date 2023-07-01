@@ -141,7 +141,9 @@
             <!-- 下一章节选择 end-->
             <!-- 评论区组件 start-->
             <div style="margin-top: 20px;font-size: 18px;color: #000000;">评论区&nbsp;({{selectNodeInfo.data.totalComment}})</div>
-            <article-comment v-bind:comments="selectNodeInfo.data.comments"></article-comment>
+            <article-comment v-bind:comments="selectNodeInfo.data.comments"
+                             :fragment-id="selectNodeInfo.id=='root'?selectNodeInfo.data.rootId:selectNodeInfo.id"
+                              @updateTotalComment="updateTotalComment"></article-comment>
             <div style="padding-bottom: 80px;"></div>
             <!-- 评论区组件 end-->
           </div>
@@ -626,6 +628,10 @@ export default {
     }
   },
   methods: {
+    //修改评论
+    updateTotalComment(x){
+      this.selectNodeInfo.data.totalComment=this.selectNodeInfo.data.totalComment+x;
+    },
     //根据片段名定位到对应页面
     jumpToFragment(fragmentId){
       console.log("jumpToFragment:",fragmentId)
@@ -988,6 +994,7 @@ export default {
         // }
         if(res.code=='200'){
           this.mind.data= res.data.data;
+          this.story_name=res.data.storyName
           //创建布局
           this.jm = jsMind.show(this.options, this.mind)
           this.editor = this.jm.view.e_editor
@@ -997,6 +1004,7 @@ export default {
           //跳转到节点
           let fragmentId=this.$route.query["fragmentId"];
           this.jumpToFragment(fragmentId)
+
         }else{
           this.$message.error(res.msg)
         }
@@ -1095,6 +1103,7 @@ export default {
           this.selectNodeInfo.data.comments=res.data.comments
           this.selectNodeInfo.data.isLike=res.data.isLike
           this.selectNodeInfo.data.isCollected=res.data.isCollected
+          this.selectNodeInfo.data.totalComment=res.data.totalComment
         }else{
           this.$message.error(res.msg)
         }
@@ -1138,21 +1147,6 @@ export default {
         this.$message.info('请输入片段内容')
         return
       }
-      //当选择不允许他人接龙时先判断子节点有无其他人接龙
-      // if(this.updateNodeInfo.allowRelay==0){
-      //   let children=this.selectNodeInfo.children
-      //   let f=false;
-      //   for(let i=0;i<children.length;i++){
-      //     if (children[i].data.authorInfo.id!=this.user.id){
-      //       f=true
-      //       break
-      //     }
-      //   }
-      //   if(f){
-      //     this.$message.warning('他人已接龙，不可修改为不可接龙状态！')
-      //     return
-      //   }
-      // }
       console.log("输入的接龙节点topic为：",this.updateNodeInfo.topic)
       // 添加接龙
       // TODO 调接口
