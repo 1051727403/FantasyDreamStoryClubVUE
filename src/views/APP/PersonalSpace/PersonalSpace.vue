@@ -68,11 +68,11 @@
       </a>
     </div>
     <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%">
-      <el-form :model="form">
-        <el-form-item label="故事名" label-width=120>
+      <el-form :model="form" :rules="rules" ref="form">
+        <el-form-item label="故事名" label-width=120 prop="storyName">
           <el-input v-model="form.storyName" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="封面" label-width=120>
+        </el-form-item >
+        <el-form-item label="封面" label-width=120 >
           <el-upload
               class="avatar-uploader"
               action="http://localhost:9090/upload/image"
@@ -84,7 +84,7 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="标签" label-width=120>
+        <el-form-item label="标签" label-width=120 >
           <el-select
               v-model="form.tags"
               multiple
@@ -99,14 +99,23 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="介绍" label-width=120>
+        <el-form-item label="介绍" label-width=120 prop="introduce">
           <el-input v-model="form.introduce" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="序幕名称" label-width=120>
+        <el-form-item label="序幕名称" label-width=120 prop="fragmentName">
           <el-input v-model="firsttitle" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="序幕内容" label-width=120>
+        <el-form-item label="序幕内容" label-width=120 prop="fragmentContent">
           <el-input v-model="firstcontent" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="是否接龙" label-width=120 >
+          <el-tooltip placement="top">
+          <el-switch
+              v-model="allowRelay"
+              active-text="可以接龙"
+              inactive-text="不可接龙">
+          </el-switch>
+          </el-tooltip>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -119,6 +128,7 @@
 
 <script>
 import Aside from "@/components/Aside.vue";
+
 export default {
   name: "PersonalSpace.vue",
   components:{
@@ -145,6 +155,7 @@ export default {
       },
       firsttitle:"",
       firstcontent:"",
+      allowRelay:0,
       tags:[
         {
           value:1,
@@ -152,7 +163,13 @@ export default {
         {
           value:2,
           label:"恋爱"},
-      ]
+      ],
+      rules:{
+        storyName:[{required:true,message:'请输入故事名称' ,trigger:'blur'}],
+        introduce:[{required:true,message:'请输入故事介绍' ,trigger:'blur'}],
+        fragmentName:[{required:true,message:'请输入首幕名称' ,trigger:'blur'}],
+        fragmentContent:[{required:true,message:'请输入首幕内容' ,trigger:'blur'}]
+      }
     }
   },
   created() {
@@ -232,10 +249,13 @@ export default {
       })
     },
     createStory(){
-      this.storydialogVisible=false
-      console.log(this.form.tag)
-      this.form.userId = this.userid
-      this.request.post("/story/saveStory",this.form).then(res=>{
+      this.$refs['form'].validate((valid)=>{
+        if(valid){
+          this.storydialogVisible=false
+          console.log(this.form.tag)
+          console.log(this.allowRelay)
+          this.form.userId = this.userid
+          this.request.post("/story/saveStory",this.form).then(res=>{
             console.log(res)
             if(res.code==="200"){
               this.request.post("/fragment/addFragment",
@@ -245,19 +265,25 @@ export default {
                     "parentId":0,
                     "fragmentName":this.firsttitle,
                     "content":this.firstcontent,
-                    "allowRelay":1
-                }).then(res=>{
-                  if(res.code==="200"){
-                    console.log("上传成功")
-                  }
-                  else{
-                    console.log("上传失败2")
-                  }
+                    "allowRelay":this.allowRelay?1:0
+                  }).then(res=>{
+                if(res.code==="200"){
+                  console.log("上传成功")
+                }
+                else{
+                  console.log("上传失败2")
+                }
               })
             }
             else {
               console.log("上传失败1")
             }
+          })
+        }
+        else{
+          console.log("error submit!");
+          return false;
+        }
       })
     },
     handleAvatarSuccess(res) {
