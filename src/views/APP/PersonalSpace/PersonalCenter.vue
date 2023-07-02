@@ -3,7 +3,7 @@
     <div class="mhy-main-page mhy-account-center">
       <div class="mhy-layout">
         <!--顶部头像栏-->
-        <div class="mhy-container mhy-account-center-header">
+        <div class="mhy-container mhy-account-center-header" style="background-color: rgba(255,255,255,0.7);">
           <div class="mhy-avatar mhy-account-center-header__avatar mhy-avatar__xxl">
             <el-upload
                 class="useravatar"
@@ -40,7 +40,6 @@
             </div>
           </div>
         </div>
-
         <!--左侧菜单栏-->
         <div class="mhy-container mhy-side-menu mhy-account-center__menu">
           <header class="mhy-side-menu__header">个人中心</header>
@@ -116,19 +115,17 @@
           <el-input v-model="form.introduce" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="序幕名称" label-width=120 prop="fragmentName">
-          <el-input v-model="firstTitle" autocomplete="off"></el-input>
+          <el-input v-model="form.fragmentName" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="序幕内容" label-width=120 prop="fragmentContent">
-          <el-input v-model="firstContent" autocomplete="off"></el-input>
+          <el-input v-model="form.fragmentContent" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="是否接龙" label-width=120 >
-          <el-tooltip placement="top">
             <el-switch
                 v-model="allowRelay"
                 active-text="可以接龙"
                 inactive-text="不可接龙">
             </el-switch>
-          </el-tooltip>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -147,11 +144,19 @@ export default {
       userdialogVisible:false,
       storydialogVisible:false,
       userinfo:{},
-      form:{},
+      form:{
+        storyName:"",
+        coverUrl:"",
+        tags:"",
+        introduce:"",
+        fragmentName:"",
+        fragmentContent:"",
+      },
       activeIndex: '/PersonalSpace',
       menus: [
-        {name:'我的收藏',path:'/PersonalSpace/myCollect',icon:'el-icon-document'},
-        {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-document'},
+        {name:'我的收藏',path:'/PersonalSpace/myCollect',icon:'el-icon-folder-opened'},
+        {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-s-management'},
+        {name:'我的片段',path:'/PersonalSpace/myFragment',icon:'el-icon-document'},
       ],
       tags:[
         {
@@ -167,14 +172,11 @@ export default {
         fragmentName:[{required:true,message:'请输入首幕名称' ,trigger:'blur'}],
         fragmentContent:[{required:true,message:'请输入首幕内容' ,trigger:'blur'}]
       },
-      firstTitle:"",
-      firstContent:"",
+
       allowRelay:false,
       userRules:{
-        storyName:[{required:true,message:'请输入故事名称' ,trigger:'blur'}],
-        introduce:[{required:true,message:'请输入故事介绍' ,trigger:'blur'}],
-        fragmentName:[{required:true,message:'请输入首幕名称' ,trigger:'blur'}],
-        fragmentContent:[{required:true,message:'请输入首幕内容' ,trigger:'blur'}]
+        username:[{required:true,message:'请输用户名' ,trigger:'blur'}],
+        nickname:[{required:true,message:'请输入昵称' ,trigger:'blur'}],
       }
     };
   },
@@ -219,6 +221,7 @@ export default {
       this.$router.push({path: item.path});
     },
     saveUser(){
+      this.userdialogVisible = false
       this.request.post("/user/saveUser?userid="+this.userid+"&userName="+this.userinfo.username
           +"&NickName="+this.userinfo.nickname).then(res=>{
         if(res.code==="200"){
@@ -230,16 +233,16 @@ export default {
       })
     },
     handleAvatarSuccess(res) {
-  console.log(res)
-  if(res.code === "200"){
-    this.form.coverUrl="http://localhost:9090/img/"+res.data
-  }else{
-    console.log("上传错误")
-  }
-},
+      console.log(res)
+      if(res.code === "200"){
+        this.form.coverUrl="http://localhost:9090/img/"+res.data
+      }else{
+        console.log("上传错误")
+      }
+    },
     handleUserAvatarSuccess(res) {
-  console.log(res)
-  if(res.code === "200"){
+        console.log(res)
+        if(res.code === "200"){
     this.userinfo.avatarUrl="http://localhost:9090/img/"+res.data
     this.request.post("/user/saveAvatar?userid="+this.userid+"&avatarUrl="+this.userinfo.avatarUrl).then(res=>{
       if(res.code==="200"){
@@ -253,20 +256,20 @@ export default {
       }
     })
   }else{
-    console.log("上传错误")
+        console.log("上传错误")
   }
 },
     beforeAvatarUpload(file) {
-  const isJPG = file.type === 'image/jpeg';
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isJPG) {
-    this.$message.error('上传头像图片只能是 JPG 格式!');
-  }
-  if (!isLt2M) {
-    this.$message.error('上传头像图片大小不能超过 2MB!');
-  }
-  return isJPG && isLt2M;
-},
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+    },
     createStory(){
       this.$refs['form'].validate((valid)=>{
         if(valid){
@@ -277,25 +280,25 @@ export default {
           this.request.post("/story/saveStory",this.form).then(res=>{
             console.log(res)
             if(res.code==="200"){
-              this.request.post("/fragment/addFragment",
+              this.request.post("/fragment/addRootFragment",
                   {
                     "userId":this.userid,
                     "storyId":res.data,
                     "parentId":0,
-                    "fragmentName":this.firsttitle,
-                    "content":this.firstcontent,
+                    "fragmentName":this.form.fragmentName,
+                    "content":this.form.fragmentContent,
                     "allowRelay":this.allowRelay?1:0
                   }).then(res=>{
                 if(res.code==="200"){
-                  console.log("上传成功")
+                  this.$message.success("上传成功")
                 }
                 else{
-                  console.log("上传失败2")
+                  this.$message.success("上传失败")
                 }
               })
             }
             else {
-              console.log("上传失败1")
+              this.$message.success("上传失败")
             }
           })
         }
@@ -311,12 +314,14 @@ export default {
 
 <style scoped>
 .root-page-container {
-  background: url(https://www.miyoushe.com/_nuxt/img/background.cd0a312.png) no-repeat 0 62px;
+  background: url(https://img2.baidu.com/it/u=3039460187,60719744&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=400) no-repeat 0 0;
   background-size: 100%;
+  height: 300px;
 }
 .mhy-main-page {
-  padding-top: 30px;
+  padding-top: 60px;
   position: relative;
+
 }
 .mhy-layout {
   width: 1000px;

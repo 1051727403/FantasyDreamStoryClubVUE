@@ -29,10 +29,7 @@
     </div>
 
     <div class="main-info">
-        <div class="title">
-          <i class="icon-dot"></i>
-          <span id="titlename"></span>
-        </div>
+
         <div class="book">
           <ul style="list-style: none;width: 600px">
             <li style=" float: left;margin-left: 20px;" v-for="(item,_) in books">
@@ -78,76 +75,6 @@
         </span>
       </a>
     </div>
-    <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%">
-      <el-form :model="form" :rules="rules" ref="form">
-        <el-form-item label="故事名" label-width=120 prop="storyName">
-          <el-input v-model="form.storyName" autocomplete="off"></el-input>
-        </el-form-item >
-        <el-form-item label="封面" label-width=120 >
-          <el-upload
-              class="avatar-uploader"
-              action="http://localhost:9090/upload/image"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-              name="photo">
-            <img v-if="form.coverUrl" :src="form.coverUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="标签" label-width=120 >
-          <el-select
-              v-model="form.tags"
-              multiple
-              collapse-tags
-              style="margin-left: 20px;"
-              placeholder="请选择">
-            <el-option
-                v-for="item in tags"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="介绍" label-width=120 prop="introduce">
-          <el-input v-model="form.introduce" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="序幕名称" label-width=120 prop="fragmentName">
-          <el-input v-model="firsttitle" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="序幕内容" label-width=120 prop="fragmentContent">
-          <el-input v-model="firstcontent" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="是否接龙" label-width=120 >
-          <el-tooltip placement="top">
-          <el-switch
-              v-model="allowRelay"
-              active-text="可以接龙"
-              inactive-text="不可接龙">
-          </el-switch>
-          </el-tooltip>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="storydialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createStory">确 定</el-button>
-      </div>
-  </el-dialog>
-    <el-dialog title="修改资料" :visible.sync="userdialogVisible" width="50%">
-      <el-form :model="userinfo" :rules="rules" ref="form">
-        <el-form-item label="用户名" label-width=120 prop="username">
-          <el-input v-model="userinfo.username" autocomplete="off"></el-input>
-        </el-form-item >
-        <el-form-item label="昵称" label-width=120 prop="nickname">
-          <el-input v-model="userinfo.nickname" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="userdialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveUser">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 

@@ -64,7 +64,6 @@ const routes = [
     meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
 
-    //后台管理页面
   {
     path:'/PersonalSpace',
     component:()=>import('../views/APP/AppHome.vue'),
@@ -85,10 +84,16 @@ const routes = [
             name: '我的故事',
             component:()=>import('../views/APP/PersonalSpace/MyStory.vue')
           },
+          {
+            path: '/PersonalSpace/myFragment',
+            name:'我的片段',
+            component:()=>import('../views/APP/PersonalSpace/MyFragment.vue')
+          }
         ]
       }
     ]
   },
+  //后台管理页面
 ]
 
 const router = new VueRouter({

@@ -5,22 +5,25 @@
         <span>我的收藏</span>
       </div>
       <div class="mhy-account-center-content-container__list">
-        <div class="mhy-collection-card mhy-account-center-collection-card" v-for="(item,_) in books">
+        <div class="mhy-collection-card mhy-account-center-collection-card" v-for="(item,_) in fragments">
           <a :href=item.link class="mhy-router-link mhy-collection-card__link">
-            <div class="mhy-collection-card__cover">
-                <img :src=item.coverUrl>
+            <div class="mhy-collection-card__info">
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__name">{{item.storyName}}</p>
+              </a>
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__fragmentName">{{item.fragName}}</p>
+              </a>
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__fragmentContent">{{ item.content }}</p>
+              </a>
+              <div class="mhy-collection-card__stats">
+                <span>总点赞{{item.totalLike}}</span>
+                <span>总评论{{item.totalComment}}</span>
+                <span>总收藏{{item.totalCollection}}</span>
+              </div>
             </div>
           </a>
-          <div class="mhy-collection-card__info">
-            <a class="mhy-router-link mhy-collection-card__link" target="_blank">
-              <p class="mhy-collection-card__name">{{item.storyName}}</p>
-            </a>
-            <div class="mhy-collection-card__stats">
-              <span>总点赞{{item.totalLike}}</span>
-              <span>总评论{{item.totalComment}}</span>
-              <span>总收藏{{item.totalCollection}}</span>
-            </div>
-          </div>
           <!---->
         </div>
 
@@ -36,9 +39,10 @@
 
 <script>
 export default {
+  name: "MyFragment",
   data() {
     return {
-      books:[],
+      fragments:[],
       loc:{},
     };
   },
@@ -49,20 +53,16 @@ export default {
     else{
       this.$router.push('/login')
     }
-    this.mycollect()
+    this.myfragment()
   },
-  mounted() {
-
-  },
-  methods: {
-    mycollect(){
-      console.log(this.userid)
-      this.request.get("/story/usersCollectStories?userid="+this.loc.id).then(res=>{
+  methods:{
+    myfragment(){
+      this.request.get("/fragment/getFragInfo?userid="+this.loc.id).then(res=>{
         if(res.code==='200'){
-          this.books=res.data
-          console.log(this.books)
-          for (var re of this.books) {
-            re.link="/APP/storyinfo?storyid="+re.storyId
+          this.fragments=res.data
+          for (var re of this.fragments) {
+            console.log(re)
+            re.link="/APP/storyrelay?storyId="+re.storyId+"&fragmentId="+re.fragmentId
           }
         }
         else{
@@ -71,7 +71,7 @@ export default {
       })
     },
   }
-};
+}
 </script>
 
 <style scoped>
@@ -94,7 +94,7 @@ p{
   padding: 0 30px;
   line-height: 50px;
   border-bottom: 1px solid #ebebeb;
-  font-size: 16px;
+  font-size: 18px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -125,12 +125,6 @@ input, button, textarea {
 a {
   text-decoration: none;
 }
-.mhy-collection-card__cover {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  border: 1px solid #ebebeb;
-}
 .mhy-collection-card__cover img{
   position: center;
   display: block;
@@ -156,6 +150,19 @@ a {
 .mhy-collection-card__name {
   position: relative;
   line-height: 1;
+  font-size: 22px;
+
+}
+.mhy-collection-card__fragmentName {
+  position: relative;
+  line-height: 2;
+  font-size: 24px;
+
+}
+.mhy-collection-card__fragmentContent {
+  position: relative;
+  line-height: 4px;
+  font-size: 18px;
   height: 20px;
 }
 .mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
@@ -173,7 +180,6 @@ a {
 }
 .mhy-collection-card__stats {
   color: #ccc;
-  font-size: 12px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
