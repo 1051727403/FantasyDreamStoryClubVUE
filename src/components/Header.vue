@@ -8,11 +8,11 @@
         <li id="lregister"><a href="/register" >注册</a></li>
         <li><a href="#">反馈留言</a></li>
       </ul>
-      <el-dropdown style="cursor: pointer;margin-top: 10px;margin-right: 20px;float: right" id="avatar">
+      <el-dropdown style="cursor: pointer;margin-top: 5px;margin-right: 20px;float: right" id="avatar">
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >
           <img :src="user.avatarUrl"
                alt=""
-               style="width: 32px;margin-right: 10px;
+               style="width: 40px;height:40px;margin-right: 10px;
                 border-radius: 40%;">
           <span >{{user.nickname}}</span>
           <i class="el-icon-arrow-down" style="margin-right: 5px;"></i>
