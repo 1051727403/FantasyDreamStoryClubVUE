@@ -29,6 +29,10 @@ router.beforeEach((to, from, next) => {
     console.log("无需登录，直接放行")
   }
 });
+// 解决bug：页面/路由跳转后，滚动条消失，页面无法滚动
+router.afterEach((to, from, next) => {
+  document.querySelector("body").setAttribute("style", "overflow: auto !important;")
+});
 Vue.config.productionTip = false
 
 Vue.use(ElementUI,{size:"small"});

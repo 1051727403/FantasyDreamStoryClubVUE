@@ -37,9 +37,12 @@
           </div>
         </div>
         <div class="comment">
-          <div class="section">互动</div>
-          <div class="comments-wrp">
-          </div>
+          <div style="margin-top: 20px;font-size: 18px;color: #707070;">评论区&nbsp;({{totalComment}})</div>
+          <story-comment v-bind:comments="comments"
+                           :story-id="storyId"
+                           @updateTotalComment="updateTotalComment"
+                           @reloadComment="reloadComment"></story-comment>
+          <div style="padding-bottom: 80px;"></div>
         </div>
       </div>
       <div class="sidebar">
@@ -75,8 +78,13 @@
 
 <script>
 
+import StoryComment from "@/components/StoryComment";
+
 export default {
   name: "StoryInfo.vue",
+  components: {
+    StoryComment
+  },
   data(){
     return {
       plate: "",
@@ -97,7 +105,10 @@ export default {
           "font-size: 12px;" +
           "color: #333;" +
           "text-decoration: none;" +
-          "background-color: transparent;"
+          "background-color: transparent;",
+      storyId:1,
+      comments:[],
+      totalComment:0,
     }
   },
   created() {
@@ -136,6 +147,7 @@ export default {
             this.$message.error("error"+res.msg)
           }
         })
+        this.loadStoryComment(this.storyId)
       }
       else{
         this.$message.error("error"+res.msg)
@@ -143,6 +155,23 @@ export default {
     })
   },
   methods:{
+    //加载故事评论区
+    loadStoryComment(storyId){
+      this.request.get("/storyComment/loadStoryComment?storyId="+storyId).then(res=> {
+        if (res.code == '200') {
+          this.comments = res.data.comments
+          this.totalComment=res.data.totalComment
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+    },
+    updateTotalComment(x){
+      this.totalComment=this.totalComment+x;
+    },
+    reloadComment() {
+      this.loadStoryComment(this.storyId);
+    },
     collect(){
       if(localStorage.getItem("user")){
         var userid =  JSON.parse(localStorage.getItem("user")).id;

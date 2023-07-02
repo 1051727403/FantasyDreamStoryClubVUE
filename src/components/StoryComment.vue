@@ -23,7 +23,7 @@
     <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
       <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
         <el-avatar class="header-img"  :src="item.headImg"></el-avatar>
-        <div style="display: flex;justify-content: space-between;align-items: center; width: 235px;">
+        <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
             <span class="author-time">{{item.time[0]}}.{{item.time[1]}}.{{item.time[2]}}&nbsp;{{item.time[3]}}:{{item.time[4]}} </span>
@@ -50,12 +50,12 @@
         <div v-for="(reply, j) in item.reply" :key="j" class="author-title" v-show="shouldShowReply(i, j)">
           <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
             <el-avatar class="header-img" :size="30" :src="reply.fromHeadImg"></el-avatar>
-            <div style="display: flex;justify-content: space-between;align-items: center; width: 205px;">
+            <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
                 <span class="author-time">{{reply.time[0]}}.{{reply.time[1]}}.{{reply.time[2]}}&nbsp;{{reply.time[3]}}:{{reply.time[4]}}</span>
               </div>
-              <div class="icon-btn"style="font-size: 12px;">
+              <div class="icon-btn"style="font-size: 12px;width: 55px;">
                 <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
               </div>
             </div>
@@ -132,13 +132,13 @@ const clickoutside = {
   },
 };
 export default {
-  name: 'ArticleComment',
+  name: 'StoryComment',
   props:{
     comments: {
       type: Array,
       required:true
     },
-    fragmentId:{
+    storyId:{
       type:Number,
       required:true
     }
@@ -237,7 +237,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.request.get("/fragmentComment/deleteById?id="+id).then(res=>{
+        this.request.get("/storyComment/deleteById?id="+id).then(res=>{
           if (res.code=='200'){
             //重新加载评论
             this.$emit("reloadComment");
@@ -246,8 +246,6 @@ export default {
               type:"success",
               duration:1500
             });
-
-
           }else{
             this.$notify({
               title: '删除失败！',
@@ -326,15 +324,15 @@ export default {
       return this.comments[i].inputShow
     },
     //保存评论
-    saveComment(userId,fragmentId,parentId,content,topicId){
-      let fragmentComment={
+    saveComment(userId,storyId,parentId,content,topicId){
+      let storyComment={
         userId:userId,
-        fragmentId:fragmentId,
+        storyId:storyId,
         parentId:parentId,
         content:content,
         topicId:topicId
       }
-      this.request.post("/fragmentComment/saveComment",fragmentComment).then(res=>{
+      this.request.post("/storyComment/saveComment",storyComment).then(res=>{
         if (res.code=='200'){
           //重新加载评论
           this.$emit("reloadComment");
@@ -384,8 +382,8 @@ export default {
         a.reply=[]
         this.comments.push(a)
         input.innerHTML = '';
-        this.saveComment(this.myId,this.fragmentId,0,this.replyComment,0);
-        // console.log("当前发表的fragmentId:",this.fragmentId)
+        this.saveComment(this.myId,this.storyId,0,this.replyComment,0);
+        // console.log("当前发表的storyId:",this.storyId)
         console.log(this.replyComment)
         console.log(this.comments)
         this.replyComment = ''
@@ -424,7 +422,7 @@ export default {
         this.comments[i].reply.push(a)
         console.log(this.to)
         document.getElementsByClassName("reply-comment-input")[i].innerHTML = ""
-        this.saveComment(this.myId,this.fragmentId,this.toId,this.replyComment,this.comments[i].topicId);
+        this.saveComment(this.myId,this.storyId,this.toId,this.replyComment,this.comments[i].topicId);
         // console.log("comment[i]:",this.comments[i])
         console.log(this.replyComment)
         this.replyComment = ''
@@ -578,7 +576,7 @@ export default {
 }
 
 .author-title .icon-btn {
-  width: 30%;
+  width: 65px;
   padding: 0 !important;
   float: right;
 }
