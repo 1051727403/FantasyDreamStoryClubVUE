@@ -176,7 +176,6 @@ export default {
         fragmentName:[{required:true,message:'请输入首幕名称' ,trigger:'blur'}],
         fragmentContent:[{required:true,message:'请输入首幕内容' ,trigger:'blur'}]
       },
-
       allowRelay:false,
       userRules:{
         username:[{required:true,message:'请输用户名' ,trigger:'blur'}],
@@ -196,28 +195,23 @@ export default {
       //this.$router.push('/login')
     }
     console.log("create")
-    this.request.post("/user/checktoken?userid="+this.loc.id+"&token="+this.loc.token).then(res=>{
-      if(res.code==='200'&&res.data==='success'){
-
-      }
-      else {
-        console.log('fal')
-        //this.$router.push('/APP/index')
-      }
-    })
+    // this.request.post("/user/checktoken?userid="+this.loc.id+"&token="+this.loc.token).then(res=>{
+    //   if(res.code==='200'&&res.data==='success'){
+    //
+    //   }
+    //   else {
+    //     console.log('fal')
+    //     //this.$router.push('/APP/index')
+    //   }
+    // })
   },
   mounted() {
-    // let that = this;
-    // setInterval(function(){//定位当前菜单
-    //   that.activeIndex = that.$router.currentRoute.path;
-    //   console.log(that.activeIndex)
-    // },300);
     this.userid=this.loc.id
     console.log("mounted")
     //请求作者信息
     this.request.get("/user/getUserInfo?userid="+this.userid).then(res=>{
       if(res.code==='200'){
-        this.userinfo=res.data
+        this.userinfo = res.data
         //console.log(this.userinfo)
       }
       else{
@@ -241,16 +235,21 @@ export default {
       this.$router.push({path: item.path});
     },
     saveUser(){
-      this.userdialogVisible = false
-      this.request.post("/user/saveUser?userid="+this.userid+"&userName="+this.userinfo.username
-          +"&NickName="+this.userinfo.nickname).then(res=>{
-        if(res.code==="200"){
+      this.request.post("/user/upUserInfo", {
+            "id":this.userid,
+            "userName":this.userinfo.username,
+            "nickName":this.userinfo.nickname,
+            "avatarUrl":this.userinfo.avatarUrl}).then(res=>{
+        this.userdialogVisible = false
+        if(res.code==="200"&&res.data===true ){
           this.$message.success("修改用户名成功")
         }
         else{
+          this.$router.go(0)
           this.$message.success("修改用户名失败")
         }
       })
+
     },
     handleAvatarSuccess(res) {
       //console.log(res)
@@ -264,17 +263,6 @@ export default {
         //console.log(res)
         if(res.code === "200"){
           this.userinfo.avatarUrl="http://localhost:9090/img/"+res.data
-          this.request.post("/user/saveAvatar?userid="+this.userid+"&avatarUrl="+this.userinfo.avatarUrl).then(res=>{
-          if(res.code==="200"){
-            this.$message.success("头像上传成功")
-            let x = JSON.parse(localStorage.getItem("user"))
-            x.avatarUrl = this.userinfo.avatarUrl
-            localStorage.setItem("user",JSON.stringify(x))
-          }
-          else{
-            this.$message.warning("头像上传失败")
-          }
-        })
         }else{
           this.$message.warning("头像上传失败")
         }
@@ -293,10 +281,10 @@ export default {
     createStory(){
       this.$refs['form'].validate((valid)=>{
         if(valid){
-          this.storydialogVisible=false
           this.form.userId = this.userid
           this.request.post("/story/saveStory",this.form).then(res=>{
             //console.log(res)
+            this.storydialogVisible=false
             if(res.code==="200"){
               this.request.post("/fragment/addRootFragment",
                   {
