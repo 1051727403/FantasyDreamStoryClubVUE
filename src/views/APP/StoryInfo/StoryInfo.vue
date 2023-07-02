@@ -107,7 +107,7 @@ export default {
         this.storyinfo=res.data
         this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
 
-        console.log(res.data)
+        //console.log(res.data)
         // 请求作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
@@ -124,7 +124,7 @@ export default {
           if(res.code==="200"){
             var tags = res.data
             var parent=document.getElementById("cats")
-            console.log(tags)
+            //console.log(tags)
             for (const tag of tags) {
               var a = document.createElement("a")
               a.style=this.astyle
@@ -163,7 +163,7 @@ export default {
       this.dialogVisible = false
       var userid =  JSON.parse(localStorage.getItem("user")).id;
       this.request.post("/story/uncollectStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
-        console.log(res)
+        //console.log(res)
         if(res.code==="200"&& res.data===true){
           this.$message.success("取消收藏成功")
         }
@@ -175,6 +175,10 @@ export default {
     },
     gotoStory(Link){
       this.$router.push(Link)
+      // const routeData = this.$router.resolve({
+      //   path: Link,
+      // })
+      // window.open(routeData.href,"_blank")
     }
   }
 }

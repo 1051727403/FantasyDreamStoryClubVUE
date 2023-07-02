@@ -5,15 +5,7 @@
         <!--顶部头像栏-->
         <div class="mhy-container mhy-account-center-header" style="background-color: rgba(255,255,255,0.7);">
           <div class="mhy-avatar mhy-account-center-header__avatar mhy-avatar__xxl">
-            <el-upload
-                class="useravatar"
-                action="http://localhost:9090/upload/image"
-                :show-file-list="false"
-                :on-success="handleUserAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                name="photo">
               <img :src="userinfo.avatarUrl" class="mhy-avatar__img">
-            </el-upload>
           </div>
           <div class="mhy-account-center-user">
             <div class="mhy-account-center-user__header">
@@ -67,11 +59,23 @@
     </div>
     <el-dialog title="修改资料" :visible.sync="userdialogVisible" width="50%">
       <el-form :model="userinfo" :rules="userRules" ref="form">
+        <el-form-item label="封面" label-width=120 >
+          <el-upload
+              class="avatar-uploader"
+              action="http://localhost:9090/upload/image"
+              :show-file-list="false"
+              :on-success="handleUserAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              name="photo">
+            <img v-if="userinfo.avatarUrl" :src="userinfo.avatarUrl" style="height: 100px;width: 100px">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item label="用户名" label-width=120 prop="username">
           <el-input v-model="userinfo.username" autocomplete="off"></el-input>
         </el-form-item >
         <el-form-item label="昵称" label-width=120 prop="nickname">
-          <el-input v-model="userinfo.nickname" autocomplete="off"></el-input>
+          <el-input v-model="userinfo.nickname" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -187,6 +191,7 @@ export default {
     else{
       this.$router.push('/login')
     }
+    console.log("create")
     this.request.post("/user/checktoken?userid="+this.loc.id+"&token="+this.loc.token).then(res=>{
       if(res.code==='200'&&res.data==='success'){
 
@@ -204,11 +209,12 @@ export default {
     //   console.log(that.activeIndex)
     // },300);
     this.userid=this.loc.id
+    console.log("mounted")
     //请求作者信息
     this.request.get("/user/getUserInfo?userid="+this.userid).then(res=>{
       if(res.code==='200'){
         this.userinfo=res.data
-        console.log(this.userinfo)
+        //console.log(this.userinfo)
       }
       else{
         this.$message.error("error"+res.msg)
@@ -233,32 +239,32 @@ export default {
       })
     },
     handleAvatarSuccess(res) {
-      console.log(res)
+      //console.log(res)
       if(res.code === "200"){
         this.form.coverUrl="http://localhost:9090/img/"+res.data
       }else{
-        console.log("上传错误")
+        this.$message.error("上传错误")
       }
     },
     handleUserAvatarSuccess(res) {
-        console.log(res)
+        //console.log(res)
         if(res.code === "200"){
-    this.userinfo.avatarUrl="http://localhost:9090/img/"+res.data
-    this.request.post("/user/saveAvatar?userid="+this.userid+"&avatarUrl="+this.userinfo.avatarUrl).then(res=>{
-      if(res.code==="200"){
-        this.$message.success("头像上传成功")
-        let x = JSON.parse(localStorage.getItem("user"))
-        x.avatarUrl = this.userinfo.avatarUrl
-        localStorage.setItem("user",JSON.stringify(x))
-      }
-      else{
-        this.$message.warning("头像上传失败")
-      }
-    })
-  }else{
-        console.log("上传错误")
-  }
-},
+          this.userinfo.avatarUrl="http://localhost:9090/img/"+res.data
+          this.request.post("/user/saveAvatar?userid="+this.userid+"&avatarUrl="+this.userinfo.avatarUrl).then(res=>{
+          if(res.code==="200"){
+            this.$message.success("头像上传成功")
+            let x = JSON.parse(localStorage.getItem("user"))
+            x.avatarUrl = this.userinfo.avatarUrl
+            localStorage.setItem("user",JSON.stringify(x))
+          }
+          else{
+            this.$message.warning("头像上传失败")
+          }
+        })
+        }else{
+          this.$message.warning("头像上传失败")
+        }
+    },
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -274,11 +280,9 @@ export default {
       this.$refs['form'].validate((valid)=>{
         if(valid){
           this.storydialogVisible=false
-          console.log(this.form.tag)
-          console.log(this.allowRelay)
           this.form.userId = this.userid
           this.request.post("/story/saveStory",this.form).then(res=>{
-            console.log(res)
+            //console.log(res)
             if(res.code==="200"){
               this.request.post("/fragment/addRootFragment",
                   {
@@ -303,7 +307,8 @@ export default {
           })
         }
         else{
-          console.log("error submit!");
+          this.$message.warning("请补充表格")
+          //console.log("error submit!");
           return false;
         }
       })
