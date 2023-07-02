@@ -130,7 +130,7 @@
                   <a href="/article/765.html" target="_blank">
                     <div class="new-info">
                       <div class="new-title">
-                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
+                        精品接龙故事作品公布                                        </div>
                       <div class="new-detail" style="width: 50px; text-align: right">
                         06-15                                        </div>
                     </div>

@@ -182,7 +182,9 @@ export default {
 
 
 <style scoped>
-
+body{
+  overflow:auto !important;
+}
 .book-wrapper{
   padding-top: 230px;
   background: #f6f7f8;

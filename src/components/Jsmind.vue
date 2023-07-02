@@ -884,7 +884,8 @@ export default {
     },
     //返回上一页面
     GoBackPage(){
-      this.$router.push("../")
+      this.$router.push("/APP/StoryInfo/?storyid="+this.storyId)
+      this.$router.go(0)
     },
     // 重置视图
     reset () {

@@ -29,7 +29,6 @@ router.beforeEach((to, from, next) => {
     console.log("无需登录，直接放行")
   }
 });
-
 Vue.config.productionTip = false
 
 Vue.use(ElementUI,{size:"small"});
