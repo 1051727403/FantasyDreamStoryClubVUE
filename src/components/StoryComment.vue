@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-clickoutside="hideReplyBtn" @click="inputFocus" class="my-reply">
-      <el-avatar class="header-img" :size="30" :src="myHeader"></el-avatar>
+      <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
       <div class="reply-info">
         <div
 
@@ -22,13 +22,13 @@
     </div>
     <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
       <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
-        <el-avatar class="header-img"  :src="item.headImg"></el-avatar>
+        <el-avatar class="header-img"  :size="40" :src="item.headImg"></el-avatar>
         <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
             <span class="author-time">{{item.time[0]}}.{{item.time[1]}}.{{item.time[2]}}&nbsp;{{item.time[3]}}:{{item.time[4]}} </span>
           </div>
-          <div class="icon-btn" style="font-size: 12px;">
+          <div class="icon-btn" style="font-size: 14px;">
             <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">&nbsp;回复</i></span>
           </div>
         </div>
@@ -49,13 +49,13 @@
       <div class="reply-box">
         <div v-for="(reply, j) in item.reply" :key="j" class="author-title" v-show="shouldShowReply(i, j)">
           <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
-            <el-avatar class="header-img" :size="30" :src="reply.fromHeadImg"></el-avatar>
+            <el-avatar class="header-img" :size="40" :src="reply.fromHeadImg"></el-avatar>
             <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
                 <span class="author-time">{{reply.time[0]}}.{{reply.time[1]}}.{{reply.time[2]}}&nbsp;{{reply.time[3]}}:{{reply.time[4]}}</span>
               </div>
-              <div class="icon-btn"style="font-size: 12px;width: 55px;">
+              <div class="icon-btn"style="font-size: 14px;width: 60px;">
                 <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
               </div>
             </div>
@@ -84,7 +84,7 @@
 
 
       <div v-show="_inputShow(i)" class="my-reply my-comment-reply" ref="replyElement">
-        <el-avatar class="header-img" :size="30" :src="myHeader"></el-avatar>
+        <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
         <div class="reply-info">
           <div tabindex="0" contenteditable="true" spellcheck="false" placeholder="输入评论..."
                @input="onDivInput($event)" class="reply-input reply-comment-input"></div>
@@ -567,16 +567,16 @@ export default {
 
 .author-title .author-info .author-name {
   color: #000;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
 }
 
 .author-title .author-info .author-time {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .author-title .icon-btn {
-  width: 65px;
+  width: 70px;
   padding: 0 !important;
   float: right;
 }
@@ -598,7 +598,7 @@ export default {
 
 .author-title .talk-box {
   margin: 10px 10px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .author-title .talk-box > p {
@@ -606,13 +606,13 @@ export default {
 }
 
 .author-title .talk-box .reply {
-  font-size: 12px;
+  font-size: 14px;
   color: #000;
 }
 
 .author-title .reply-box {
   margin: 10px 0 0 10px;
-  background-color:#fafbfc;
+  background-color: #fffbf8;
   border-radius: 5px;
 }
 .expand-btn {
@@ -620,7 +620,7 @@ export default {
   margin-top: 8px;
   cursor: pointer;
   color: #4471d2;
-  font-size: 12px;
+  font-size: 14px;
   margin-left: 8px;
   transition: color 0.3s ease;
 }
@@ -641,7 +641,7 @@ export default {
 }
 
 .deleteButton{
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #fff;
   background-color: #ff6f6f;
