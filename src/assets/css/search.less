@@ -20610,11 +20610,10 @@ body {
 
 .img-loading {
   position: absolute;
-  z-index: 1;
   width: 100%;
   height: 100%;
   background-color: #999;
-  transition: z-index .4s
+  overflow: hidden;
 }
 
 .img-loading_hover {
@@ -23219,7 +23218,7 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
 }
 
 .rank-content .rank-book-list .rank-book .book-draw .book-cover {
-  flex: 1;
+  position: relative;
   min-width: 130px;
   width: 130px;
   height: 195px;
@@ -23228,6 +23227,7 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
 
 .book-cover-bottom {
   display: flex;
+  padding-top: 5px;
   justify-content: center;
   align-items: flex-start;
 }

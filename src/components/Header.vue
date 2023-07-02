@@ -1,6 +1,6 @@
 <template>
   <div id="nav-bar">
-      <el-input class="input-with-select" placeholder="请输入内容" v-model="input1"  >
+      <el-input class="input-with-select" placeholder="请输入内容" v-model="input1" @keyup.enter="gotowhat" >
         <el-button slot="append" icon="el-icon-search"  @click="gotowhat"></el-button>
       </el-input>
       <ul class="the-right" >
@@ -80,8 +80,7 @@ export default {
     },
     gotowhat(){
       console.log("搜索"+this.input1)
-      this.$router.push("/app/storyinfo");
-      this.input1=""
+      this.$router.push({ path: '/APP/Search/', query: { keyWords: this.input1 } });
     }
   },
 
