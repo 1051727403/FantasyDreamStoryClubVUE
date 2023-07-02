@@ -151,19 +151,22 @@ export default {
           }
         })
         //请求收藏
-        this.request.get("/story/checkCollect?userId="+JSON.parse(localStorage.getItem("user")).id+"&storyId="+this.storyid).then(res=>{
-          if(res.code==="200"){
-            console.log(this.storyinfo.userId)
-            console.log(this.storyid)
-            console.log("收藏")
-            console.log(res)
-            this.checkCollect = res.data
-            this.checkedCollect()
-          }
-          else{
-            this.$message.error("标签错误")
-          }
-        })
+        if(localStorage.getItem("user")){
+          this.request.get("/story/checkCollect?userId="+JSON.parse(localStorage.getItem("user")).id+"&storyId="+this.storyid).then(res=>{
+            if(res.code==="200"){
+              console.log(this.storyinfo.userId)
+              console.log(this.storyid)
+              console.log("收藏")
+              console.log(res)
+              this.checkCollect = res.data
+              this.checkedCollect()
+            }
+            else{
+              this.$message.error("标签错误")
+            }
+          })
+        }
+
         this.checkedCollect()
         this.loadStoryComment(this.storyId)
       }

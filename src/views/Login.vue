@@ -14,9 +14,30 @@
         <div style="margin: 10px 0;display: flex;justify-content: space-around;">
           <el-button type="primary" size="small" autocomplete="off" style="width: 170px" @click="login">登录</el-button>
           <el-button type="warning" size="small" autocomplete="off" style="width: 170px" @click="reg">注册</el-button>
+          <el-button type="warning" size="small" autocomplete="off" style="width: 170px" @click="passworddialogVisible = true">修改密码</el-button>
         </div>
       </el-form>
     </div>
+    <el-dialog title="修改密码" :visible.sync="passworddialogVisible" width="50%">
+      <el-form :model="passwordInfo" :rules="passwordRules" ref="passwordInfoForm">
+        <el-form-item label="用户名" label-width=120 prop="userName">
+          <el-input v-model="passwordInfo.userName" autocomplete="off"></el-input>
+        </el-form-item >
+        <el-form-item label="旧密码" label-width=120 prop="oldPassword">
+          <el-input v-model="passwordInfo.oldPassword" autocomplete="off" show-password></el-input>
+        </el-form-item >
+        <el-form-item label="新密码" label-width=120 prop="newPassword">
+          <el-input v-model="passwordInfo.newPassword" autocomplete="off" show-password></el-input>
+        </el-form-item >
+        <el-form-item label="验证密码" label-width=120 prop="newPasswordAg">
+          <el-input v-model="passwordInfo.newPasswordAg" autocomplete="off" show-password></el-input>
+        </el-form-item >
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="passworddialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="savepassword">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -25,6 +46,7 @@ export default {
   name: "Login",
   data(){
     return{
+      passworddialogVisible:false,
       user:{},
       rules: {
         username: [
@@ -35,7 +57,28 @@ export default {
           {required: true, message: '请输入密码', trigger: 'blur'},
           {min: 3, max: 15, message: '长度在 3 到 15 个字符之间', trigger: 'blur'}
         ],
-      }
+      },
+      passwordRules:{
+        userName:[
+          {required: true, message: '请输入用户名', trigger: 'blur'}
+        ],
+        oldPassword:[
+          {required: true, message: '请输入原密码', trigger: 'blur'}
+        ],
+        newPassword:[
+          {required: true, message: '请输入新密码', trigger: 'blur'}
+        ],
+        newPasswordAg:[
+          {required: true, message: '请输入验证密码', trigger: 'blur'}
+        ],
+      },
+      passwordInfo:{
+        userName:"",
+        oldPassword:"",
+        newPassword:"",
+        newPasswordAg:""
+      },
+
     }
   },
   methods:{
@@ -44,12 +87,9 @@ export default {
       this.$refs["userForm"].validate((valid) => {
         if (valid) {
           var str = Md5(this.user.password)
-          console.log(str)
           //alert('登陆中!');
           this.request.post("/user/login?username="+this.user.username+"&password="+str).then(res=>{
-            console.log("res:"+res);
             if(res.code==='200'){
-              //console.log(res.data);
               //将用户信息存储到浏览器中
               console.log(res.data)
               localStorage.setItem("user",JSON.stringify(res.data.data));
@@ -62,7 +102,7 @@ export default {
             }
           })
         } else {
-          console.log('用户名密码填写有误!');
+          this.$message.error("请按表格填写")
           return false;
         }
       });
@@ -71,7 +111,36 @@ export default {
     reg(){
       this.$router.push("/register");
     },
-    //表单验证
+    //修改密码
+    savepassword(){
+      this.$refs["passwordInfoForm"].validate((valid) => {
+        if(valid){
+            this.passworddialogVisible = false;
+            if(this.passwordInfo.newPassword!=this.passwordInfo.newPasswordAg){
+              this.$message.warning("新密码和验证密码不同，请重试！")
+            }
+            else{
+              this.passwordInfo.oldPassword = Md5(this.passwordInfo.oldPassword)
+              this.passwordInfo.newPassword = Md5(this.passwordInfo.newPassword)
+              this.request.post("/user/changePassword?userName="+this.passwordInfo.userName+"&oldPassword="+this.passwordInfo.oldPassword+
+                  "&newPassword="+this.passwordInfo.newPassword).then(res=>{
+                if(res.code==="200"){
+                  this.$message("密码修改成功")
+
+                }
+                else{
+                  this.$message("密码修改错误")
+                  this.passwordInfo = {}
+                }
+              })
+            }
+        }else {
+          this.$message.warning('用户名密码填写有误!')
+          return false;
+        }
+
+      })
+    }
 
   }
 }
