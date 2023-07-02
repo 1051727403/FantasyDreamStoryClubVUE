@@ -28,26 +28,22 @@ const routes = [
         path:'Index',
         name:'home',
         component:()=>import('../views/APP/Index/Index.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
 
       {
         path:'StoryInfo',
         name:'AppStoryInfo',
         component:()=>import('../views/APP/StoryInfo/StoryInfo.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
       {
         path:'Search',
         name:'Search',
         component:()=>import('../views/APP/Search/Search.vue'),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       },
       {
         path: 'UserShow',
         name: "ShowUser",
         component:()=>import("@/views/APP/PersonalSpace/ShowUser.vue"),
-        meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
       }
     ]
   },
@@ -55,13 +51,11 @@ const routes = [
     path:'/App/StoryRelay',
     name:'AppStoryRelay',
     component:()=>import('../views/APP/StoryRelay/StoryRelay.vue'),
-    meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
   {
     path:'/App/test',
     name:'Apptest',
     component:()=>import('../views/APP/StoryRelay/test.vue'),
-    meta: { requiresAuth: false } // 设置需要认证的权限为 false,即无需登录即可访问
   },
 
   {
