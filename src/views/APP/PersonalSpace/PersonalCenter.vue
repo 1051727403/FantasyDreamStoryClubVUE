@@ -323,7 +323,7 @@ export default {
 .root-page-container {
   background: url(https://img2.baidu.com/it/u=3039460187,60719744&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=400) no-repeat 0 0;
   background-size: 100%;
-  height: 300px;
+  height: 350px;
 }
 .mhy-main-page {
   padding-top: 60px;

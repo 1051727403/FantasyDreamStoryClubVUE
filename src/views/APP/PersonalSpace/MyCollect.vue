@@ -133,8 +133,8 @@ a {
 .mhy-collection-card__cover img{
   position: center;
   display: block;
-  width: 70px;
-  height: 90px;
+  width: 112px;
+  height: 180px;
 }
 .mhy-collection-card__info {
   display: inline-block;
