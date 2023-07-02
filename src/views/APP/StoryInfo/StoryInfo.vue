@@ -48,7 +48,7 @@
       <div class="sidebar">
         <div class="author-frame">
           <div class="novelist">
-            <a :href="editorinfo.link" style="text-decoration: none;color: black">
+            <a :href="editorinfo.link" style="text-decoration: none;color: black;">
             <div  class="avatar">
               <img :src="editorinfo.avatarUrl" alt="">
             </div>
@@ -116,6 +116,7 @@ export default {
   },
   created() {
     this.storyid=this.$route.query["storyid"]
+    this.storyId=this.$route.query["storyid"]
     this.request.get("/story/getStoryInfo?storyid="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
