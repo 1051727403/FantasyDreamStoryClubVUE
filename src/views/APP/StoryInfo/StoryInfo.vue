@@ -48,13 +48,15 @@
       <div class="sidebar">
         <div class="author-frame">
           <div class="novelist">
-            <div class="avatar">
+            <a :href="editorinfo.link" style="text-decoration: none;color: black">
+            <div  class="avatar">
               <img :src="editorinfo.avatarUrl" alt="">
             </div>
             <div class="name" style="height: 40px">
-              <a :href="editorinfo.link">{{editorinfo.username}}</a>
+              {{editorinfo.username}}
               <div style="color: #999;font-size: 10px;text-align: center;">{{editorinfo.nickname}}</div>
             </div>
+            </a>
             <div class="userinfo">
                 总点赞数：{{editorinfo.totalLike}}
             </div>
