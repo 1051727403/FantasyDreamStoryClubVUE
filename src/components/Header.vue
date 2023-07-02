@@ -4,8 +4,8 @@
         <el-button slot="append" icon="el-icon-search"  @click="gotowhat"></el-button>
       </el-input>
       <ul class="the-right" >
-        <li id="llogin"><a href="/login" >登录</a><span>|</span></li>
-        <li id="lregister"><a href="/register" >注册</a><span>|</span></li>
+        <li id="llogin"><a href="/login" >登录</a></li>
+        <li id="lregister"><a href="/register" >注册</a></li>
         <li><a href="#">反馈留言</a></li>
       </ul>
       <el-dropdown style="cursor: pointer;margin-top: 10px;margin-right: 20px;float: right" id="avatar">
@@ -122,6 +122,9 @@ export default {
 .the-right li a{
   text-decoration: none;
   color: #b0b0b0;
+}
+.the-right li a:hover{
+  color: #00a87e;
 }
 .the-right li span{
   color: #424242;
