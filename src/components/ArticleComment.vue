@@ -33,10 +33,15 @@
           </div>
         </div>
       </div>
+
       <div class="talk-box">
         <p>
           <span class="reply">{{item.comment}}</span>
         </p>
+      </div>
+      <!-- 删除按钮-->
+      <div v-if="myId==item.userId" class="deleteComment" style="padding-right:18px" @click="deleteComment(item.id)">
+        <button class="deleteButton">删除</button>
       </div>
 
 
@@ -62,9 +67,12 @@
               <span class="reply">{{reply.comment}}</span>
             </p>
           </div>
-          <div class="reply-box">
-
+          <!-- 删除按钮-->
+          <div v-if="myId==reply.userId" class="deleteComment" @click="deleteComment(reply.fromId)">
+            <button class="deleteButton">删除</button>
           </div>
+
+
         </div>
       </div>
 
@@ -221,6 +229,41 @@ export default {
     }
   },
   methods: {
+    //删除评论
+    deleteComment(id){
+      // console.log(id)
+      this.$confirm('确认删除该评论？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.request.get("/fragmentComment/deleteById?id="+id).then(res=>{
+          if (res.code=='200'){
+            //重新加载评论
+            this.$emit("reloadComment");
+            this.$notify({
+              title: '删除成功！',
+              type:"success",
+              duration:1500
+            });
+
+
+          }else{
+            this.$notify({
+              title: '删除失败！',
+              type:"error",
+              duration:1500
+            });
+          }
+        })
+      }).catch(() => {
+        this.$notify({
+          title: '取消删除！',
+          type:"info",
+          duration:1500
+        });
+      });
+    },
     shouldShowReply(i, j) {
       return j < 2 || this.expandReplies[i];
     },
@@ -293,12 +336,13 @@ export default {
       }
       this.request.post("/fragmentComment/saveComment",fragmentComment).then(res=>{
         if (res.code=='200'){
+          //重新加载评论
+          this.$emit("reloadComment");
           this.$notify({
             title: '发表成功！',
             type:"success",
             duration:1500
           });
-          this.$emit('updateTotalComment', 1);
         }else{
           this.$notify({
             title: res.msg,
@@ -590,6 +634,26 @@ export default {
 .expand-btn span {
   padding-left: 4px;
 }
+.deleteComment{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 8px;
 
+}
+
+.deleteButton{
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #ff6f6f;
+  border-color: #ff6f6f;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px 6px;
+}
+.deleteButton:hover{
+  background-color: #ff0000;
+}
 
 </style>
