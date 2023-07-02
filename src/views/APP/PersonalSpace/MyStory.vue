@@ -1,21 +1,21 @@
 <template>
   <div class="mhy-container mhy-account-center-content">
-    <div class="mhy-account-center-content-container mhy-account-center-collection">
+    <div class="mhy-account-center-content-container mhy-account-center-story">
       <div class="mhy-account-center__subheader">
         <span>我的故事</span>
       </div>
       <div class="mhy-account-center-content-container__list">
-        <div class="mhy-collection-card mhy-account-center-collection-card" v-for="(item,_) in books">
-          <a :href=item.link class="mhy-router-link mhy-collection-card__link">
-            <div class="mhy-collection-card__cover">
+        <div class="mhy-story-card mhy-account-center-story-card" v-for="(item,_) in books">
+          <a :href=item.link class="mhy-router-link mhy-story-card__link">
+            <div class="mhy-story-card__cover">
               <img :src=item.coverUrl>
             </div>
           </a>
-          <div class="mhy-collection-card__info">
-            <a class="mhy-router-link mhy-collection-card__link" target="_blank">
-              <p class="mhy-collection-card__name">{{item.storyName}}</p>
+          <div class="mhy-story-card__info">
+            <a class="mhy-router-link mhy-story-card__link" target="_blank">
+              <p class="mhy-story-card__name">{{item.storyName}}</p>
             </a>
-            <div class="mhy-collection-card__stats">
+            <div class="mhy-story-card__stats">
               <span>总点赞{{item.totalLike}}</span>
               <span>总评论{{item.totalComment}}</span>
               <span>总收藏{{item.totalCollection}}</span>
@@ -106,10 +106,10 @@ input, button, textarea {
   color: inherit;
   font: inherit;
 }
-.mhy-account-center-collection-card {
+.mhy-account-center-story-card {
   padding: 15px 40px 15px 30px;
 }
-.mhy-collection-card {
+.mhy-story-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -117,59 +117,59 @@ input, button, textarea {
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-collection-card__link {
+.mhy-story-card__link {
   color: #333;
 }
 a {
   text-decoration: none;
 }
-.mhy-collection-card__cover {
+.mhy-story-card__cover {
   position: relative;
   overflow: hidden;
   border-radius: 4px;
   border: 1px solid #ebebeb;
 }
-.mhy-collection-card__cover img{
+.mhy-story-card__cover img{
   position: center;
   display: block;
-  width: 70px;
-  height: 90px;
+  width: 112px;
+  height: 180px;
 }
-.mhy-collection-card__info {
+.mhy-story-card__info {
   display: inline-block;
   margin-left: 20px;
   -webkit-box-flex: 1;
   flex-grow: 1;
   overflow: hidden;
 }
-.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
+.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.mhy-collection-card__link {
+.mhy-story-card__link {
   color: #333;
 }
-.mhy-collection-card__name {
+.mhy-story-card__name {
   position: relative;
   line-height: 1;
   height: 20px;
 }
-.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
+.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
+.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.mhy-collection-card__stats {
+.mhy-story-card__stats {
   color: #ccc;
   font-size: 12px;
   display: -webkit-box;
@@ -179,14 +179,14 @@ a {
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-collection-card__stats span {
+.mhy-story-card__stats span {
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-collection-card__stats span:not(:first-child)::before {
+.mhy-story-card__stats span:not(:first-child)::before {
   content: "";
   display: inline-block;
   width: 2px;
