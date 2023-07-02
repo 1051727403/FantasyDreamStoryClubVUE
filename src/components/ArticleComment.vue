@@ -22,7 +22,9 @@
     </div>
     <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
       <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
-        <el-avatar class="header-img"  :src="item.headImg"></el-avatar>
+        <div @click="jumpToUserShow(item.userId)">
+          <el-avatar class="header-img"  :size="40" :src="item.headImg" style="cursor: pointer"></el-avatar>
+        </div>
         <div style="display: flex;justify-content: space-between;align-items: center; width: 235px;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
@@ -49,7 +51,9 @@
       <div class="reply-box">
         <div v-for="(reply, j) in item.reply" :key="j" class="author-title" v-show="shouldShowReply(i, j)">
           <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
-            <el-avatar class="header-img" :size="30" :src="reply.fromHeadImg"></el-avatar>
+            <div @click="jumpToUserShow(reply.userId)">
+              <el-avatar class="header-img" :size="40" :src="reply.fromHeadImg" style="cursor: pointer"></el-avatar>
+            </div>
             <div style="display: flex;justify-content: space-between;align-items: center; width: 205px;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
@@ -229,6 +233,11 @@ export default {
     }
   },
   methods: {
+    //跳转到个人展示页面
+    jumpToUserShow(userId){
+      console.log(userId)
+      window.open(this.$router.resolve("/app/usershow?userid="+userId).href,'_blank')
+    },
     //删除评论
     deleteComment(id){
       // console.log(id)
