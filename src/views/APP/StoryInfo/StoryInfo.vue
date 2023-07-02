@@ -9,22 +9,21 @@
               <img :src="storyinfo.coverUrl" alt="">
           </div>
           <div class="book-cats" id="cats">
-<!--            <a href="" class="book-catsa">幻想</a>-->
-<!--&lt;!&ndash;            <a href="">恋爱</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a href="">治愈</a>&ndash;&gt;-->
           </div>
           <br>
           <div class="book-data">
             <span class="date">{{storyinfo.totalLike}}</span>
             <span class="hint">点赞数</span>
             <span class="date">{{storyinfo.totalComment}}</span>
-            <span class="hint">热度</span>
+            <span class="hint">总评数</span>
             <span class="date">{{storyinfo.totalCollection}}</span>
-            <span class="hint">收藏</span>
+            <span class="hint">收藏量</span>
           </div>
           <div class="book-controls">
             <div class="primary">
-              <el-button type="success" plain>开始阅读</el-button>
+              <el-button type="success" plain @click="gotoStory(storyinfo.Link)">
+                  开始阅读
+              </el-button>
               <el-button plain @click="collect" >收藏</el-button>
             </div>
           </div>
@@ -106,6 +105,8 @@ export default {
     this.request.get("/story/getStoryInfo?storyid="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
+        this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
+
         console.log(res.data)
         // 请求作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
@@ -171,6 +172,9 @@ export default {
         }
       })
 
+    },
+    gotoStory(Link){
+      this.$router.push(Link)
     }
   }
 }

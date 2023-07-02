@@ -120,15 +120,16 @@ export default {
   background: #f6f7f8;
 }
 .wrapper .background{
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 0;
   right: 0;
-  height: 300px;
+  height: 700px;
   overflow: hidden;
   text-align: center;
   margin-bottom: 0!important;
-  background-image: url(https://5b0988e595225.cdn.sohucs.com/images/20200323/5d1dc63ffe1c4758be9beb08102b8d52.jpeg);
+  background:url(https://gd-hbimg.huaban.com/de44f21c61515fa72b337d7a2633f3f4f53530b64cde2-zRsd0o_fw658webp)  no-repeat;
+  background-size: 100% 100%;
 }
 .wrapper .user-info{
   margin: 200px 250px;
@@ -137,6 +138,7 @@ export default {
   position:relative;
   float: left;
   background-color: beige;
+  border-radius: 10px;
   width: 700px;
 }
 .wrapper .user-info .info-left .item{
@@ -166,7 +168,8 @@ export default {
 .wrapper .user-info .info-right{
   position:relative;
   background: white;
-  float: left;
+  border-radius: 10px;
+  float: right;
   width: 300px;
 }
 .wrapper .user-info .info-right .avatar{
