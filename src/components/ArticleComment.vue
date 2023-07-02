@@ -440,7 +440,7 @@ export default {
       }
     },
     onDivInput: function (e) {
-      this.replyComment = e.target.innerHTML;
+      this.replyComment = e.target.innerText;
     },
     dateStr(date) {
       //获取js 时间戳
