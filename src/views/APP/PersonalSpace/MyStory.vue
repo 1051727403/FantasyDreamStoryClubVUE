@@ -16,6 +16,7 @@
               <p class="mhy-collection-card__name">{{item.storyName}}</p>
             </a>
             <div class="mhy-collection-card__stats">
+              <span>总点赞{{item.totalLike}}</span>
               <span>总评论{{item.totalComment}}</span>
               <span>总收藏{{item.totalCollection}}</span>
             </div>
