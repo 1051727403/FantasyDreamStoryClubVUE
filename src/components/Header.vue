@@ -74,6 +74,8 @@ export default {
       }else{
         console.log(this.user)
         this.$router.push("/PersonalSpace")
+        //location.reload()
+        this.$router.go(1)
       }
     },
     gotowhat(){

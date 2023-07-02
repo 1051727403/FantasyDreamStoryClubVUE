@@ -58,7 +58,7 @@ export default {
       this.request.get("/story/usersStories?userid="+this.loc.id).then(res=>{
         if(res.code==='200'){
           this.books=res.data
-          console.log(this.books)
+          //console.log(this.books)
           for (var re of this.books) {
             re.link="/APP/storyinfo?storyid="+re.storyId
           }

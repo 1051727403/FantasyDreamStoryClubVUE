@@ -61,7 +61,7 @@ export default {
         if(res.code==='200'){
           this.fragments=res.data
           for (var re of this.fragments) {
-            console.log(re)
+            //console.log(re)
             re.link="/APP/storyrelay?storyId="+re.storyId+"&fragmentId="+re.fragmentId
           }
         }
