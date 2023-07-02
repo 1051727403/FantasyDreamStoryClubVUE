@@ -100,7 +100,7 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="标签" label-width=120 >
+        <el-form-item label="标签" label-width=120>
           <el-select
               v-model="form.tags"
               multiple
@@ -109,9 +109,9 @@
               placeholder="请选择">
             <el-option
                 v-for="item in tags"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                :key="item.tagId"
+                :label="item.tagName"
+                :value="item.tagId">
             </el-option>
           </el-select>
         </el-form-item>
@@ -164,11 +164,11 @@ export default {
       ],
       tags:[
         {
-          value:1,
-          label:"幻想"},
+          tagId:1,
+          tagName:"幻想"},
         {
-          value:2,
-          label:"恋爱"},
+          tagId:2,
+          tagName:"恋爱"},
       ],
       storyRules:{
         storyName:[{required:true,message:'请输入故事名称' ,trigger:'blur'}],
@@ -189,7 +189,11 @@ export default {
       this.loc = JSON.parse(localStorage.getItem("user"))
     }
     else{
-      this.$router.push('/login')
+      this.$notify({
+        title:"请登录后尝试",
+        duration:1500
+      })
+      //this.$router.push('/login')
     }
     console.log("create")
     this.request.post("/user/checktoken?userid="+this.loc.id+"&token="+this.loc.token).then(res=>{
@@ -220,6 +224,16 @@ export default {
         this.$message.error("error"+res.msg)
       }
     })
+    //标签信息
+    this.request.get("/tag/getTags").then(res=>{
+      if(res.code==="200"){
+        this.tags = res.data
+      }
+      else{
+        this.$message.error("标签失败")
+      }
+    })
+
   },
   methods: {
     selMenu(item){

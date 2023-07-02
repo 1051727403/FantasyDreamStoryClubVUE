@@ -24,7 +24,7 @@
               <el-button type="success" plain @click="gotoStory(storyinfo.Link)">
                   开始阅读
               </el-button>
-              <el-button plain @click="collect" >收藏</el-button>
+              <el-button plain @click="collect" id="collectBtn" >收藏</el-button>
             </div>
           </div>
         </div>
@@ -111,6 +111,7 @@ export default {
       storyId:1,
       comments:[],
       totalComment:0,
+      checkCollect:false,
     }
   },
   created() {
@@ -119,7 +120,6 @@ export default {
       if(res.code==='200'){
         this.storyinfo=res.data
         this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
-
         //console.log(res.data)
         // 请求作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
@@ -149,6 +149,21 @@ export default {
             this.$message.error("error"+res.msg)
           }
         })
+        //请求收藏
+        this.request.get("/story/checkCollect?userId="+JSON.parse(localStorage.getItem("user")).id+"&storyId="+this.storyid).then(res=>{
+          if(res.code==="200"){
+            console.log(this.storyinfo.userId)
+            console.log(this.storyid)
+            console.log("收藏")
+            console.log(res)
+            this.checkCollect = res.data
+            this.checkedCollect()
+          }
+          else{
+            this.$message.error("标签错误")
+          }
+        })
+        this.checkedCollect()
         this.loadStoryComment(this.storyId)
       }
       else{
@@ -180,6 +195,8 @@ export default {
         this.request.post("/story/collecteStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
           if(res.code==="200"){
             this.$message.success("收藏成功")
+            this.checkCollect = true
+            this.checkedCollect()
           }
           else{
             this.dialogVisible = true
@@ -187,7 +204,11 @@ export default {
         })
       }
       else{
-        this.$router.push('/login')
+        this.$notify({
+          title:"请登录后尝试",
+          duration:1500
+        })
+        //this.$router.push('/login')
       }
     },
     uncollect(){
@@ -197,6 +218,8 @@ export default {
         //console.log(res)
         if(res.code==="200"&& res.data===true){
           this.$message.success("取消收藏成功")
+          this.checkCollect = false
+          this.checkedCollect()
         }
         else{
           this.$message.error("出错")
@@ -210,6 +233,16 @@ export default {
       //   path: Link,
       // })
       // window.open(routeData.href,"_blank")
+    },
+    checkedCollect(){
+        let collectBtn =document.getElementById("collectBtn")
+        if(this.checkCollect){
+          collectBtn.innerText
+          collectBtn.innerText="已收藏"
+        }
+        else{
+          collectBtn.innerText="收藏"
+        }
     }
   }
 }
@@ -221,21 +254,23 @@ body{
   overflow:auto !important;
 }
 .book-wrapper{
-  padding-top: 230px;
+  padding-top: 200px;
   background: #f6f7f8;
   padding-bottom: 60px;
   margin: 0 auto;
 }
 .book-wrapper .background{
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 0;
   right: 0;
-  height: 300px;
+  height: 690px;
   overflow: hidden;
   text-align: center;
   margin-bottom: 0!important;
-  background-image: url(https://5b0988e595225.cdn.sohucs.com/images/20200323/5d1dc63ffe1c4758be9beb08102b8d52.jpeg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url(https://gd-hbimg.huaban.com/4bf9ac9aa6230b02ab227c20c22b8390bce842c9551d3-uiLtjM_fw658webp) ;
 }
 .book-wrapper .detail-layout{
   position: relative;
@@ -245,7 +280,7 @@ body{
 .book-wrapper .detail-layout .detail {
   position: relative;
   width: 808px;
-  min-height: 1730px;
+  min-height: 1030px;
   background: #fff;
   box-shadow: 0 2px 4px 0 #e7e7e7;
   border-radius: 4px;
