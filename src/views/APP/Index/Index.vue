@@ -79,7 +79,7 @@
 
         <div class="slide-recommend" style="height: 100%;">
           <el-carousel trigger="click" id="carousel-banner" class="carousel slide" style="height: 100%;">
-            <el-carousel-item v-for="item in activity_recommendation" :key="item" class="carousel-inner">
+            <el-carousel-item v-for="(item, index) in activity_recommendation" :key="index" class="carousel-inner">
               <a :href="storySkip(item.storyId)" class="item active" target="_blank">
                 <img class="lazy" :data-original="original_cover" :src="item.coverUrl">
               </a>
@@ -154,7 +154,7 @@
 
           <div class="work-list clearfix">
             <ul>
-              <li v-for="item in hot_recommendation" :key="item" span="4">
+              <li v-for="(item, index) in hot_recommendation" :key="index" span="4">
                 <a :href="storySkip(item.storyId)" class="book-item-inner" target="_blank" >
                   <div class="cover">
                     <div class="img-loading">
@@ -199,7 +199,7 @@
 
           <div class="work-list clearfix">
             <ul>
-              <li v-for="item in personal_recommendation" :key="item" span="4">
+              <li v-for="(item, index) in personal_recommendation" :key="index" span="4">
                 <a :href="storySkip(item.storyId)" class="book-item-inner" target="_blank" >
                   <div class="cover">
                     <div class="img-loading">
@@ -235,7 +235,7 @@
             </a>
           </div>
 
-          <div class="update-list" v-for="item in latest_recommendation" :key="item">
+          <div class="update-list" v-for="(item, index) in latest_recommendation" :key="index">
             <a :href="storySkip(item.storyId)" class="book-card" target="_blank">
               <div class="book-name">{{item.storyName}}</div>
               <div class="book-detail">

@@ -15,7 +15,7 @@
                   <a rel="nofollow" :href="tagSearch(-1)" :class="tagChooseClass(-1)">
                     全部</a>
                 </li>
-                <li class="special" v-for="(tag, index) in allTags" :key="'tag_' + index">
+                <li class="special" v-for="(tag, index) in allTags" :key="index">
                   <a rel="nofollow" :href="tagSearch(tag.tagId)" :class="tagChooseClass(tag.tagId)">
                     {{tag.tagName}}</a>
                 </li>
@@ -51,27 +51,46 @@
         <div class="rank-content">
           <div class="rank-book-list">
 
-            <div class="rank-book" v-for="(book, index) in allBooks" :key="'story_' + index">
+            <div class="rank-book" v-for="(book, index) in allBooks" :key="index">
               <div class="book-draw">
-                <div class="book-cover">
-                  <a :href="storySkip(book.storyId)" target="_blank">
-                    <el-image
-                        style="width: 100%; height: 100%"
-                        fit="cover"
-                        class="lazy"
-                        alt=""
-                        :src="book.coverUrl"
-                        lazy></el-image>
-                  </a>
+                <div class="book-cover-data">
+                  <div class="book-cover">
+                    <a :href="storySkip(book.storyId)" target="_blank">
+                      <el-image
+                          style="width: 100%; height: 100%"
+                          fit="cover"
+                          class="lazy"
+                          alt=""
+                          :src="book.coverUrl"
+                          lazy></el-image>
+                    </a>
+                  </div>
+
+                  <div class="book-cover-bottom">
+                    <div class="book-cover-bottom-data">
+                      <span class="icon1"></span>
+                      <p>{{book.totalLike}}</p>
+                    </div>
+                    <div class="book-cover-bottom-data">
+                      <span class="icon2"></span>
+                      <p>{{book.totalCollection}}</p>
+                    </div>
+                  </div>
+
                 </div>
+
                 <div class="book-box">
                   <div class="book-box-mask"></div>
                   <div class="book-info">
                     <a :href="storySkip(book.storyId)" target="_blank" class="book-name">
                       {{book.storyName}}</a>
+
                     <div class="book-tags">
-                      <a class="book-tag" href="/cat/1.html" target="_blank" v-for="(tag, index) in book.tags" :key="'book_tag_' + index">
-                        {{tag.tagName}}</a>
+                      <div v-for="(tag, index) in book.tags" :key="index">
+                        <a rel="nofollow" class="book-tag" :href="tagSearch(tag.tagId)">
+                          {{tag.tagName}}</a>
+                      </div>
+
                     </div>
                     <div class="book-intro">
                       {{book.introduce}}</div>
@@ -85,39 +104,18 @@
 
           </div>
 
-          <nav style="text-align: center;">
-            <ul class="pagination">
-              <li class="disabled">
-                <a href="javascript:;">上一页</a>
-              </li>
+          <el-pagination
+              @current-change="pageSkip"
+              background
+              hide-on-single-page
+              layout="prev, pager, next"
+              style="text-align: center;"
+              :page-size="15"
+              :total="this.storyNum">
+          </el-pagination>
 
-
-              <li class="active">
-                <a href="/cat/-1.html?page=1">1</a>
-              </li>
-              <li class="">
-                <a href="/cat/-1.html?page=2">2</a>
-              </li>
-              <li class="">
-                <a href="/cat/-1.html?page=3">3</a>
-              </li>
-              <li class="">
-                <a href="/cat/-1.html?page=4">4</a>
-              </li>
-              <li class="">
-                <a href="/cat/-1.html?page=5">5</a>
-              </li>
-
-              <li class="dot"><a style="color: #999;">...</a></li>
-              <li><a href="/cat/-1.html?page=725">725</a></li>
-
-              <li class="">
-                <a href="/cat/-1.html?page=2">下一页</a>
-              </li>
-            </ul>
-          </nav>
-
-        </div>	</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -141,9 +139,11 @@ export default {
       menuVisible: true,
       allTags: [],
       allBooks: [],
+      innerPageRange: [],
       sortTag: 'date',
       typeTag: -1,
       page: 1,
+      storyNum: 0,
     }
   },
   computed: {
@@ -180,14 +180,24 @@ export default {
       })
 
       this.request.get('search/search', {
-          params: {
-            tag: this.typeTag,
-            sort: this.sortTag,
-            page: this.page
-          }
-        }).then(res=>{
+        params: {
+          tag: this.typeTag,
+          sort: this.sortTag,
+          page: this.page
+        }
+      }).then(res=>{
         console.log(res);
         this.allBooks = res.data;
+      })
+
+      this.request.get('search/storyNum', {
+        params: {
+          tag: this.typeTag,
+        }
+      }).then(res=>{
+        console.log(res);
+        this.storyNum = res.data;
+
       })
     },
     handleScroll() {
@@ -196,10 +206,16 @@ export default {
       this.prevScrollPos = currentScrollPos;
     },
     sortSearch(sort) {
-      return '/APP/Search/?tag=' + this.typeTag + '&sort=' + sort + '&page=' + this.page;
+      return '/APP/Search/?tag=' + this.typeTag + '&sort=' + sort;
     },
     tagSearch(tag) {
-      return '/APP/Search/?tag=' + tag + '&sort=' + this.sortTag  + '&page=' + this.page;
+      return '/APP/Search/?tag=' + tag + '&sort=' + this.sortTag;
+    },
+    pageSkip(page) {
+      this.$router.push({ path: '/APP/Search/', query: { tag: this.typeTag, sort: this.sortTag, page: page } });
+      this.$nextTick(() => {
+        this.load();
+      });
     },
     storySkip(storyId) {
       return "/APP/StoryInfo/?storyid=" + storyId;

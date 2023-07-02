@@ -16483,12 +16483,15 @@ table tr td:last-child {
 }
 
 .cat-container .rank-content .rank-book-list .rank-book .book-draw .book-box .book-info {
-  width: 100%
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .cat-container .rank-content .rank-book-list .rank-book .book-draw .book-box .book-info .book-name {
   display: block;
-  width: 100%
+  width: 100%;
+  align-self: flex-start;
 }
 
 .cat-container .rank-content .rank-book-list .rank-book .book-draw .book-box .book-info .book-tags .book-tag {
@@ -23176,7 +23179,6 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
 .rank-content .rank-book-list .rank-book {
   position: relative;
   max-width: 930px;
-  height: 195px;
   display: flex;
   margin-top: 40px
 }
@@ -23206,11 +23208,53 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
   display: flex
 }
 
+.book-cover-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-cover-data {
+  display: flex;
+  flex-direction: column;
+}
+
 .rank-content .rank-book-list .rank-book .book-draw .book-cover {
+  flex: 1;
   min-width: 130px;
   width: 130px;
   height: 195px;
   box-shadow: 0 3px 12px 0 hsla(0,0%,60%,.44)
+}
+
+.book-cover-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.book-cover-bottom-data {
+  display: flex;
+  margin: 5px;
+  align-items: center;
+}
+
+.book-cover-bottom-data> p {
+  padding: 0 3px;
+  font-size: 18px;
+}
+
+.icon1{
+  width:20px;
+  height:20px;
+  background:url(../image/liked.png) no-repeat;
+  background-size: cover;
+}
+
+.icon2{
+  width:20px;
+  height:20px;
+  background:url(../image/colloection.png) no-repeat;
+  background-size: cover;
 }
 
 .rank-content .rank-book-list .rank-book .book-draw .book-cover img {
@@ -23297,7 +23341,7 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
 }
 
 .rank-content .rank-book-list .rank-book .book-draw .book-box .book-info .book-intro {
-  height: 78px;
+  flex-grow: 1;
   font-size: 14px;
   color: #333;
   line-height: 25px;
@@ -23310,7 +23354,8 @@ ul.order-list li a.order-second.show_choose,ul.order-list li a.order-second:hove
 .rank-content .rank-book-list .rank-book .book-draw .book-box .book-info .book-extra {
   margin-top: 10px;
   font-size: 12px;
-  color: #999
+  color: #999;
+  align-self: flex-end;
 }
 
 .rank-content .rank-book-list .rank-book .book-draw .book-box .book-fun {
