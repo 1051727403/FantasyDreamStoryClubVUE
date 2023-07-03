@@ -6,9 +6,8 @@
            :collapse-transition="false"
            router>
     <div style="height: 60px;line-height: 60px;text-align: center;display: flex;justify-content: center;align-items: center;flex-direction: row">
-      <img src="https://img-blog.csdnimg.cn/dbc2eaa294194339a3b1d509e6739306.png#pic_center" style="height: 45px;" alt="">
-      <b style="color: #51b1d5;margin-left: 15px;" >
-        <span style="color:#3fccfc;font-weight: bolder">管理中心</span>
+      <b style="color: #51b1d5;" >
+        <span style="color:#3fccfc;font-weight: bolder">绮梦故事会管理系统</span>
       </b>
     </div>
     <el-menu-item index="Index"  >

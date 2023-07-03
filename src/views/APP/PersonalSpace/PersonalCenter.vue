@@ -10,7 +10,7 @@
           <div class="mhy-account-center-user">
             <div class="mhy-account-center-user__header">
               <div class="mhy-account-center-user__title">
-                <span class="mhy-account-center-user__name">{{ userinfo.username }}</span>
+                <span class="mhy-account-center-user__name">{{ userinfo.nickname }}</span>
               </div>
               <div class="mhy-account-center-header__buttons">
                 <div class="mhy-button mhy-account-center-header__edit mhy-button-outlined mhy-button-md">
@@ -20,32 +20,32 @@
               </div>
             </div>
             <div class="mhy-account-center-user__audit">
-              <span class="mhy-account-center-user__uid">{{ userinfo.nickname }}</span>
+              <span class="mhy-account-center-user__uid">{{ userinfo.username }}</span>
               <!---->
             </div>
 
             <div class="mhy-account-center-header__data">
               <div class="mhy-account-center-header__data-item">
-                <a class="mhy-router-link mhy-account-center-header__data-num mhy-account-center-header__data-link">{{userinfo.totalLike}}</a>
-                <div class="mhy-account-center-header__data-label">总点赞</div>
+                <div class="mhy-account-center-header__data-label" style="color: #696969">总点赞:</div>
+                <a class="mhy-router-link mhy-account-center-header__data-num mhy-account-center-header__data-link" style="  font-size: 14px;color: #ff8686;margin-left: 10px;">{{userinfo.totalLike}}</a>
               </div>
             </div>
           </div>
         </div>
         <!--左侧菜单栏-->
-        <div class="mhy-container mhy-side-menu mhy-account-center__menu">
+        <div class="mhy-container mhy-side-menu mhy-account-center__menu" style="box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */">
           <header class="mhy-side-menu__header">个人中心</header>
           <ul class="mhy-side-menu__list">
             <li v-for="(item,index) in menus" :key="index" @click="selMenu(item)">
               <a :class="'mhy-router-link mhy-side-menu__item '+ (activeIndex === item.path?'nuxt-link-active':'')">
-                <i :class="item.icon" style="font-size: 18px;margin-right: 10px;"></i>
+                <i :class="item.icon" style="font-size: 18px;margin-right: 10px;" :style="item.style"></i>
                 <span>{{item.name}}</span>
               </a>
             </li>
           </ul>
         </div>
         <!-- 右侧内容-->
-        <div class="mhy-container mhy-account-center-content">
+        <div class="mhy-container mhy-account-center-content" style="box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */">
           <router-view></router-view>
         </div>
 
@@ -54,12 +54,12 @@
     <div class="left-bar">
       <a href="#" class="createStory" @click="storydialogVisible=true">
         <i class="el-icon-notebook-1"></i>
-        <span>投稿故事</span>
+        <span style="margin-left: 5px;">投稿故事</span>
       </a>
     </div>
-    <el-dialog title="修改资料" :visible.sync="userdialogVisible" width="50%">
+    <el-dialog title="修改资料" :visible.sync="userdialogVisible">
       <el-form :model="userinfo" :rules="userRules" ref="form">
-        <el-form-item label="封面" label-width=120 >
+        <el-form-item label="修改头像" label-width=200 >
           <el-upload
               class="avatar-uploader"
               action="http://localhost:9090/upload/image"
@@ -67,7 +67,7 @@
               :on-success="handleUserAvatarSuccess"
               :before-upload="beforeAvatarUpload"
               name="photo">
-            <img v-if="userinfo.avatarUrl" :src="userinfo.avatarUrl" style="height: 100px;width: 100px">
+            <img v-if="userinfo.avatarUrl" :src="userinfo.avatarUrl" style="height: 100px;width: 100px" class="avatarImage">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -83,12 +83,12 @@
         <el-button type="primary" @click="saveUser">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%">
+    <el-dialog title="投稿故事" :visible.sync="storydialogVisible" width="50%" top="30px">
       <el-form :model="form" :rules="storyRules" ref="form">
         <el-form-item label="故事名" label-width=120 prop="storyName">
           <el-input v-model="form.storyName" autocomplete="off"></el-input>
         </el-form-item >
-        <el-form-item label="封面" label-width=120 >
+        <el-form-item label="点击修改头像" label-width=120 >
           <el-upload
               class="avatar-uploader"
               action="http://localhost:9090/upload/image"
@@ -96,7 +96,7 @@
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
               name="photo">
-            <img v-if="form.coverUrl" :src="form.coverUrl" class="avatar">
+            <img v-if="form.coverUrl" :src="form.coverUrl">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -156,11 +156,12 @@ export default {
         fragmentName:"",
         fragmentContent:"",
       },
-      activeIndex: '/PersonalSpace',
+      activeIndex: '/PersonalSpace/myCollect',
       menus: [
-        {name:'我的收藏',path:'/PersonalSpace/myCollect',icon:'el-icon-folder-opened'},
-        {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-s-management'},
-        {name:'我的片段',path:'/PersonalSpace/myFragment',icon:'el-icon-document'},
+        {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-s-management',style:"color:#ef6e9f;font-size:20px;margin-left:3px;"},
+        {name:'我的片段',path:'/PersonalSpace/myFragment',icon:'el-icon-document',style:"color:#29b8e9;font-size:20px;margin-left:3px;"},
+        {name:'故事收藏',path:'/PersonalSpace/myCollect',icon:'el-icon-folder-opened',style:"color:#15a18c;font-size:20px;margin-left:3px;"},
+        {name:'片段收藏',path:'/PersonalSpace/myFragmentCollect',icon:'el-icon-star-on',style:"color:#fdc630;font-size:25px;"},
       ],
       tags:[
         {
@@ -231,6 +232,7 @@ export default {
   },
   methods: {
     selMenu(item){
+      if (this.activeIndex==item.path)return
       this.activeIndex = item.path;
       this.$router.push({path: item.path});
     },
@@ -249,7 +251,6 @@ export default {
           this.$message.success("修改用户名失败")
         }
       })
-
     },
     handleAvatarSuccess(res) {
       //console.log(res)
@@ -321,10 +322,11 @@ export default {
 
 <style scoped>
 .root-page-container {
-  background: url(https://img2.baidu.com/it/u=3039460187,60719744&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=400) no-repeat 0 0;
+  background: url(https://bpic.588ku.com/back_pic/00/02/55/675618e520d4f7b.JPG) no-repeat 0 0;
   background-size: 100%;
   height: 350px;
 }
+
 .mhy-main-page {
   padding-top: 60px;
   position: relative;
@@ -542,35 +544,13 @@ p {
   align-items: center;
   padding-right: 40px;
 }
-.mhy-account-center-header__data-link {
-  cursor: pointer;
-}
+
 .mhy-account-center-header__data-num {
   color: #333;
   font-size: 20px;
 }
 .mhy-account-center-header__data-label {
-  margin-left: 10px;
-  color: #ccc;
-}
-.mhy-account-center-header__data-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-right: 40px;
-}
-.mhy-account-center-header__data-link {
-  cursor: pointer;
-}
-.mhy-account-center-header__data-num {
-  color: #333;
-  font-size: 20px;
-}
-.mhy-account-center-header__data-label {
-  margin-left: 10px;
+  font-size: 14px;
   color: #ccc;
 }
 .mhy-account-center-header__data-item {
@@ -586,10 +566,20 @@ p {
   color: #333;
   font-size: 20px;
 }
-.mhy-account-center-header__data-label {
-  margin-left: 10px;
-  color: #ccc;
+.mhy-account-center-header__data-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-right: 40px;
 }
+.mhy-account-center-header__data-num {
+  color: #333;
+  font-size: 20px;
+}
+
 
 /*左侧菜单栏*/
 .mhy-side-menu {
@@ -688,4 +678,5 @@ ul, li {
   text-decoration: none;
   text-align: center;
 }
+
 </style>

@@ -94,7 +94,7 @@ export default {
               console.log(res.data)
               localStorage.setItem("user",JSON.stringify(res.data.data));
 
-              if(res.data.is_admin=="1") this.$router.push("/Manage/home");
+              if(res.data.is_admin=="1") this.$router.push("/Manage/Index");
               else this.$router.push("/APP/Index")
               this.$message.success("登录成功！")
             }else{

@@ -2,7 +2,7 @@
   <div class="mhy-container mhy-account-center-content">
     <div class="mhy-account-center-content-container mhy-account-center-story">
       <div class="mhy-account-center__subheader">
-        <span>我的故事</span>
+        <span>我创作的故事</span>
       </div>
       <div class="mhy-account-center-content-container__list">
         <div class="mhy-story-card mhy-account-center-story-card" v-for="(item,_) in books">

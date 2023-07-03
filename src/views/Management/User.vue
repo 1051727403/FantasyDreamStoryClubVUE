@@ -199,7 +199,6 @@ export default {
         for(let i=0;i<this.pageSize;i++){
           this.tableData[i].newid=this.count-this.pageSize*(this.pageNum-1)-i;
         }
-
       })
       // fetch("http://localhost:9090/user/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize+"&search="+this.search)
       //     .then(res => res.json()).then(res => {
@@ -321,7 +320,7 @@ export default {
       console.log("点击批量删除按钮")
       let ids=this.multipleSelection.map(v=>v.id)
       console.log(ids)
-      this.request.post("/user/del/bash",ids).then(res=>{
+      this.request.post("/admin/deleteBatchUser",ids).then(res=>{
         console.log(res)
         if(res){
           this.$message.success("删除成功！");
@@ -330,53 +329,6 @@ export default {
           this.$message.error("删除失败！");
         }
       })
-    },
-    //导出
-    exp(){
-      //无用户信息（token）则代表当前为非法登录，不能够使用导出接口
-      let user=localStorage.getItem("user")
-      //console.log(user)
-      if (user==null){
-        this.$message("无用户信息，请重新登录！")
-        return false
-      }else{
-        var token=JSON.parse(user).token
-        if(token==null){
-          this.$message("无token信息，请重新登录！")
-          return false
-        }
-      }
-      //导出不拦截，在前端请求时，另外请求一个没有任何用处的token方法，达到校验的目的
-      this.request.post("/user/token").then(res=> {
-        console.log("res:" + res);
-        if (res.code === '401') {
-          return false
-        } else {
-          window.open("http://localhost:9090/user/export")
-          return true
-        }
-      })
-
-    },
-    //导入前的检查
-    //导入
-    //导入成功
-    importSuccess(){
-      this.request.post("/user/token").then(res=> {
-        console.log("res:" + res);
-        if (res.code === '401') {
-          this.$message.error("导入失败！");
-          this.load();
-        } else {
-          this.$message.success("导入成功！");
-          this.load();
-        }
-      })
-    },
-    //导入失败
-    importFail(){
-      this.$message.error("导入失败！");
-      this.load();
     },
   }
 }

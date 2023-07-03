@@ -137,6 +137,13 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition; // 恢复之前的滚动位置
+    } else {
+      return { x: 0, y: 0 }; // 设置滚动条位置为顶部
+    }
+  },
 })
 export default router

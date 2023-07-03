@@ -21,14 +21,14 @@
       </div>
     </div>
     <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
-      <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;">
+      <div style="display: flex;justify-content: space-between;align-items: center; width: 100%;" @click="getItem(item)">
         <div @click="jumpToUserShow(item.userId)">
           <el-avatar class="header-img"  :size="40" :src="item.headImg" style="cursor: pointer"></el-avatar>
         </div>
         <div style="display: flex;justify-content: space-between;align-items: center; width: 235px;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
-            <span class="author-time">{{item.time[0]}}.{{item.time[1]}}.{{item.time[2]}}&nbsp;{{item.time[3]}}:{{item.time[4]}} </span>
+            <span class="author-time">{{item.time | formatDate}}</span>
           </div>
           <div class="icon-btn" style="font-size: 12px;">
             <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">&nbsp;回复</i></span>
@@ -57,7 +57,7 @@
             <div style="display: flex;justify-content: space-between;align-items: center; width: 205px;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
-                <span class="author-time">{{reply.time[0]}}.{{reply.time[1]}}.{{reply.time[2]}}&nbsp;{{reply.time[3]}}:{{reply.time[4]}}</span>
+                <span class="author-time">{{reply.time  | formatDate}}</span>
               </div>
               <div class="icon-btn"style="font-size: 12px;">
                 <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
@@ -224,6 +224,15 @@ export default {
     }
   },
   directives: {clickoutside},
+  filters: {
+    formatDate(value) {
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}.${month}.${day}`;
+    },
+  },
   created() {
     var user=JSON.parse(localStorage.getItem("user"))
     if (user) {
@@ -373,18 +382,7 @@ export default {
         let a = {}
         let input = document.getElementById('replyInput')
         // 创建一个新的 Date 对象
-        var date = new Date();
-
-        // 获取年份、月份、日期、小时和分钟
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
-
-        // 创建包含时间值的数组
-        var timeArray = [year, month, day, hour, minute];
-        let time = timeArray;
+        let time = new Date();
         a.name = this.myName
         a.comment = this.replyComment
         a.headImg = this.myHeader
@@ -410,19 +408,7 @@ export default {
         })
       } else {
         let a = {}
-        // 创建一个新的 Date 对象
-        var date = new Date();
-
-        // 获取年份、月份、日期、小时和分钟
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
-
-        // 创建包含时间值的数组
-        var timeArray = [year, month, day, hour, minute];
-        let time = timeArray
+        let time = new Date();
         a.from = this.myName
         a.to = this.to
         a.fromHeadImg = this.myHeader
