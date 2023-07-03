@@ -1,5 +1,9 @@
 <template>
   <div id="nav-bar">
+    <div style="position: absolute;left: 10%;cursor: pointer;display: flex;justify-content: center;align-items: center;" @click="jumpToIndex">
+      <img src="../assets/image/logo.png" style="width:79px;height: 50px;" >
+      <div style="font-weight: bold;font-size: 18px; letter-spacing: 1px; color: #ff7d30;text-shadow: -1px -1px 0 #fffbe5, 1px -1px 0 #fffbe5, -1px 1px 0 #fffbe5, 1px 1px 0 #fffbe5;">绮梦故事会</div>
+    </div>
       <el-input class="input-with-select" placeholder="请输入内容" v-model="input1" @keyup.enter.native="gotowhat" >
         <el-button slot="append" icon="el-icon-search"  @click="gotowhat"></el-button>
       </el-input>
@@ -22,6 +26,7 @@
           <span style="text-decoration: none" @click="logout"><el-dropdown-item>退出 </el-dropdown-item></span>
         </el-dropdown-menu>
       </el-dropdown>
+
     </div>
 
 </template>
@@ -60,6 +65,10 @@ export default {
     }
   },
   methods:{
+    //点击logo跳转主页
+    jumpToIndex(){
+      window.location.replace("/APP/Index")
+    },
     //退出跳转同时清楚localstorage中的数据
     logout(){
         localStorage.removeItem("user");
