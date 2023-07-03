@@ -19,7 +19,7 @@
                 </a>
               </li>
               <li>
-                <a href="/list/top" target="_blank">
+                <a href="/APP/AnnounceList" target="_blank">
                   <span class="icon"></span>
                   公告
                   <i class="line"></i>
@@ -80,7 +80,7 @@
         <div class="slide-recommend" style="height: 100%; box-shadow: 0 3px 12px 0 hsla(0, 0%, 60%, 0.44);">
           <el-carousel trigger="click" id="carousel-banner" class="carousel slide" style="height: 100%;">
             <el-carousel-item v-for="(item, index) in activity_recommendation" :key="index" class="carousel-inner">
-              <a :href="storySkip(item.storyId)" class="item active" target="_blank">
+              <a :href="'/APP/Announce/?id=' + item.announceId" class="item active" target="_blank">
                 <img class="lazy" :data-original="original_cover" :src="item.coverUrl">
               </a>
             </el-carousel-item>
@@ -91,7 +91,7 @@
           <div class="rules-notice">
 
             <div class="rules-list">
-              <a href="/page/signRule" target="_blank">
+              <a href="/APP/AnnounceList" target="_blank">
                 <p>公告</p>
               </a>
 

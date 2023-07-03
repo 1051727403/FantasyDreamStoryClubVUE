@@ -1590,7 +1590,9 @@
   letter-spacing: 0;
   word-wrap: break-word;
   overflow: hidden;
-  border: none
+  border: none;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 
 .normal-article-holder.show-later .slim-later-icon {
@@ -5436,6 +5438,9 @@ body,html {
 .article-cover-container {
   width: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .article-container__content {

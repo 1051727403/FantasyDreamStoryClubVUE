@@ -4,7 +4,7 @@
     <div class="article-detail">
 
       <div class="article-breadcrumb">
-        <a href="//www.bilibili.com/read/home?from=articleDetail" target="_self" class="breadcrumb-name">公告</a>
+        <a href="/APP/AnnounceList" target="_self" class="breadcrumb-name">公告</a>
         <span class="slash">/</span>
         <!----><!----><!----><!---->
         <span class="breadcrumb-name breadcrumb-title">{{title}}</span>
@@ -13,7 +13,7 @@
       <div class="article-container">
         <div class="article-cover-container">
           <el-image
-              style="width: 100%; height: 100%; padding: 10px 75px; max-height: 1000px"
+              :style="imageShow()"
               fit="cover"
               class="lazy"
               alt=""
@@ -81,7 +81,12 @@ export default {
         this.coverUrl = res.data.coverUrl;
       })
     },
-
+    imageShow() {
+      console.log('1564185641')
+      if (this.coverUrl && this.coverUrl === '')
+        return 'display: none';
+      return 'width: 100%; height: auto; padding: 10px 75px; max-height: 1000px';
+    },
   }
 }
 </script>
