@@ -19,7 +19,17 @@
                   <a rel="nofollow" :href="tagSearch(tag.tagId)" :class="tagChooseClass(tag.tagId)">
                     {{tag.tagName}}</a>
                 </li>
+
               </ul>
+
+              <el-tag
+                  v-if="showTag"
+                  :key="keyWord"
+                  closable
+                  :disable-transitions="false"
+                  @close="tagClose">
+                {{keyWord}}
+              </el-tag>
             </div>
 
             <div class="search-condition">
@@ -46,8 +56,7 @@
     </div>
 
     <div class="container">
-      <div class="cat-container" style="margin-top: 90px;">
-        <div class="cat-header"></div>
+      <div class="cat-container" style="margin-top: 45px;">
         <div class="rank-content">
           <div class="rank-book-list">
 
@@ -55,7 +64,7 @@
               <div class="book-draw">
                 <div class="book-cover-data">
                   <div class="book-cover">
-                    <a :href="storySkip(book.storyId)" target="_blank">
+                    <a class="img-loading" :href="storySkip(book.storyId)" target="_blank">
                       <el-image
                           style="width: 100%; height: 100%"
                           fit="cover"
@@ -95,7 +104,7 @@
                     <div class="book-intro">
                       {{book.introduce}}</div>
                     <div class="book-extra">
-                      {{book.updateTime}} 丨 {{book.createTime}}</div>
+                      更新时间 {{book.updateTime}} 丨 创建时间 {{book.createTime}}</div>
                   </div>
                 </div>
               </div>
@@ -139,11 +148,12 @@ export default {
       menuVisible: true,
       allTags: [],
       allBooks: [],
-      innerPageRange: [],
+      keyWord: '',
       sortTag: 'date',
       typeTag: -1,
       page: 1,
       storyNum: 0,
+      showTag: false,
     }
   },
   computed: {
@@ -163,16 +173,19 @@ export default {
   },
   methods:{
     load() {
+      const keyWord = this.$route.query.keyWord;
       const sort = this.$route.query.sort;
       const tag = this.$route.query.tag;
       const page = this.$route.query.page;
+      console.log('keywords:', keyWord);
       console.log('sort:', sort);
       console.log('tag:', tag);
-      console.log('tag:', page);
+      console.log('page:', page);
 
       if (sort) this.sortTag = sort;
       if (tag) this.typeTag = parseInt(tag);
       if (page) this.page = parseInt(page);
+      if (keyWord) { this.keyWord = keyWord; this.showTag = true; }
 
       this.request.get("search/allTags").then(res=>{
         console.log(res);
@@ -183,7 +196,8 @@ export default {
         params: {
           tag: this.typeTag,
           sort: this.sortTag,
-          page: this.page
+          page: this.page,
+          keyWord: this.keyWord
         }
       }).then(res=>{
         console.log(res);
@@ -193,6 +207,7 @@ export default {
       this.request.get('search/storyNum', {
         params: {
           tag: this.typeTag,
+          keyWord: this.keyWord
         }
       }).then(res=>{
         console.log(res);
@@ -205,14 +220,32 @@ export default {
       this.menuVisible = this.prevScrollPos > currentScrollPos;
       this.prevScrollPos = currentScrollPos;
     },
+    tagClose() {
+      this.showTag = false;
+      this.keyWord = '';
+      this.$router.push({ path: '/APP/Search/' });
+      this.$nextTick(() => {
+        location.reload()
+      });
+    },
     sortSearch(sort) {
-      return '/APP/Search/?tag=' + this.typeTag + '&sort=' + sort;
+      String
+      let route;
+      route = '/APP/Search/?sort=' + sort;
+      if (this.typeTag !== -1) route += '&tag=' + this.typeTag;
+      if (this.keyWord !== '') route += '&keyWord=' + this.keyWord;
+      return route;
     },
     tagSearch(tag) {
-      return '/APP/Search/?tag=' + tag + '&sort=' + this.sortTag;
+      String
+      let route;
+      route = '/APP/Search/?tag=' + tag;
+      if (this.sortTag !== "date") route += '&sort=' + this.sortTag;
+      if (this.keyWord !== '') route += '&keyWord=' + this.keyWord;
+      return route;
     },
     pageSkip(page) {
-      this.$router.push({ path: '/APP/Search/', query: { tag: this.typeTag, sort: this.sortTag, page: page } });
+      this.$router.push({ path: '/APP/Search/', query: { tag: this.typeTag, sort: this.sortTag, page: page, keyWord: this.keyWord } });
       this.$nextTick(() => {
         this.load();
       });

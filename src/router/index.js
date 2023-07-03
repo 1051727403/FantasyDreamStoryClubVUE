@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/Management/Manage.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,7 +56,6 @@ const routes = [
     name:'Apptest',
     component:()=>import('../views/APP/StoryRelay/test.vue'),
   },
-
   {
     path:'/PersonalSpace',
     component:()=>import('../views/APP/AppHome.vue'),
@@ -87,7 +85,48 @@ const routes = [
       }
     ]
   },
+
   //后台管理页面
+  {
+    path: "/Manage",name:"管理端",component:()=>import('../views/Management/ManageHome.vue'),
+    redirect: '/home',
+    children:[
+      {
+        path:'Index',
+        name:'主页',
+        component:()=>import('../views/Management/Index/Index.vue'),
+      }, {
+        path:'User',
+        name:'用户管理',
+        component:()=>import('../views/Management/UserManagement/User.vue'),
+      },
+      {
+        path:'Comment',
+        name:'评论管理',
+        component:()=>import('../views/Management/CommentManagement/Comment.vue'),
+      },
+      {
+        path:'Story',
+        name:'故事管理',
+        component:()=>import('../views/Management/StoryAndFragmentManagement/Story.vue'),
+      },
+      {
+        path:'Fragment',
+        name:'片段管理',
+        component:()=>import('../views/Management/StoryAndFragmentManagement/Fragment.vue'),
+      },
+      {
+        path:'Announcement',
+        name:'公告管理',
+        component:()=>import('../views/Management/AnnouncementManagement/Announcement.vue'),
+      },
+      {
+        path:'Activity',
+        name:'活动管理',
+        component:()=>import('../views/Management/AnnouncementManagement/Activity.vue'),
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({

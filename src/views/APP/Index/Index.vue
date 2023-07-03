@@ -14,7 +14,7 @@
               <li>
                 <a href="/APP/Search" target="_blank">
                   <span class="icon"></span>
-                  全部
+                  故事列表
                   <i class="line"></i>
                 </a>
               </li>
@@ -77,7 +77,7 @@
     <div class="index-banner">
       <div class="container" style="display: flex;">
 
-        <div class="slide-recommend" style="height: 100%;">
+        <div class="slide-recommend" style="height: 100%; box-shadow: 0 3px 12px 0 hsla(0, 0%, 60%, 0.44);">
           <el-carousel trigger="click" id="carousel-banner" class="carousel slide" style="height: 100%;">
             <el-carousel-item v-for="(item, index) in activity_recommendation" :key="index" class="carousel-inner">
               <a :href="storySkip(item.storyId)" class="item active" target="_blank">
@@ -148,7 +148,7 @@
     <div class="strength-recommend slide-thing">
       <div class="container clearfix">
         <div class="hot-container">
-          <a href="/APP" class="headline" target="_blank">
+          <a href="/APP/Search/?sort=liked" class="headline" target="_blank">
             <i class="headline-icon">热门</i>
           </a>
 
@@ -230,7 +230,7 @@
 
         <div class="new-r-side">
           <div class="update-headline">
-            <a href="/APP" class="headline" target="_blank">
+            <a href="/APP/Search/?sort=date" class="headline" target="_blank">
               <i class="headline-icon" style="padding-left: 15px">最近更新</i>
             </a>
           </div>
