@@ -40,9 +40,14 @@ const routes = [
         component:()=>import('../views/APP/Search/Search.vue'),
       },
       {
-        path:'Announce',
-        name:'Announce',
-        component:()=>import('../views/APP/Announce/Announce.vue'),
+        path: 'Announce',
+        name: 'Announce',
+        component: () => import('../views/APP/Announce/Announce.vue'),
+      },
+      {
+        path:'AnnounceList',
+        name:'AnnounceList',
+        component:()=>import('../views/APP/Announce/AnnounceList.vue'),
       },
       {
         path: 'UserShow',

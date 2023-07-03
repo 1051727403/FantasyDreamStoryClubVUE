@@ -6,25 +6,24 @@
       </el-aside>
       <el-container>
         <el-header style="border-bottom: 1px solid #eee;height: 50px;padding: 0">
-          <Header :collapseBthClass="collapseBthClass" :collapse="collapse"/>
+          <ManageMentHeader />
         </el-header>
         <el-main style="padding: 0">
           <router-view/>
         </el-main>
       </el-container>
     </el-container>
-
   </div>
 </template>
 
 <script>
 import Aside from "@/components/Aside.vue";
-import Header from "@/components/AppHeader.vue";
+import ManageMentHeader from "@/components/ManageMentHeader.vue";
 export default {
   name: "Home.vue",
   components:{
     Aside,
-    Header
+    ManageMentHeader,
   },
   created() {
     this.$emit("generateTab",this.plate,this.func)
@@ -33,7 +32,6 @@ export default {
     return {
       plate: "",
       func: "",
-      collapseBthClass:'el-icon-s-fold',
       isCollapse:false,
       sideWidth:"200px"
     }
