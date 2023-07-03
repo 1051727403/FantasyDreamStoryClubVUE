@@ -114,9 +114,6 @@ export default {
       checkCollect:false,
     }
   },
-  mounted() {
-    window.scrollTo(0, 0); // 设置滚动条位置为顶部
-  },
   created() {
     this.storyid=this.$route.query["storyid"]
     this.storyId = Number(this.$route.query["storyid"]);
@@ -246,9 +243,11 @@ export default {
         if(this.checkCollect){
           collectBtn.innerText
           collectBtn.innerText="已收藏"
+          collectBtn.style="background-color:#fec73d;color:white;"
         }
         else{
           collectBtn.innerText="收藏"
+          collectBtn.style=""
         }
     }
   }
