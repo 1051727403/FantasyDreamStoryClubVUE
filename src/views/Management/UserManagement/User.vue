@@ -102,7 +102,7 @@
 
 <script>
 export default {
-  name: "Home.vue",
+  name: "User",
 
   data(){
     return {

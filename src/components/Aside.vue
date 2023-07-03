@@ -14,7 +14,7 @@
       <i class="el-icon-s-home"></i><span>主页</span>
     </el-menu-item>
     <el-menu-item index="User"  >
-      <i class="el-icon-folder"></i><span>用户管理</span>
+      <i class="el-icon-user"></i><span>用户管理</span>
     </el-menu-item>
     <el-submenu  text-color="#fff"
                 active-text-color="#ffd04b"
