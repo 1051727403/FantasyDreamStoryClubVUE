@@ -1,28 +1,32 @@
 <template>
   <div class="mhy-container mhy-account-center-content">
-    <div class="mhy-account-center-content-container mhy-account-center-story">
+    <div class="mhy-account-center-content-container mhy-account-center-collection">
       <div class="mhy-account-center__subheader">
-        <span>我创作的故事</span>
+        <span>我的创作的片段</span>
       </div>
       <div class="mhy-account-center-content-container__list">
-        <div class="mhy-story-card mhy-account-center-story-card" v-for="(item,_) in books">
-          <a :href=item.link class="mhy-router-link mhy-story-card__link">
-            <div class="mhy-story-card__cover">
-              <img :src=item.coverUrl>
+        <div class="mhy-collection-card mhy-account-center-collection-card" v-for="(item,_) in fragments">
+          <a :href=item.link class="mhy-router-link mhy-collection-card__link">
+            <div class="mhy-collection-card__info">
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__name">{{item.storyName}}</p>
+              </a>
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__fragmentName">{{item.fragName}}</p>
+              </a>
+              <a class="mhy-router-link mhy-collection-card__link" target="_blank">
+                <p class="mhy-collection-card__fragmentContent">{{ item.content }}</p>
+              </a>
+              <div class="mhy-collection-card__stats">
+                <span>点赞：{{item.totalLike}}</span>
+                <span>评论：{{item.totalComment}}</span>
+                <span>收藏：{{item.totalCollection}}</span>
+              </div>
             </div>
           </a>
-          <div class="mhy-story-card__info">
-            <a class="mhy-router-link mhy-story-card__link" target="_blank">
-              <p class="mhy-story-card__name">{{item.storyName}}</p>
-            </a>
-            <div class="mhy-story-card__stats">
-              <span>总点赞{{item.totalLike}}</span>
-              <span>总评论{{item.totalComment}}</span>
-              <span>总收藏{{item.totalCollection}}</span>
-            </div>
-          </div>
-          <el-button type="danger" round @click="deleteStory(item.storyId)">删除故事</el-button>
+          <!---->
         </div>
+
         <div class="mhy-container__footer">
           <div class="mhy-loadmore mhy-loadmore-scroll">
             <div class="mhy-loadmore__nomore">没有更多数据了</div>
@@ -35,9 +39,10 @@
 
 <script>
 export default {
+  name: "FragmentCollect",
   data() {
     return {
-      books:[],
+      fragments:[],
       loc:{},
     };
   },
@@ -48,40 +53,25 @@ export default {
     else{
       this.$router.push('/login')
     }
-    this.mystory()
+    this.fragmentCollect()
   },
-  mounted() {
-
-  },
-  methods: {
-    mystory(){
-      this.request.get("/story/usersStories?userid="+this.loc.id).then(res=>{
+  methods:{
+    fragmentCollect(){
+      this.request.get("/fragment/getCollectFrag?userid="+this.loc.id).then(res=>{
         if(res.code==='200'){
-          this.books=res.data
-          console.log(this.books)
-          for (var re of this.books) {
-            re.link="/APP/storyinfo?storyid="+re.storyId
+          this.fragments=res.data
+          for (var re of this.fragments) {
+            //console.log(re)
+            re.link="/APP/storyrelay?storyId="+re.storyId+"&fragmentId="+re.fragmentId
           }
         }
         else{
           this.$message.error("error"+res.msg)
         }
-      });
-    },
-    deleteStory(storyId){
-      console.log(storyId)
-      this.request.post("/story/deleteStory?storyId="+storyId+"&userId="+this.loc.id+"&token="+this.loc.token).then(res=>{
-        if(res.code==="200"){
-          this.$message.success("删除成功")
-          console.log(res.msg)
-        }
-        else {
-          this.$message.error(res.msg)
-        }
       })
-    }
+    },
   }
-};
+}
 </script>
 
 <style scoped>
@@ -118,10 +108,10 @@ input, button, textarea {
   color: inherit;
   font: inherit;
 }
-.mhy-account-center-story-card {
-  padding: 15px 40px 15px 30px;
+.mhy-account-center-collection-card {
+  padding: 8px 40px 8px 30px;
 }
-.mhy-story-card {
+.mhy-collection-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -129,61 +119,77 @@ input, button, textarea {
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-story-card__link {
+.mhy-collection-card__link {
+  width: 100%;
   color: #333;
 }
 a {
   text-decoration: none;
 }
-.mhy-story-card__cover {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  border: 1px solid #ebebeb;
-}
-.mhy-story-card__cover img{
+.mhy-collection-card__cover img{
   position: center;
   display: block;
-  width: 112px;
-  height: 180px;
+  width: 70px;
+  height: 90px;
 }
-.mhy-story-card__info {
+.mhy-collection-card__info {
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #f7fbff;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 8px;
   -webkit-box-flex: 1;
   flex-grow: 1;
   overflow: hidden;
 }
-.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
+.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.mhy-story-card__link {
+.mhy-collection-card__link {
   color: #333;
 }
-.mhy-story-card__name {
+.mhy-collection-card__name {
   position: relative;
   line-height: 1;
-  height: 20px;
+  font-size: 16px;
+
 }
-.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
+.mhy-collection-card__fragmentName {
+  position: relative;
+  line-height: 2;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #5c97ff;
+
+}
+.mhy-collection-card__fragmentContent {
+  position: relative;
+  line-height: 4px;
+  font-size: 12px;
+  margin-top: 5px;
+  height: 20px;
+  color: gray;
+}
+.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.mhy-story-card__name, .mhy-story-card__info .mhy-story-card__link {
+.mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.mhy-story-card__stats {
-  color: #ccc;
+.mhy-collection-card__stats {
   font-size: 12px;
+  color: #ccc;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -191,14 +197,14 @@ a {
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-story-card__stats span {
+.mhy-collection-card__stats span {
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
 }
-.mhy-story-card__stats span:not(:first-child)::before {
+.mhy-collection-card__stats span:not(:first-child)::before {
   content: "";
   display: inline-block;
   width: 2px;

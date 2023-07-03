@@ -26,7 +26,6 @@
           </a>
           <!---->
         </div>
-
         <div class="mhy-container__footer">
           <div class="mhy-loadmore mhy-loadmore-scroll">
             <div class="mhy-loadmore__nomore">没有更多数据了</div>
@@ -53,11 +52,11 @@ export default {
     else{
       this.$router.push('/login')
     }
-    this.myfragment()
+    this.MyFragment()
   },
   methods:{
-    myfragment(){
-      this.request.get("/fragment/getFragInfo?userid="+this.loc.id).then(res=>{
+    MyFragment(){
+      this.request.get("/fragment/getUserFrag?userid="+this.loc.id).then(res=>{
         if(res.code==='200'){
           this.fragments=res.data
           for (var re of this.fragments) {

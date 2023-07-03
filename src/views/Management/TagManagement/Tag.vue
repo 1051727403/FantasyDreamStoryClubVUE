@@ -2,7 +2,7 @@
   <div>
     <div style="margin:10px 0;display: flex;flex-direction: row;justify-content:flex-end;">
       <div class="search_box">
-        <el-input style="width: 400px" placeholder="请输入用户名、昵称" v-model="search" >
+        <el-input style="width: 400px" placeholder="请输入名称" v-model="search" >
           <i slot="suffix" class="el-icon-close" @click="clearAndLoad"style="margin-top: 10px"></i>
         </el-input>
         <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
@@ -31,16 +31,8 @@
               :header-cell-style="tableHeaderColor">
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
-      <el-table-column prop="username" label="用户名"  width="120"></el-table-column>
-      <el-table-column prop="nickname" label="昵称"  width="120"></el-table-column>
-      <el-table-column prop="password" label="密码"  width="120"></el-table-column>
-      <el-table-column prop="avatarUrl" label="头像链接"  width="100">
-        <template v-slot="scope" >
-          <img :src="tableData[scope.$index].avatarUrl" height="40px">
-        </template>
-      </el-table-column>
-      <el-table-column prop="totalLike" label="总喜欢"  width="120"></el-table-column>
-      <el-table-column prop="removed" label="是否注销"  width="100"></el-table-column>
+      <el-table-column prop="tagName" label="标签名"  width="120"></el-table-column>
+
       <el-table-column label="操作" >
         <template v-slot="scope" >
           <el-button type="success" @click.native.prevent="modifyUser(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
@@ -58,8 +50,8 @@
         </template>
       </el-table-column>
     </el-table>
-<!--    &lt;!&ndash;表格主体 end&ndash;&gt;-->
-<!--    &lt;!&ndash;分页 end&ndash;&gt;-->
+    <!--    &lt;!&ndash;表格主体 end&ndash;&gt;-->
+    <!--    &lt;!&ndash;分页 end&ndash;&gt;-->
     <div class="pagination" >
       <el-pagination
           @size-change="handleSizeChange"
@@ -71,24 +63,12 @@
           :total="count">
       </el-pagination>
     </div>
-<!--    &lt;!&ndash;分页 end&ndash;&gt;-->
-<!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
+    <!--    &lt;!&ndash;分页 end&ndash;&gt;-->
+    <!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
     <el-dialog :title="dialogFormName" :visible.sync="dialogFormVisible">
       <el-form label-width="100px" :rules="rules" ref="ruleForm" :model="form">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.username" autocomplete="off" ></el-input>
-        </el-form-item>
-        <el-form-item label="昵称" prop="nickname">
-          <el-input v-model="form.nickname" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="头像" prop="avatarUrl">
-          <el-input v-model="form.avatarUrl" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="form.password" autocomplete="off" ></el-input>
-        </el-form-item>
-        <el-form-item label="是否注销" prop="removed">
-          <el-input v-model="form.removed" autocomplete="off"></el-input>
+        <el-form-item label="标签名" prop="tagName">
+          <el-input v-model="form.tagName" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -96,35 +76,26 @@
         <el-button type="primary" @click="saveUser">确 定</el-button>
       </div>
     </el-dialog>
-<!--    &lt;!&ndash;嵌套表单 end&ndash;&gt;-->
+    <!--    &lt;!&ndash;嵌套表单 end&ndash;&gt;-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "User",
-
+  name: "Tag",
   data(){
     return {
       plate: "",
       func: "",
       tableData: [],
       form:{
-        username:"",
-        nickname:"",
-        avatarUrl:"",
+        tagName:"",
       },
       dialogFormName:"",
       dialogFormVisible:false,
       rules:{
-        username:[
-          {register:true,message:"用户名不可为空",trigger:"blur"},
-        ],
-        nickname:[
-          {register:true,message:"昵称不可为空",trigger:"blur"},
-        ],
-        avatarUrl:[
-          {register:true,message:"头像不可为空",trigger:"blur"},
+        tagName:[
+          {register:true,message:"标签名不可为空",trigger:"blur"},
           //{min:3,max:15,message: "长度在 3 到 15 之间" ,trigger:"blur"}
         ],
       },
@@ -141,7 +112,7 @@ export default {
   methods :{
     //load
     load(){
-      this.request.get("/user/page",{
+      this.request.get("/tag/page",{
         params: {
           pageNum:this.pageNum,
           pageSize:this.pageSize,
@@ -164,15 +135,14 @@ export default {
       //console.log("tableData:",this.tableData);
       //console.log("index:"+idx)
       //console.log("row:"+res)
-      this.dialogFormName="【编辑用户】"
+      this.dialogFormName="【编辑标签】"
       this.dialogFormVisible=true;
       this.form=this.tableData[idx];
     },
     //点击删除用户
     del(idx){
       let id=this.tableData[idx].id;
-      console.log(id)
-      this.request.post("/admin/deleteUser?userId="+id).then(res=>{
+      this.request.post("/admin/deleteTag?tagId="+id).then(res=>{
         if(res.code === "200"){
           this.$message.success("删除成功！");
           this.load();
@@ -207,26 +177,20 @@ export default {
     saveUser(){
       this.$refs['ruleForm'].validate((valid)=>{
         if(valid){
-          this.request.post("/user/upUserInfo", {
+          this.request.post("/admin/addTag", {
             "id":this.form.id,
-            "userName":this.form.username,
-            "nickName":this.form.nickname,
-            "avatarUrl":this.form.avatarUrl,
-            "password":this.form.password,
-            "removed":this.form.removed,
+            "tagName":this.form.tagName,
           }).then(res=>{
             this.userdialogVisible = false
             console.log(res)
-            if(res.code==="200"&& res.data===true ){
-              this.$message.success("修改用户成功")
+            if(res.code==="200" && res.data===true ){
+              this.$message.success("修改标签成功")
             }
             else{
               this.$router.go(0)
               this.$message.error(res.msg)
             }
           })
-        }else{
-
         }
       })
       this.dialogFormVisible=false;
@@ -234,12 +198,10 @@ export default {
     //点击新增用户弹窗
     addUser(){
       this.form={
-        username:"",
-        nickname:"",
-        avatarUrl:"",
+        tagName:"",
       }
       console.log(this.from)
-      this.dialogFormName="【新增用户】"
+      this.dialogFormName="【新增标签】"
       this.dialogFormVisible=true;
     },
     //点击批量删除按钮
@@ -247,7 +209,7 @@ export default {
       console.log("点击批量删除按钮")
       let ids=this.multipleSelection.map(v=>v.id)
       console.log(ids)
-      this.request.post("/admin/deleteBatchUser",ids).then(res=>{
+      this.request.post("/admin/deleteBatchTag",ids).then(res=>{
         console.log(res)
         if(res){
           this.$message.success("删除成功！");
@@ -257,7 +219,7 @@ export default {
         }
       })
     },
-}
+  }
 }
 </script>
 

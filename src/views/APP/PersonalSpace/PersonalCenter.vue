@@ -156,12 +156,12 @@ export default {
         fragmentName:"",
         fragmentContent:"",
       },
-      activeIndex: '/PersonalSpace/myCollect',
+      activeIndex: '/PersonalSpace/StoryCollect',
       menus: [
         {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-s-management',style:"color:#ef6e9f;font-size:20px;margin-left:3px;"},
         {name:'我的片段',path:'/PersonalSpace/myFragment',icon:'el-icon-document',style:"color:#29b8e9;font-size:20px;margin-left:3px;"},
-        {name:'故事收藏',path:'/PersonalSpace/myCollect',icon:'el-icon-folder-opened',style:"color:#15a18c;font-size:20px;margin-left:3px;"},
-        {name:'片段收藏',path:'/PersonalSpace/myFragmentCollect',icon:'el-icon-star-on',style:"color:#fdc630;font-size:25px;"},
+        {name:'故事收藏',path:'/PersonalSpace/StoryCollect',icon:'el-icon-folder-opened',style:"color:#15a18c;font-size:20px;margin-left:3px;"},
+        {name:'片段收藏',path:'/PersonalSpace/FragmentCollect',icon:'el-icon-star-on',style:"color:#fdc630;font-size:25px;"},
       ],
       tags:[
         {
@@ -187,6 +187,7 @@ export default {
   created() {
     if(localStorage.getItem("user")){
       this.loc = JSON.parse(localStorage.getItem("user"))
+      this.activeIndex="/PersonalSpace/StoryCollect"
     }
     else{
       this.$notify({
@@ -232,7 +233,9 @@ export default {
   },
   methods: {
     selMenu(item){
-      if (this.activeIndex==item.path)return
+      let path = new URL(window.location.href).pathname;
+      // console.log(path,item.path)
+      if (path==item.path)return
       this.activeIndex = item.path;
       this.$router.push({path: item.path});
     },

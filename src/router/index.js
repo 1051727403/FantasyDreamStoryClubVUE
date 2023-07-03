@@ -74,12 +74,12 @@ const routes = [
         path: 'myCollect',
         name:'个人中心',
         component:()=>import('../views/APP/PersonalSpace/PersonalCenter.vue'),
-        redirect:'/PersonalSpace/myCollect',
+        redirect:'/PersonalSpace/StoryCollect',
         children:[
           {
-            path:'/PersonalSpace/myCollect',
-            name: '我的收藏',
-            component:()=>import('../views/APP/PersonalSpace/MyCollect.vue')
+            path:'/PersonalSpace/StoryCollect',
+            name: '故事收藏',
+            component:()=>import('../views/APP/PersonalSpace/StoryCollect.vue')
           },
           {
             path:'/PersonalSpace/myStory',
@@ -90,6 +90,12 @@ const routes = [
             path: '/PersonalSpace/myFragment',
             name:'我的片段',
             component:()=>import('../views/APP/PersonalSpace/MyFragment.vue')
+          }
+          ,
+          {
+            path: '/PersonalSpace/FragmentCollect',
+            name:'片段收藏',
+            component:()=>import('../views/APP/PersonalSpace/FragmentCollect.vue')
           }
         ]
       }
@@ -134,6 +140,11 @@ const routes = [
         path:'Activity',
         name:'活动管理',
         component:()=>import('../views/Management/AnnouncementManagement/Activity.vue'),
+      },
+      {
+        path:'Tag',
+        name:'标签管理',
+        component:()=>import('../views/Management/TagManagement/Tag.vue'),
       }
     ]
   }

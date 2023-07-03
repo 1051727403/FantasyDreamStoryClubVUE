@@ -169,7 +169,8 @@ export default {
   position:relative;
   background: white;
   border-radius: 10px;
-  float: right;
+  float: left;
+  margin-left: 25px;
   width: 300px;
 }
 .wrapper .user-info .info-right .avatar{
