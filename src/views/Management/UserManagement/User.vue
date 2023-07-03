@@ -1,5 +1,5 @@
 <template>
-  <div>这是主页！</div>
+  <div>这是用户主页！</div>
 </template>
 
 <script>

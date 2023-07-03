@@ -4,37 +4,53 @@
            text-color="#fff"
            active-text-color="#ffd04b"
            :collapse-transition="false"
-           router
-  >
+           router>
     <div style="height: 60px;line-height: 60px;text-align: center;display: flex;justify-content: center;align-items: center;flex-direction: row">
       <img src="https://img-blog.csdnimg.cn/dbc2eaa294194339a3b1d509e6739306.png#pic_center" style="height: 45px;" alt="">
       <b style="color: #51b1d5;margin-left: 15px;" >
-        <span style="color:#3fccfc;font-weight: bolder">个人中心</span>
+        <span style="color:#3fccfc;font-weight: bolder">管理中心</span>
       </b>
     </div>
-    <el-menu-item index="/App/PersonalSpace"  >
+    <el-menu-item index="Index"  >
       <i class="el-icon-s-home"></i><span>主页</span>
     </el-menu-item>
-    <el-menu-item index="MyCollection"  >
-      <i class="el-icon-folder"></i><span>我的收藏</span>
+    <el-menu-item index="User"  >
+      <i class="el-icon-folder"></i><span>用户管理</span>
     </el-menu-item>
     <el-submenu  text-color="#fff"
-                active-text-color="#ffd04b">
+                active-text-color="#ffd04b"
+                 index="1">
       <template #title>
         <i class="el-icon-edit"></i>
-        <span >我的创作</span>
+        <span >创作管理</span>
       </template>
-      <el-menu-item index="NewStory">
+      <el-menu-item index="Story">
         <i class="el-icon-collection"></i>
-        <span>新故事</span>
+        <span>故事管理</span>
       </el-menu-item>
-      <el-menu-item index="newfragement">
+      <el-menu-item index="Fragment">
         <i class="el-icon-s-order"></i>
-        <span>新片段</span>
+        <span>片段管理</span>
       </el-menu-item>
     </el-submenu>
-    <el-menu-item index="mycomment">
-      <i class="el-icon-chat-line-square"></i><span>我的评论</span>
+    <el-submenu  text-color="#fff"
+                 active-text-color="#ffd04b"
+                  index="2">
+      <template #title>
+        <i class="el-icon-edit"></i>
+        <span >首页管理</span>
+      </template>
+      <el-menu-item index="Announcement">
+        <i class="el-icon-collection"></i>
+        <span>公告管理</span>
+      </el-menu-item>
+      <el-menu-item index="Activity">
+        <i class="el-icon-s-order"></i>
+        <span>活动管理</span>
+      </el-menu-item>
+    </el-submenu>
+    <el-menu-item index="Comment">
+      <i class="el-icon-chat-line-square"></i><span>评论管理</span>
     </el-menu-item>
   </el-menu>
 </template>
