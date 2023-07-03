@@ -243,9 +243,11 @@ export default {
         if(this.checkCollect){
           collectBtn.innerText
           collectBtn.innerText="已收藏"
+          collectBtn.style="background-color:#fec73d;color:white;"
         }
         else{
           collectBtn.innerText="收藏"
+          collectBtn.style=""
         }
     }
   }

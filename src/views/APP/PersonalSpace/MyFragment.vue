@@ -2,7 +2,7 @@
   <div class="mhy-container mhy-account-center-content">
     <div class="mhy-account-center-content-container mhy-account-center-collection">
       <div class="mhy-account-center__subheader">
-        <span>我的收藏</span>
+        <span>我的创作的片段</span>
       </div>
       <div class="mhy-account-center-content-container__list">
         <div class="mhy-collection-card mhy-account-center-collection-card" v-for="(item,_) in fragments">
@@ -18,9 +18,9 @@
                 <p class="mhy-collection-card__fragmentContent">{{ item.content }}</p>
               </a>
               <div class="mhy-collection-card__stats">
-                <span>总点赞{{item.totalLike}}</span>
-                <span>总评论{{item.totalComment}}</span>
-                <span>总收藏{{item.totalCollection}}</span>
+                <span>点赞：{{item.totalLike}}</span>
+                <span>评论：{{item.totalComment}}</span>
+                <span>收藏：{{item.totalCollection}}</span>
               </div>
             </div>
           </a>
@@ -94,7 +94,7 @@ p{
   padding: 0 30px;
   line-height: 50px;
   border-bottom: 1px solid #ebebeb;
-  font-size: 18px;
+  font-size: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -109,7 +109,7 @@ input, button, textarea {
   font: inherit;
 }
 .mhy-account-center-collection-card {
-  padding: 15px 40px 15px 30px;
+  padding: 8px 40px 8px 30px;
 }
 .mhy-collection-card {
   display: -webkit-box;
@@ -120,6 +120,7 @@ input, button, textarea {
   align-items: center;
 }
 .mhy-collection-card__link {
+  width: 100%;
   color: #333;
 }
 a {
@@ -132,8 +133,12 @@ a {
   height: 90px;
 }
 .mhy-collection-card__info {
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #f7fbff;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 8px;
   -webkit-box-flex: 1;
   flex-grow: 1;
   overflow: hidden;
@@ -150,20 +155,24 @@ a {
 .mhy-collection-card__name {
   position: relative;
   line-height: 1;
-  font-size: 22px;
+  font-size: 16px;
 
 }
 .mhy-collection-card__fragmentName {
   position: relative;
   line-height: 2;
-  font-size: 24px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #5c97ff;
 
 }
 .mhy-collection-card__fragmentContent {
   position: relative;
   line-height: 4px;
-  font-size: 18px;
+  font-size: 12px;
+  margin-top: 5px;
   height: 20px;
+  color: gray;
 }
 .mhy-collection-card__name, .mhy-collection-card__info .mhy-collection-card__link {
   overflow: hidden;
@@ -179,6 +188,7 @@ a {
   white-space: nowrap;
 }
 .mhy-collection-card__stats {
+  font-size: 12px;
   color: #ccc;
   display: -webkit-box;
   display: -ms-flexbox;
