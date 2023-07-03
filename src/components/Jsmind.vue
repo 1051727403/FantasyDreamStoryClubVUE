@@ -1174,6 +1174,7 @@ export default {
           title: '根节点！不可删除！若想删除则可通过删除故事实现',
           duration:1500
         });
+        return;
       }
       this.$confirm('确认删除该片段?', '提示', {
         confirmButtonText: '确定',
