@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import Header from "@/components/AppHeader.vue";
 export default {
   name: "AppHome",
   data(){
