@@ -114,6 +114,9 @@ export default {
       checkCollect:false,
     }
   },
+  mounted() {
+    window.scrollTo(0, 0); // 设置滚动条位置为顶部
+  },
   created() {
     this.storyid=this.$route.query["storyid"]
     this.storyId = Number(this.$route.query["storyid"]);

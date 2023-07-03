@@ -28,7 +28,7 @@
         <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
           <div class="author-info">
             <span class="author-name">{{item.name}}</span>
-            <span class="author-time">{{item.time[0]}}.{{item.time[1]}}.{{item.time[2]}}&nbsp;{{item.time[3]}}:{{item.time[4]}} </span>
+            <span class="author-time">{{item.time  | formatDate}} </span>
           </div>
           <div class="icon-btn" style="font-size: 14px;">
             <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment">&nbsp;回复</i></span>
@@ -57,7 +57,7 @@
             <div style="display: flex;justify-content: space-between;align-items: center; width: 95%;">
               <div class="author-info">
                 <span class="author-name">{{reply.from}}</span>
-                <span class="author-time">{{reply.time[0]}}.{{reply.time[1]}}.{{reply.time[2]}}&nbsp;{{reply.time[3]}}:{{reply.time[4]}}</span>
+                <span class="author-time">{{reply.time | formatDate}}</span>
               </div>
               <div class="icon-btn"style="font-size: 14px;width: 60px;">
                 <span @click="showReplyInput(i,reply.from,reply.fromId)"><i class="iconfont el-icon-s-comment"></i>回复</span>
@@ -224,6 +224,15 @@ export default {
     }
   },
   directives: {clickoutside},
+  filters: {
+    formatDate(value) {
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}.${month}.${day}`;
+    },
+  },
   created() {
     var user=JSON.parse(localStorage.getItem("user"))
     if (user) {
