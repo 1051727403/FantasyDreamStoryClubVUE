@@ -96,48 +96,21 @@
               </a>
 
               <div class="notice-content">
-                <div class="new-notice">
-                  <a href="/article/765.html" target="_blank">
+                <div class="new-notice" v-for="(item, index) in announcements" :key="index">
+                  <a :href="'/APP/Announce/?id=' + item.announceId" target="_blank">
                     <div class="new-info">
                       <div class="new-title">
-                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
-                      <div class="new-detail" style="width: 50px; text-align: right">
-                        06-15                                        </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="new-notice">
-                  <a href="/article/765.html" target="_blank">
-                    <div class="new-info">
-                      <div class="new-title">
-                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
-                      <div class="new-detail" style="width: 50px; text-align: right">
-                        06-15                                        </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="new-notice">
-                  <a href="/article/765.html" target="_blank">
-                    <div class="new-info">
-                      <div class="new-title">
-                        轻之文库第四回轻小说新人赏短篇入围作品公布                                        </div>
-                      <div class="new-detail" style="width: 50px; text-align: right">
-                        06-15                                        </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="new-notice">
-                  <a href="/article/765.html" target="_blank">
-                    <div class="new-info">
-                      <div class="new-title">
-                        精品接龙故事作品公布                                        </div>
-                      <div class="new-detail" style="width: 50px; text-align: right">
-                        06-15                                        </div>
+                        {{item.title}}</div>
+                      <div class="new-detail" style="width: 100px; text-align: right">
+                        {{item.updateTime}}</div>
                     </div>
                   </a>
                 </div>
               </div>
             </div>
+
+          </div>
+          <div class="button-container">
 
           </div>
         </div>
@@ -277,15 +250,21 @@ export default {
       personal_recommendation: [],
       latest_recommendation: [],
       hot_recommendation: [],
+      announcements: [],
     }
   },
   methods:{
     load() {
       this.reflesh()
 
-      this.request.get("story/slideShow").then(res=>{
+      this.request.get("announce/slideShow").then(res=>{
         console.log(res)
         this.activity_recommendation = res.data;
+      })
+
+      this.request.get("announce/twoAnnounce").then(res=>{
+        console.log(res)
+        this.announcements = res.data;
       })
 
       this.request.get("story/latestStory").then(res=>{
