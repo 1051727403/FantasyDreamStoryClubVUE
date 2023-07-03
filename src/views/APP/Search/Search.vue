@@ -192,6 +192,9 @@ export default {
         this.allTags = res.data;
       })
 
+      this.loadStories();
+    },
+    loadStories() {
       this.request.get('search/search', {
         params: {
           tag: this.typeTag,
@@ -212,7 +215,6 @@ export default {
       }).then(res=>{
         console.log(res);
         this.storyNum = res.data;
-
       })
     },
     handleScroll() {
@@ -245,9 +247,10 @@ export default {
       return route;
     },
     pageSkip(page) {
-      this.$router.push({ path: '/APP/Search/', query: { tag: this.typeTag, sort: this.sortTag, page: page, keyWord: this.keyWord } });
+      this.page = page;
+      this.$router.push({ path: '/APP/Search/', query: { tag: this.typeTag, sort: this.sortTag, keyWord: this.keyWord, page: this.page } });
       this.$nextTick(() => {
-        this.load();
+        this.loadStories();
       });
     },
     storySkip(storyId) {

@@ -40,6 +40,11 @@ const routes = [
         component:()=>import('../views/APP/Search/Search.vue'),
       },
       {
+        path:'Announce',
+        name:'Announce',
+        component:()=>import('../views/APP/Announce/Announce.vue'),
+      },
+      {
         path: 'UserShow',
         name: "ShowUser",
         component:()=>import("@/views/APP/PersonalSpace/ShowUser.vue"),

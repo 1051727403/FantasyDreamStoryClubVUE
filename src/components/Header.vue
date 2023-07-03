@@ -69,7 +69,7 @@ export default {
     userInfo(){
       console.log("this.$route.path:",this.$route.path)
       let nowUrl=this.$route.path
-      if(nowUrl[1]=='M') {
+      if(nowUrl[1]==='M') {
         this.$router.push("/Manage/userInfo")
       }else{
         console.log(this.user)
@@ -81,7 +81,10 @@ export default {
     gotowhat(){
       console.log("搜索"+this.input1)
       this.$router.push({ path: '/APP/Search/', query: { keyWord: this.input1 } });
-      location.reload(0);
+      if (this.$router.currentRoute.path === '/APP/Search/') {
+        // 当前页面已经是目标页面，执行刷新操作
+        location.reload();
+      }
     }
   },
 
