@@ -249,7 +249,6 @@ export default {
           this.$message.success("修改用户名失败")
         }
       })
-
     },
     handleAvatarSuccess(res) {
       //console.log(res)
