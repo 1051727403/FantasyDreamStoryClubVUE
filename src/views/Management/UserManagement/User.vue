@@ -31,13 +31,16 @@
               :header-cell-style="tableHeaderColor">
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
-      <el-table-column prop="title" label="标题"  width="120"></el-table-column>
-      <el-table-column prop="content" label="内容"  width="120"></el-table-column>
-      <el-table-column prop="coverUrl" label="封面"  width="100">
+
+      <el-table-column prop="username" label="用户名"  width="120"></el-table-column>
+      <el-table-column prop="nickname" label="昵称"  width="120"></el-table-column>
+      <el-table-column prop="password" label="密码"  width="120"></el-table-column>
+      <el-table-column prop="coverUrl" label="头像"  width="100">
         <template v-slot="scope" >
           <img :src="tableData[scope.$index].avatarUrl" height="40px">
         </template>
       </el-table-column>
+      <el-table-column prop="removed" label="密码"  width="120"></el-table-column>
       <el-table-column label="操作" >
         <template v-slot="scope" >
           <el-button type="success" @click.native.prevent="modifyUser(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>

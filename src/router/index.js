@@ -105,7 +105,7 @@ const routes = [
   //后台管理页面
   {
     path: "/Manage",name:"管理端",component:()=>import('../views/Management/ManageHome.vue'),
-    redirect: '/home',
+    redirect: '/Manage/Index',
     children:[
       {
         path:'Index',
