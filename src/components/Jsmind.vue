@@ -632,7 +632,7 @@ export default {
     //跳转到个人展示页面
     jumpToUserShow(userId){
       console.log(userId)
-      window.open(this.$router.resolve("/app/usershow?userid="+userId).href,'_blank')
+      window.open(this.$router.resolve("/app/usershow?userId="+userId).href,'_blank')
     },
     //重新加载所有评论
     reloadComment(){
@@ -889,7 +889,7 @@ export default {
     },
     //返回上一页面
     GoBackPage(){
-      window.location.replace("/APP/StoryInfo/?storyid="+this.storyId)
+      window.location.replace("/APP/StoryInfo/?storyId="+this.storyId)
       // window.location.reload(); // 刷新页面
       // this.$router.go(0)
     },

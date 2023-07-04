@@ -115,18 +115,17 @@ export default {
     }
   },
   created() {
-    this.storyid=this.$route.query["storyid"]
-    this.storyId = Number(this.$route.query["storyid"]);
-    this.request.get("/story/getStoryInfo?storyid="+this.storyid).then(res=>{
+    this.storyid=this.$route.query["storyId"]
+    this.request.get("/story/getStoryInfo?storyId="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
         this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
         //console.log(res.data)
         //作者信息
-        this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
+        this.request.get("/user/getUserInfo?userId="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
             this.editorinfo=res.data
-            this.editorinfo.link="/app/usershow?userid="+this.editorinfo.id
+            this.editorinfo.link="/app/usershow?userId="+this.editorinfo.id
             //console.log(this.editorinfo)
           }
           else{
@@ -134,7 +133,7 @@ export default {
           }
         })
         //生成标签
-        this.request.get("/story/getStoryTag?storyid="+this.storyid).then(res=>{
+        this.request.get("/story/getStoryTag?storyId="+this.storyid).then(res=>{
           if(res.code==="200"){
             var tags = res.data
             var parent=document.getElementById("cats")
@@ -196,7 +195,7 @@ export default {
     collect(){
       if(localStorage.getItem("user")){
         var userid =  JSON.parse(localStorage.getItem("user")).id;
-        this.request.post("/story/collecteStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
+        this.request.post("/story/collectStory?userId="+userid+"&storyId="+this.storyid).then(res=>{
           if(res.code==="200"){
             this.$message.success("收藏成功")
             this.checkCollect = true
@@ -218,7 +217,7 @@ export default {
     uncollect(){
       this.dialogVisible = false
       var userid =  JSON.parse(localStorage.getItem("user")).id;
-      this.request.post("/story/uncollectStory?userid="+userid+"&storyid="+this.storyid).then(res=>{
+      this.request.post("/story/uncollectStory?userId="+userid+"&storyId="+this.storyid).then(res=>{
         //console.log(res)
         if(res.code==="200"&& res.data===true){
           this.$message.success("取消收藏成功")

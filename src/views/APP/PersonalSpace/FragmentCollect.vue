@@ -57,7 +57,7 @@ export default {
   },
   methods:{
     fragmentCollect(){
-      this.request.get("/fragment/getCollectFrag?userid="+this.loc.id).then(res=>{
+      this.request.get("/fragment/getCollectFrag?userId="+this.loc.id).then(res=>{
         if(res.code==='200'){
           this.fragments=res.data
           for (var re of this.fragments) {

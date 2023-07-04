@@ -197,24 +197,14 @@ export default {
         title:"请登录后尝试",
         duration:1500
       })
-      //this.$router.push('/login')
     }
     console.log("create")
-    // this.request.post("/user/checktoken?userid="+this.loc.id+"&token="+this.loc.token).then(res=>{
-    //   if(res.code==='200'&&res.data==='success'){
-    //
-    //   }
-    //   else {
-    //     console.log('fal')
-    //     //this.$router.push('/APP/index')
-    //   }
-    // })
   },
   mounted() {
     this.userid=this.loc.id
     console.log("mounted")
     //请求作者信息
-    this.request.get("/user/getUserInfo?userid="+this.userid).then(res=>{
+    this.request.get("/user/getUserInfo?userId="+this.userid).then(res=>{
       if(res.code==='200'){
         this.userinfo = res.data
         //console.log(this.userinfo)
