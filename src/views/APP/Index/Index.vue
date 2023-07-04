@@ -25,20 +25,6 @@
                   <i class="line"></i>
                 </a>
               </li>
-              <li>
-                <a href="/APP/StoryRelay" target="_blank">
-                  <span class="icon"></span>
-                  接龙页面
-                  <i class="line"></i>
-                </a>
-              </li>
-              <li>
-                <a href="/APP/test" target="_blank">
-                  <span class="icon"></span>
-                  测试页面
-                  <i class="line"></i>
-                </a>
-              </li>
             </ul>
           </div>
           <div class="right-menu">
@@ -83,17 +69,22 @@
                       <div class="new-title">
                         {{item.title}}</div>
                       <div class="new-detail" style="width: 100px; text-align: right">
-                        {{item.updateTime}}</div>
+                        {{item.createTime}}</div>
                     </div>
                   </a>
                 </div>
               </div>
             </div>
 
-          </div>
-          <div class="button-container">
+            <div class="button-container">
+              <el-button class="button-new-story" @click="gotoMyStory">我的故事</el-button>
+              <el-button class="button-new-story" @click="gotoMyFragmentt">我的片段</el-button>
+            </div>
+            <el-button class="button-new-story" @click="gotoStoryCollect">发起新故事</el-button>
 
           </div>
+
+
         </div>
 
       </div>
@@ -266,6 +257,15 @@ export default {
         console.log(res)
         this.personal_recommendation = res.data;
       })
+    },
+    gotoMyStory() {
+      this.$router.push('/PersonalSpace/myStory');
+    },
+    gotoMyFragmentt() {
+      this.$router.push('/PersonalSpace/myFragment');
+    },
+    gotoStoryCollect() {
+      this.$router.push({ path:'/PersonalSpace/StoryCollect#', query: { createStory: 1 }});
     },
     jumpToStoryRelay(){
       this.$router.push("/APP/StoryRelay")
