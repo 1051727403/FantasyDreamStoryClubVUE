@@ -92,7 +92,6 @@ export default {
       plate: "",
       func: "",
       dialogVisible:false,
-      storyid:0,
       storyinfo:{},
       editorinfo:{},
       astyle:"margin-left: 4px;"+
@@ -115,12 +114,11 @@ export default {
     }
   },
   created() {
-    this.storyid=this.$route.query["storyId"]
     this.storyId=parseInt(this.$route.query["storyId"])
-    this.request.get("/story/getStoryInfo?storyId="+this.storyid).then(res=>{
+    this.request.get("/story/getStoryInfo?storyId="+this.storyId).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
-        this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
+        this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyId
         //console.log(res.data)
         //作者信息
         this.request.get("/user/getUserInfo?userId="+this.storyinfo.userId).then(res=>{
@@ -134,7 +132,7 @@ export default {
           }
         })
         //生成标签
-        this.request.get("/story/getStoryTag?storyId="+this.storyid).then(res=>{
+        this.request.get("/story/getStoryTag?storyId="+this.storyId).then(res=>{
           if(res.code==="200"){
             var tags = res.data
             var parent=document.getElementById("cats")
@@ -152,10 +150,10 @@ export default {
         })
         //请求收藏
         if(localStorage.getItem("user")){
-          this.request.get("/story/checkCollect?userId="+JSON.parse(localStorage.getItem("user")).id+"&storyId="+this.storyid).then(res=>{
+          this.request.get("/story/checkCollect?userId="+JSON.parse(localStorage.getItem("user")).id+"&storyId="+this.storyId).then(res=>{
             if(res.code==="200"){
               console.log(this.storyinfo.userId)
-              console.log(this.storyid)
+              console.log(this.storyId)
               console.log("收藏")
               console.log(res)
               this.checkCollect = res.data
@@ -196,7 +194,7 @@ export default {
     collect(){
       if(localStorage.getItem("user")){
         var userid =  JSON.parse(localStorage.getItem("user")).id;
-        this.request.post("/story/collectStory?userId="+userid+"&storyId="+this.storyid).then(res=>{
+        this.request.post("/story/collectStory?userId="+userid+"&storyId="+this.storyId).then(res=>{
           if(res.code==="200"){
             this.$message.success("收藏成功")
             this.checkCollect = true
@@ -218,7 +216,7 @@ export default {
     uncollect(){
       this.dialogVisible = false
       var userid =  JSON.parse(localStorage.getItem("user")).id;
-      this.request.post("/story/uncollectStory?userId="+userid+"&storyId="+this.storyid).then(res=>{
+      this.request.post("/story/uncollectStory?userId="+userid+"&storyId="+this.storyId).then(res=>{
         //console.log(res)
         if(res.code==="200"&& res.data===true){
           this.$message.success("取消收藏成功")

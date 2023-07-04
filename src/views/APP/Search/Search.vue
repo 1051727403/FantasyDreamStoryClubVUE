@@ -254,7 +254,7 @@ export default {
       });
     },
     storySkip(storyId) {
-      return "/APP/StoryInfo/?storyid=" + storyId;
+      return "/APP/StoryInfo/?storyId=" + storyId;
     },
     tagChooseClass(data) {
       if (data === this.typeTag) return "choose";
