@@ -69,7 +69,7 @@ const routes = [
   {
     path:'/PersonalSpace',
     component:()=>import('../views/APP/AppHome.vue'),
-    redirect:'/PersonalSpace/myCollect',
+    redirect:'/PersonalSpace/myStory',
     children:[{
         path: 'myCollect',
         name:'个人中心',
