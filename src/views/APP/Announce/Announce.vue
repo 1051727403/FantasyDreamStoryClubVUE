@@ -11,9 +11,9 @@
       </div>
 
       <div class="article-container">
-        <div class="article-cover-container">
+        <div class="article-cover-container" :style="imageShow()">
           <el-image
-              :style="imageShow()"
+              style="width: 100%; height: auto; padding: 10px 75px; max-height: 1000px"
               fit="cover"
               class="lazy"
               alt=""
@@ -82,10 +82,10 @@ export default {
       })
     },
     imageShow() {
-      console.log('1564185641')
-      if (this.coverUrl && this.coverUrl === '')
+      console.log(this.coverUrl)
+      if (this.coverUrl == null || this.coverUrl === "")
         return 'display: none';
-      return 'width: 100%; height: auto; padding: 10px 75px; max-height: 1000px';
+      return '';
     },
   }
 }

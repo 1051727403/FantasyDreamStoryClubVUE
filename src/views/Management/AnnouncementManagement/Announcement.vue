@@ -10,7 +10,7 @@
     </div>
 
     <div class="modify" style="margin: 10px 0;">
-      <el-button type="primary" style="font-size: 12px; " @click="addUser">新增 <i class="el-icon-circle-plus-outline"style="margin-left:5px;"> </i></el-button>
+      <el-button type="primary" style="font-size: 12px; " @click="addAnnounce">新增 <i class="el-icon-circle-plus-outline"style="margin-left:5px;"> </i></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'
@@ -31,19 +31,16 @@
               :header-cell-style="tableHeaderColor">
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
-      <el-table-column prop="username" label="用户名"  width="120"></el-table-column>
-      <el-table-column prop="nickname" label="昵称"  width="120"></el-table-column>
-      <el-table-column prop="password" label="密码"  width="120"></el-table-column>
-      <el-table-column prop="avatarUrl" label="头像链接"  width="100">
+      <el-table-column prop="title" label="标题"  width="120"></el-table-column>
+      <el-table-column prop="content" label="内容"  width="120"></el-table-column>
+      <el-table-column prop="coverUrl" label="封面"  width="100">
         <template v-slot="scope" >
-          <img :src="tableData[scope.$index].avatarUrl" height="40px">
+          <img :src="tableData[scope.$index].coverUrl" height="40px">
         </template>
       </el-table-column>
-      <el-table-column prop="totalLike" label="总喜欢"  width="120"></el-table-column>
-      <el-table-column prop="removed" label="是否注销"  width="100"></el-table-column>
       <el-table-column label="操作" >
         <template v-slot="scope" >
-          <el-button type="success" @click.native.prevent="modifyUser(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
+          <el-button type="success" @click.native.prevent="modifyAnnounce(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
           <el-popconfirm
               class="ml-5"
               confirm-button-text='确定'
@@ -75,25 +72,19 @@
     <!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
     <el-dialog :title="dialogFormName" :visible.sync="dialogFormVisible">
       <el-form label-width="100px" :rules="rules" ref="ruleForm" :model="form">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.username" autocomplete="off" ></el-input>
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="form.title" autocomplete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="昵称" prop="nickname">
-          <el-input v-model="form.nickname" autocomplete="off"></el-input>
+        <el-form-item label="封面" prop="coverUrl">
+          <el-input v-model="form.coverUrl" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="头像" prop="avatarUrl">
-          <el-input v-model="form.avatarUrl" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="form.password" autocomplete="off" ></el-input>
-        </el-form-item>
-        <el-form-item label="是否注销" prop="removed">
-          <el-input v-model="form.removed" autocomplete="off"></el-input>
+        <el-form-item label="正文" prop="content">
+          <el-input v-model="form.content" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="this.dialogFormVisible=false;">取 消</el-button>
-        <el-button type="primary" @click="saveUser">确 定</el-button>
+        <el-button @click="dialogFormVisible=false;">取 消</el-button>
+        <el-button type="primary" @click="saveAnnounce">确 定</el-button>
       </div>
     </el-dialog>
     <!--    &lt;!&ndash;嵌套表单 end&ndash;&gt;-->
@@ -110,22 +101,15 @@ export default {
       func: "公告管理",
       tableData: [],
       form:{
-        username:"",
-        nickname:"",
-        avatarUrl:"",
+        title:"",
+        coverUrl:"",
+        content:"",
       },
       dialogFormName:"",
       dialogFormVisible:false,
       rules:{
-        username:[
-          {register:true,message:"用户名不可为空",trigger:"blur"},
-        ],
-        nickname:[
-          {register:true,message:"昵称不可为空",trigger:"blur"},
-        ],
-        avatarUrl:[
-          {register:true,message:"头像不可为空",trigger:"blur"},
-          //{min:3,max:15,message: "长度在 3 到 15 之间" ,trigger:"blur"}
+        title:[
+          {register:true,message:"标题bu不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -141,16 +125,21 @@ export default {
   methods :{
     //load
     load(){
-      this.request.get("/admin/userPage",{
+      this.request.get("/admin/announcePage",{
         params: {
           pageNum:this.pageNum,
           pageSize:this.pageSize,
           search:this.search,         //根据用户名、昵称模糊查询
         }
       }).then(res=>{
-        console.log(res.records)
-        this.tableData = res.records;
-        this.count = res.total;
+        console.log(res)
+        this.tableData = res.data;
+
+        this.request.get('admin/announceNum').then(res=>{
+          console.log(res);
+          this.count = res.data;
+        })
+
       })
     },
     // 修改table header的背景色
@@ -159,20 +148,17 @@ export default {
         return 'background-color: #e0f6fe;color: #303133;font-weight: 600;font-size:12px;'
       }
     },
-    //点击编辑用户
-    modifyUser(idx){
-      //console.log("tableData:",this.tableData);
-      //console.log("index:"+idx)
-      //console.log("row:"+res)
-      this.dialogFormName="【编辑用户】"
+    //点击编辑公告
+    modifyAnnounce(idx){
+      this.dialogFormName="【编辑公告】"
       this.dialogFormVisible=true;
       this.form=this.tableData[idx];
     },
-    //点击删除用户
+    //点击删除公告
     del(idx){
       let id=this.tableData[idx].id;
       console.log(id)
-      this.request.post("/admin/deleteUser?userId="+id).then(res=>{
+      this.request.post("/admin/deleteAnnoucnce?announceId="+id).then(res=>{
         if(res.code === "200"){
           this.$message.success("删除成功！");
           this.load();
@@ -181,7 +167,7 @@ export default {
         }
       })
     },
-    //批量删除用户——选择
+    //批量删除公告——选择
     handleSelectionChange(val){
       console.log(val)
       this.multipleSelection = val;
@@ -204,21 +190,20 @@ export default {
       this.load();
     },
     //保存用户
-    saveUser(){
+    saveAnnounce(){
       this.$refs['ruleForm'].validate((valid)=>{
         if(valid){
-          this.request.post("/user/upUserInfo", {
+          this.request.post("/admin/upAnnounceInfo", {
             "id":this.form.id,
-            "userName":this.form.username,
-            "nickName":this.form.nickname,
-            "avatarUrl":this.form.avatarUrl,
-            "password":this.form.password,
-            "removed":this.form.removed,
+            "title":this.form.title,
+            "coverUrl":this.form.coverUrl,
+            "content":this.form.content,
+            "isActivity": 0,
           }).then(res=>{
-            this.userdialogVisible = false
             console.log(res)
             if(res.code==="200"&& res.data===true ){
-              this.$message.success("修改用户成功")
+              this.$message.success("修改公告成功")
+              location.reload();
             }
             else{
               this.$router.go(0)
@@ -232,14 +217,14 @@ export default {
       this.dialogFormVisible=false;
     },
     //点击新增用户弹窗
-    addUser(){
+    addAnnounce(){
       this.form={
-        username:"",
-        nickname:"",
-        avatarUrl:"",
+        title:"",
+        coverUrl:"",
+        content:"",
       }
       console.log(this.from)
-      this.dialogFormName="【新增用户】"
+      this.dialogFormName="【新增公告】"
       this.dialogFormVisible=true;
     },
     //点击批量删除按钮
@@ -247,7 +232,7 @@ export default {
       console.log("点击批量删除按钮")
       let ids=this.multipleSelection.map(v=>v.id)
       console.log(ids)
-      this.request.post("/admin/deleteBatchUser",ids).then(res=>{
+      this.request.post("/admin/deleteBatchAnnounce",ids).then(res=>{
         console.log(res)
         if(res){
           this.$message.success("删除成功！");
