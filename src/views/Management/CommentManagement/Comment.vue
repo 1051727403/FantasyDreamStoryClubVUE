@@ -1,5 +1,5 @@
 <template>
-  <div>这是管理评论</div>
+  <div>这个作者很懒</div>
 </template>
 
 <script>

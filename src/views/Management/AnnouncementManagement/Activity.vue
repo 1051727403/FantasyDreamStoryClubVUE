@@ -32,7 +32,7 @@
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
       <el-table-column prop="title" label="标题"  width="120"></el-table-column>
-      <el-table-column prop="content" label="内容"  width="120"></el-table-column>
+      <el-table-column prop="content" label="内容"  width="180" :formatter="formatContent"></el-table-column>
       <el-table-column prop="shown" label="轮播图"  width="120">
         <template v-slot="scope" >
           <p v-if="tableData[scope.$index].shown">是</p>
@@ -120,7 +120,7 @@ export default {
       dialogFormVisible:false,
       rules:{
         title:[
-          {register:true,message:"标题不可为空",trigger:"blur"},
+          {required:true,message:"标题不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -158,6 +158,13 @@ export default {
       if (rowIndex === 0) {
         return 'background-color: #e0f6fe;color: #303133;font-weight: 600;font-size:12px;'
       }
+    },
+    formatContent(row) {
+      const maxLength = 10; // 设置最大显示字数
+      if (row.content.length > maxLength) {
+        return row.content.slice(0, maxLength) + '...'; // 截取文本并添加省略号
+      }
+      return row.content; // 如果未超过最大字数限制，直接返回原始内容
     },
     //点击编辑公告
     modifyAnnounce(idx){
@@ -214,14 +221,12 @@ export default {
             'shown':this.form.shown,
           }).then(res=>{
             console.log(res)
-            if(res.code==="200"&& res.data===true ){
-              this.request.post('/admin/')
-
+            if(res.code==="200"){
               this.$message.success("修改公告成功")
               location.reload();
             }
             else{
-              this.$router.go(0)
+              //this.$router.go(0)
               this.$message.error(res.msg)
             }
           })

@@ -32,7 +32,7 @@
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
       <el-table-column prop="title" label="标题"  width="120"></el-table-column>
-      <el-table-column prop="content" label="内容"  width="120"></el-table-column>
+      <el-table-column prop="content" label="内容"  width="180" :formatter="formatContent"></el-table-column>
       <el-table-column prop="coverUrl" label="封面"  width="100">
         <template v-slot="scope" >
           <img :src="tableData[scope.$index].coverUrl" height="40px">
@@ -109,7 +109,7 @@ export default {
       dialogFormVisible:false,
       rules:{
         title:[
-          {register:true,message:"标题bu不可为空",trigger:"blur"},
+          {required:true,message:"标题bu不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -167,6 +167,13 @@ export default {
         }
       })
     },
+    formatContent(row) {
+      const maxLength = 10; // 设置最大显示字数
+      if (row.content.length > maxLength) {
+        return row.content.slice(0, maxLength) + '...'; // 截取文本并添加省略号
+      }
+      return row.content; // 如果未超过最大字数限制，直接返回原始内容
+    },
     //批量删除公告——选择
     handleSelectionChange(val){
       console.log(val)
@@ -201,7 +208,7 @@ export default {
             "isActivity": 0,
           }).then(res=>{
             console.log(res)
-            if(res.code==="200"&& res.data===true ){
+            if(res.code==="200" ){
               this.$message.success("修改公告成功")
               location.reload();
             }

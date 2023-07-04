@@ -10,7 +10,7 @@
     </div>
 
     <div class="modify" style="margin: 10px 0;">
-      <el-button type="primary" style="font-size: 12px; " @click="addUser">新增 <i class="el-icon-circle-plus-outline"style="margin-left:5px;"> </i></el-button>
+      <el-button type="primary" style="font-size: 12px; " @click="addTag">新增 <i class="el-icon-circle-plus-outline"style="margin-left:5px;"> </i></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'
@@ -35,7 +35,7 @@
 
       <el-table-column label="操作" >
         <template v-slot="scope" >
-          <el-button type="success" @click.native.prevent="modifyUser(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
+          <el-button type="success" @click.native.prevent="modifyTag(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
           <el-popconfirm
               class="ml-5"
               confirm-button-text='确定'
@@ -66,14 +66,14 @@
     <!--    &lt;!&ndash;分页 end&ndash;&gt;-->
     <!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
     <el-dialog :title="dialogFormName" :visible.sync="dialogFormVisible">
-      <el-form label-width="100px" :rules="rules" ref="ruleForm" :model="form">
+      <el-form label-width="100px" :rules="tagRules" ref="ruleForm" :model="form">
         <el-form-item label="标签名" prop="tagName">
           <el-input v-model="form.tagName" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="this.dialogFormVisible=false;">取 消</el-button>
-        <el-button type="primary" @click="saveUser">确 定</el-button>
+        <el-button @click="dialogFormVisible=false;">取 消</el-button>
+        <el-button type="primary" @click="saveTag">确 定</el-button>
       </div>
     </el-dialog>
     <!--    &lt;!&ndash;嵌套表单 end&ndash;&gt;-->
@@ -93,9 +93,9 @@ export default {
       },
       dialogFormName:"",
       dialogFormVisible:false,
-      rules:{
+      tagRules:{
         tagName:[
-          {register:true,message:"标签名不可为空",trigger:"blur"},
+          {required:true,message:"标签名不可为空",trigger:"blur"},
           //{min:3,max:15,message: "长度在 3 到 15 之间" ,trigger:"blur"}
         ],
       },
@@ -130,8 +130,8 @@ export default {
         return 'background-color: #e0f6fe;color: #303133;font-weight: 600;font-size:12px;'
       }
     },
-    //点击编辑用户
-    modifyUser(idx){
+    //点击编辑标签
+    modifyTag(idx){
       //console.log("tableData:",this.tableData);
       //console.log("index:"+idx)
       //console.log("row:"+res)
@@ -139,7 +139,7 @@ export default {
       this.dialogFormVisible=true;
       this.form=this.tableData[idx];
     },
-    //点击删除用户
+    //点击删除标签
     del(idx){
       let id=this.tableData[idx].id;
       this.request.post("/admin/deleteTag?tagId="+id).then(res=>{
@@ -174,7 +174,7 @@ export default {
       this.load();
     },
     //保存用户
-    saveUser(){
+    saveTag(){
       this.$refs['ruleForm'].validate((valid)=>{
         if(valid){
           this.request.post("/admin/addTag", {
@@ -184,22 +184,24 @@ export default {
             this.userdialogVisible = false
             console.log(res)
             if(res.code==="200" && res.data===true ){
+              this.$router.go(0)
               this.$message.success("修改标签成功")
             }
             else{
-              this.$router.go(0)
-              this.$message.error(res.msg)
+              this.$message.error("标签名重复")
             }
           })
+          this.dialogFormVisible=false;
         }
       })
-      this.dialogFormVisible=false;
+
     },
     //点击新增用户弹窗
-    addUser(){
+    addTag(){
       this.form={
         tagName:"",
       }
+      this.form = {}
       console.log(this.from)
       this.dialogFormName="【新增标签】"
       this.dialogFormVisible=true;
