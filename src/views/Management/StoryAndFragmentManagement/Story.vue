@@ -206,6 +206,7 @@ export default {
       this.$refs['ruleForm'].validate((valid)=>{
         if(valid){
           this.form.userId = JSON.parse(localStorage.getItem("user")).id
+          console.log(this.form)
           this.request.post("/story/saveStory",this.form).then(res=>{
             console.log(res)
             this.storydialogVisible=false
@@ -225,7 +226,7 @@ export default {
       })
       this.dialogFormVisible=false;
     },
-    //点击新增用户弹窗
+    //点击新增故事弹窗
     addStory(){
       this.form={
         username:"",
