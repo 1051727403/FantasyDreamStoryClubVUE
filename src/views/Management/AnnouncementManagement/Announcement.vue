@@ -32,7 +32,7 @@
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
       <el-table-column prop="title" label="标题"  width="120"></el-table-column>
-      <el-table-column prop="content" label="内容"  width="120"></el-table-column>
+      <el-table-column prop="content" label="内容"  width="180" :formatter="formatContent"></el-table-column>
       <el-table-column prop="coverUrl" label="封面"  width="100">
         <template v-slot="scope" >
           <img :src="tableData[scope.$index].coverUrl" height="40px">
@@ -166,6 +166,13 @@ export default {
           this.$message.error("删除失败！");
         }
       })
+    },
+    formatContent(row) {
+      const maxLength = 10; // 设置最大显示字数
+      if (row.content.length > maxLength) {
+        return row.content.slice(0, maxLength) + '...'; // 截取文本并添加省略号
+      }
+      return row.content; // 如果未超过最大字数限制，直接返回原始内容
     },
     //批量删除公告——选择
     handleSelectionChange(val){
