@@ -122,7 +122,7 @@ export default {
         this.storyinfo=res.data
         this.storyinfo.Link = "/App/storyRelay?storyId="+this.storyid
         //console.log(res.data)
-        // 请求作者信息
+        //作者信息
         this.request.get("/user/getUserInfo?userid="+this.storyinfo.userId).then(res=>{
           if(res.code==='200'){
             this.editorinfo=res.data

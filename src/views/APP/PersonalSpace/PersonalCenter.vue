@@ -156,7 +156,7 @@ export default {
         fragmentName:"",
         fragmentContent:"",
       },
-      activeIndex: '/PersonalSpace/StoryCollect',
+      activeIndex: '/PersonalSpace',
       menus: [
         {name:'我的故事',path:'/PersonalSpace/myStory',icon:'el-icon-s-management',style:"color:#ef6e9f;font-size:20px;margin-left:3px;"},
         {name:'我的片段',path:'/PersonalSpace/myFragment',icon:'el-icon-document',style:"color:#29b8e9;font-size:20px;margin-left:3px;"},
@@ -187,7 +187,6 @@ export default {
   created() {
     if(localStorage.getItem("user")){
       this.loc = JSON.parse(localStorage.getItem("user"))
-      this.activeIndex="/PersonalSpace/StoryCollect"
     }
     else{
       this.$notify({
@@ -233,9 +232,7 @@ export default {
   },
   methods: {
     selMenu(item){
-      let path = new URL(window.location.href).pathname;
-      // console.log(path,item.path)
-      if (path==item.path)return
+      if (this.activeIndex==item.path)return
       this.activeIndex = item.path;
       this.$router.push({path: item.path});
     },
