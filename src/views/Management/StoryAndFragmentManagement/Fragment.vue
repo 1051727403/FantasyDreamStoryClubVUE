@@ -9,26 +9,13 @@
       </div>
     </div>
 
-    <div class="modify" style="margin: 10px 0;">
-      <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='我再想想'
-          icon="el-icon-info"
-          icon-color="red"
-          title="确定要删除吗？"
-          @confirm="delBash">
-        <el-button type="danger" style="font-size: 12px;" slot="reference">批量删除<i class="el-icon-remove-outline" style="margin-left:5px;"> </i></el-button>
-      </el-popconfirm>
-    </div>
     <!--顶部搜索筛选等操作 end-->
     <!--表格主体 start-->
     <el-table :data="tableData"
-              style="width: 100%"
+              style="width: 100%;margin-top: 20px;"
               :default-sort = "{prop: 'id', order: 'descending'}"
               @selection-change="handleSelectionChange"
               :header-cell-style="tableHeaderColor">
-      <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
       <el-table-column prop="userId" label="作者ID"  width="120"></el-table-column>
       <el-table-column prop="storyId" label="故事ID"  width="120"></el-table-column>
@@ -166,11 +153,15 @@ export default {
       this.form=this.tableData[idx];
       // console.log(this.form)
     },
-    //点击删除用户
+    //点击删除片段
     del(idx){
       let id=this.tableData[idx].id;
+      if (this.tableData[idx].parentId==0){
+        this.$message.error("根节点，不可删除，若需要删除则可删除故事");
+        return
+      }
       console.log(id)
-      this.request.post("/admin/deleteUser?userId="+id).then(res=>{
+      this.request.get("/admin/fragment/deleteFragment?fragmentId="+id).then(res=>{
         if(res.code === "200"){
           this.$message.success("删除成功！");
           this.load();
@@ -203,46 +194,30 @@ export default {
     },
     //保存用户
     saveUser(){
-      this.$refs['ruleForm'].validate((valid)=>{
-        if(valid){
-          this.request.post("/fragment/", {
-            "id":this.form.id,
-            "userName":this.form.username,
-            "nickName":this.form.nickname,
-            "avatarUrl":this.form.avatarUrl,
-            "password":this.form.password,
-            "removed":this.form.removed,
-          }).then(res=>{
-            this.userdialogVisible = false
-            console.log(res)
-            if(res.code==="200"&& res.data===true ){
-              this.$message.success("修改用户成功")
-            }
-            else{
-              this.$router.go(0)
-              this.$message.error(res.msg)
-            }
-          })
-        }else{
-
-        }
-      })
+        console.log(this.form)
+        console.log("valid")
+        this.request.post("/admin/fragment/saveFragment", {
+          "id":this.form.id,
+          "userId":this.form.userId,
+          "storyId":this.form.storyId,
+          "parentId":this.form.parentId,
+          "fragmentName":this.form.fragmentName,
+          "content":this.form.content,
+          "allowRelay":this.form.allowRelay,
+          "totalLike":this.form.totalLike,
+          "totalCollection":this.form.totalCollection,
+          "totalComment":this.form.totalComment,
+        }).then(res=>{
+          this.userdialogVisible = false
+          if(res.code==="200" ){
+            this.$message.success("修改片段成功")
+            this.load();
+          }
+          else{
+            this.$message.error(res.msg)
+          }
+        })
       this.dialogFormVisible=false;
-    },
-    //点击批量删除按钮
-    delBash(){
-      console.log("点击批量删除按钮")
-      let ids=this.multipleSelection.map(v=>v.id)
-      console.log(ids)
-      this.request.post("/admin/deleteBatchUser",ids).then(res=>{
-        console.log(res)
-        if(res){
-          this.$message.success("删除成功！");
-          this.load();
-        }else{
-          this.$message.error("删除失败！");
-        }
-      })
     },
   }
 }
