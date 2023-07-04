@@ -76,16 +76,7 @@ export default {
         this.$router.push("/login");
     },
     userInfo(){
-      console.log("this.$route.path:",this.$route.path)
-      let nowUrl=this.$route.path
-      if(nowUrl[1]==='M') {
-        this.$router.push("/Manage/userInfo")
-      }else{
-        console.log(this.user)
         this.$router.push("/PersonalSpace")
-        //location.reload()
-        this.$router.go(1)
-      }
     },
     gotowhat(){
       console.log("搜索"+this.input1)
