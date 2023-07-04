@@ -63,7 +63,7 @@
     <!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
     <el-dialog :title="dialogFormName" :visible.sync="dialogFormVisible">
       <el-form label-width="100px" :rules="rules" ref="ruleForm" :model="form">
-        <el-form-item label="故事名" prop="username">
+        <el-form-item label="故事名" prop="storyName">
           <el-input v-model="form.storyName" autocomplete="off" ></el-input>
         </el-form-item>
         <el-form-item label="封面url" prop="coverUrl">
@@ -74,7 +74,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="this.dialogFormVisible=false;">取 消</el-button>
+        <el-button @click="dialogFormVisible=false;">取 消</el-button>
         <el-button type="primary" @click="saveStory">确 定</el-button>
       </div>
     </el-dialog>
@@ -111,15 +111,11 @@ export default {
       dialogFormName:"",
       dialogFormVisible:false,
       rules:{
-        username:[
-          {register:true,message:"用户名不可为空",trigger:"blur"},
+        storyName:[
+          {required:true,message:"故事名不可为空",trigger:"blur"},
         ],
-        nickname:[
-          {register:true,message:"昵称不可为空",trigger:"blur"},
-        ],
-        avatarUrl:[
-          {register:true,message:"头像不可为空",trigger:"blur"},
-          //{min:3,max:15,message: "长度在 3 到 15 之间" ,trigger:"blur"}
+        introduce:[
+          {required:true,message:"介绍不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -211,12 +207,14 @@ export default {
             console.log(res)
             this.storydialogVisible=false
             if(res.code==="200"){
+              this.$router.go(0)
               this.$message.success("上传成功")
             }
             else {
               this.$message.error("上传失败")
             }
           })
+          this.dialogFormVisible=false;
         }
         else{
           this.$message.warning("请补充表格")
@@ -224,7 +222,7 @@ export default {
           return false;
         }
       })
-      this.dialogFormVisible=false;
+
     },
     //点击新增故事弹窗
     addStory(){

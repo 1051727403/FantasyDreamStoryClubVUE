@@ -88,7 +88,7 @@
         <el-form-item label="故事名" label-width=120 prop="storyName">
           <el-input v-model="form.storyName" autocomplete="off"></el-input>
         </el-form-item >
-        <el-form-item label="点击修改头像" label-width=120 >
+        <el-form-item label="点击修改封面" label-width=120 >
           <el-upload
               class="avatar-uploader"
               action="http://localhost:9090/upload/image"
@@ -96,7 +96,7 @@
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
               name="photo">
-            <img v-if="form.coverUrl" :src="form.coverUrl">
+            <img v-if="form.coverUrl" :src="form.coverUrl" height="180px" width="110px">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -181,7 +181,9 @@ export default {
       userRules:{
         username:[{required:true,message:'请输用户名' ,trigger:'blur'}],
         nickname:[{required:true,message:'请输入昵称' ,trigger:'blur'}],
-      }
+      },
+      loc:{},
+      headers:{},
     };
   },
   created() {
@@ -191,6 +193,7 @@ export default {
     if(localStorage.getItem("user")){
       this.loc = JSON.parse(localStorage.getItem("user"))
       this.activeIndex=this.$route.path
+      console.log(this.loc.token)
     }
     else{
       this.$notify({
@@ -257,7 +260,7 @@ export default {
       }
     },
     handleUserAvatarSuccess(res) {
-        //console.log(res)
+        console.log(res)
         if(res.code === "200"){
           this.userinfo.avatarUrl="http://localhost:9090/img/"+res.data
         }else{
@@ -293,6 +296,7 @@ export default {
                     "allowRelay":this.allowRelay?1:0
                   }).then(res=>{
                 if(res.code==="200"){
+                  this.$router.go(0)
                   this.$message.success("上传成功")
                 }
                 else{

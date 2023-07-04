@@ -98,14 +98,8 @@ export default {
       dialogFormName:"",
       dialogFormVisible:false,
       rules:{
-        fragmentName:[
-          {register:true,message:"片段名称不可为空",trigger:"blur"},
-        ],
         userId:[
-          {register:true,message:"片段内容不可为空",trigger:"blur"},
-        ],
-        content:[
-          {register:true,message:"作者ID不可为空",trigger:"blur"},
+          {required:true,message:"作者ID不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -148,7 +142,7 @@ export default {
     },
     //点击编辑用户
     modifyUser(idx){
-      this.dialogFormName="【编辑用户】"
+      this.dialogFormName="【编辑片段】"
       this.dialogFormVisible=true;
       this.form=this.tableData[idx];
       // console.log(this.form)

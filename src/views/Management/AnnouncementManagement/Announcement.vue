@@ -109,7 +109,7 @@ export default {
       dialogFormVisible:false,
       rules:{
         title:[
-          {register:true,message:"标题bu不可为空",trigger:"blur"},
+          {required:true,message:"标题bu不可为空",trigger:"blur"},
         ],
       },
       pageNum:1,
@@ -201,7 +201,7 @@ export default {
             "isActivity": 0,
           }).then(res=>{
             console.log(res)
-            if(res.code==="200"&& res.data===true ){
+            if(res.code==="200" ){
               this.$message.success("修改公告成功")
               location.reload();
             }
