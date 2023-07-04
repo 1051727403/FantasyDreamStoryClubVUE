@@ -20,7 +20,7 @@
               :header-cell-style="tableHeaderColor">
       <el-table-column prop="id" label="id"  width="80"></el-table-column>
       <el-table-column prop="storyName" label="故事名"  width="120"></el-table-column>
-      <el-table-column prop="coverUrl" label="故事封面"  width="100">
+      <el-table-column prop="coverUrl" label="故事封面"  width="120">
         <template v-slot="scope" >
           <img :src="tableData[scope.$index].coverUrl" height="80px" width="50px">
         </template>
@@ -66,7 +66,7 @@
         <el-form-item label="故事名" prop="username">
           <el-input v-model="form.storyName" autocomplete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="封面url" label-width=120 prop="coverUrl">
+        <el-form-item label="封面url" prop="coverUrl">
           <el-input v-model="form.coverUrl" autocomplete="off" ></el-input>
         </el-form-item>
         <el-form-item label="介绍" prop="introduce">

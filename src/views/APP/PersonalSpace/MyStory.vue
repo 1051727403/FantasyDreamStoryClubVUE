@@ -30,6 +30,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -37,6 +38,16 @@
 export default {
   data() {
     return {
+      dialogFormVisible:false,
+      form:{},
+      rules:{
+        storyName:[
+          {register:true,message:"故事名不可为空",trigger:"blur"},
+        ],
+        introduce:[
+          {register:true,message:"介绍不可为空",trigger:"blur"},
+        ]
+      },
       books:[],
       loc:{},
     };
@@ -48,13 +59,13 @@ export default {
     else{
       this.$router.push('/login')
     }
-    this.mystory()
+    this.myStory()
   },
   mounted() {
 
   },
   methods: {
-    mystory(){
+    myStory(){
       this.request.get("/story/usersStories?userId="+this.loc.id).then(res=>{
         if(res.code==='200'){
           this.books=res.data
@@ -73,13 +84,14 @@ export default {
       this.request.post("/story/deleteStory?storyId="+storyId+"&userId="+this.loc.id+"&token="+this.loc.token).then(res=>{
         if(res.code==="200"){
           this.$message.success("删除成功")
+          this.$router.go(0)
           console.log(res.msg)
         }
         else {
           this.$message.error(res.msg)
         }
       })
-    }
+    },
   }
 };
 </script>
