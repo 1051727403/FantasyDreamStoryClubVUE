@@ -25,45 +25,12 @@
                   <i class="line"></i>
                 </a>
               </li>
-              <li>
-                <a href="/article/list?cat=3" target="_blank">
-                  <span class="icon"></span>
-                  故事会
-                  <i class="line"></i>
-                </a>
-              </li>
-              <li>
-                <a href="/APP/StoryRelay" target="_blank">
-                  <span class="icon"></span>
-                  接龙页面
-                  <i class="line"></i>
-                </a>
-              </li>
-              <li>
-                <a href="/APP/test" target="_blank">
-                  <span class="icon"></span>
-                  测试页面
-                  <i class="line"></i>
-                </a>
-              </li>
             </ul>
           </div>
           <div class="right-menu">
             <ul class="clearfix">
               <li>
-                <a href="/article/list" target="_blank">
-                  <span class="icon"></span>
-                  专栏
-                </a>
-              </li>
-              <li>
-                <a href="/omake#illustration?type=-1" target="_blank">
-                  <span class="icon"></span>
-                  特典
-                </a>
-              </li>
-              <li>
-                <a href="https://support.qq.com/products/35496" rel="nofollow" target="_blank">
+                <a href="" rel="nofollow" target="_blank">
                   <span class="icon"></span>
                   反馈
                 </a>
