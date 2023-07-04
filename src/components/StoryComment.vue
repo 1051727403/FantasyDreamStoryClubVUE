@@ -245,7 +245,7 @@ export default {
     //跳转到个人展示页面
     jumpToUserShow(userId){
       console.log(userId)
-      window.open(this.$router.resolve("/app/usershow?userid="+userId).href,'_blank')
+      window.open(this.$router.resolve("/app/usershow?userId="+userId).href,'_blank')
     },
     //删除评论
     deleteComment(id){
