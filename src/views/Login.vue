@@ -1,9 +1,9 @@
 <template>
   <div class="login-wrapper" style="margin-top: 0;padding: 0">
-    <div style="opacity:0.98;margin: 200px auto;background-color: #fff;width: 390px;height: 350px;padding: 20px;border-radius: 10px;
+    <div style="opacity:0.95;margin: 200px auto;background-color: #fff;width: 390px;height: 350px;padding: 20px;border-radius: 10px;
     box-shadow: gray 4px 4px 10px">
-      <img src="https://www.shu.edu.cn/images/logoft.svg" style="height: 45px;"></img>
-      <div style="margin: 20px 0;text-align: center;font-size: 24px;color: #153b7f"><b>绮梦故事会</b></div>
+      <img src="../assets/image/logo.png" style="height: 70px;cursor: pointer;" @click="jumpToIndex">
+      <div  @click="jumpToIndex" style="cursor:pointer;margin: 10px 0;text-align:center;font-weight: bold;font-size: 24px; letter-spacing: 1px; color: #ff7d30;text-shadow: -1px -1px 0 #fffbe5, 1px -1px 0 #fffbe5, -1px 1px 0 #fffbe5, 1px 1px 0 #fffbe5;"><b>绮梦故事会</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
         <el-form-item prop="username">
           <el-input placeholder="请输入账号" size="medium" style="margin: 10px 0;"prefix-icon="el-icon-user" v-model="user.username"></el-input>
@@ -82,6 +82,10 @@ export default {
     }
   },
   methods:{
+    //点击logo跳转主页
+    jumpToIndex(){
+      window.location.replace("/APP/Index")
+    },
     //登录
     login(){
       this.$refs["userForm"].validate((valid) => {
@@ -93,7 +97,6 @@ export default {
               //将用户信息存储到浏览器中
               console.log(res.data)
               localStorage.setItem("user",JSON.stringify(res.data.data));
-
               if(res.data.is_admin=="1") this.$router.push("/Manage/Index");
               else this.$router.push("/APP/Index")
               this.$message.success("登录成功！")
@@ -149,7 +152,7 @@ export default {
 <style scoped>
 .login-wrapper{
   height: 100vh;
-  background: url('https://www.shu.edu.cn/2022banner/20230226-2.jpg');
+  background: url('https://pic4.zhimg.com/v2-666eb28ba8e686a26ae7295cd6a2a47a_r.jpg');
   background-size: 100% 100%;
   overflow: hidden;
 }

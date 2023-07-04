@@ -259,12 +259,36 @@ export default {
       })
     },
     gotoMyStory() {
+      let user=localStorage.getItem("user");
+      if(!user){
+        this.$notify({
+          title:"请登录后尝试",
+          duration:1500
+        })
+        return;
+      }
       this.$router.push('/PersonalSpace/myStory');
     },
     gotoMyFragmentt() {
+      let user=localStorage.getItem("user");
+      if(!user){
+        this.$notify({
+          title:"请登录后尝试",
+          duration:1500
+        })
+        return;
+      }
       this.$router.push('/PersonalSpace/myFragment');
     },
     gotoStoryCollect() {
+      let user=localStorage.getItem("user");
+      if(!user){
+        this.$notify({
+          title:"请登录后尝试",
+          duration:1500
+        })
+        return;
+      }
       this.$router.push({ path:'/PersonalSpace/StoryCollect#', query: { createStory: 1 }});
     },
     jumpToStoryRelay(){
