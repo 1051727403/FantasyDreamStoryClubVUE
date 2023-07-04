@@ -25,6 +25,20 @@
                   <i class="line"></i>
                 </a>
               </li>
+              <li>
+                <a href="/APP/StoryRelay" target="_blank">
+                  <span class="icon"></span>
+                  接龙页面
+                  <i class="line"></i>
+                </a>
+              </li>
+              <li>
+                <a href="/APP/test" target="_blank">
+                  <span class="icon"></span>
+                  测试页面
+                  <i class="line"></i>
+                </a>
+              </li>
             </ul>
           </div>
           <div class="right-menu">

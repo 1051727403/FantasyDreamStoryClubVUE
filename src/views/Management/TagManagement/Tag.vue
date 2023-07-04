@@ -112,7 +112,7 @@ export default {
   methods :{
     //load
     load(){
-      this.request.get("/tag/page",{
+      this.request.get("/admin/tagPage",{
         params: {
           pageNum:this.pageNum,
           pageSize:this.pageSize,

@@ -141,7 +141,7 @@ export default {
   methods :{
     //load
     load(){
-      this.request.get("/user/page",{
+      this.request.get("/admin/userPage",{
         params: {
           pageNum:this.pageNum,
           pageSize:this.pageSize,

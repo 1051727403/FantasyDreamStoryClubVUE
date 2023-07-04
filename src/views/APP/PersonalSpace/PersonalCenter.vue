@@ -185,9 +185,12 @@ export default {
     };
   },
   created() {
+    const createStory = this.$route.query.createStory;
+    if (createStory) this.storydialogVisible = true;
+
     if(localStorage.getItem("user")){
       this.loc = JSON.parse(localStorage.getItem("user"))
-      this.activeIndex="/PersonalSpace/StoryCollect"
+      this.activeIndex=this.$route.path
     }
     else{
       this.$notify({
@@ -235,7 +238,7 @@ export default {
     selMenu(item){
       let path = new URL(window.location.href).pathname;
       // console.log(path,item.path)
-      if (path==item.path)return
+      if (path===item.path)return
       this.activeIndex = item.path;
       this.$router.push({path: item.path});
     },
