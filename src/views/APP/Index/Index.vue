@@ -44,19 +44,7 @@
           <div class="right-menu">
             <ul class="clearfix">
               <li>
-                <a href="/article/list" target="_blank">
-                  <span class="icon"></span>
-                  专栏
-                </a>
-              </li>
-              <li>
-                <a href="/omake#illustration?type=-1" target="_blank">
-                  <span class="icon"></span>
-                  特典
-                </a>
-              </li>
-              <li>
-                <a href="https://support.qq.com/products/35496" rel="nofollow" target="_blank">
+                <a href="" rel="nofollow" target="_blank">
                   <span class="icon"></span>
                   反馈
                 </a>
@@ -95,21 +83,17 @@
                       <div class="new-title">
                         {{item.title}}</div>
                       <div class="new-detail" style="width: 100px; text-align: right">
-                        {{item.createTime}}</div>
+                        {{item.updateTime}}</div>
                     </div>
                   </a>
                 </div>
               </div>
             </div>
 
-            <div class="button-container">
-              <el-button class="button-new-story" @click="gotoMyStory">我的故事</el-button>
-              <el-button class="button-new-story" @click="gotoMyFragmentt">我的片段</el-button>
-            </div>
-            <el-button class="button-new-story" @click="gotoStoryCollect">发起新故事</el-button>
+          </div>
+          <div class="button-container">
 
           </div>
-
         </div>
 
       </div>
@@ -282,15 +266,6 @@ export default {
         console.log(res)
         this.personal_recommendation = res.data;
       })
-    },
-    gotoMyStory() {
-      this.$router.push('/PersonalSpace/myStory');
-    },
-    gotoMyFragmentt() {
-      this.$router.push('/PersonalSpace/myFragment');
-    },
-    gotoStoryCollect() {
-      this.$router.push({path:'/PersonalSpace/StoryCollect#', query: { createStory: 1 }});
     },
     jumpToStoryRelay(){
       this.$router.push("/APP/StoryRelay")

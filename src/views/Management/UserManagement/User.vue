@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin:10px 0;display: flex;flex-direction: row;justify-content:flex-end;">
+    <div style="margin:0px 0;display: flex;flex-direction: row;justify-content:flex-end;">
       <div class="search_box">
         <el-input style="width: 400px" placeholder="请输入用户名、昵称" v-model="search" >
           <i slot="suffix" class="el-icon-close" @click="clearAndLoad"style="margin-top: 10px"></i>
