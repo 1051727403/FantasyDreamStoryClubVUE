@@ -55,12 +55,12 @@ export default {
   },
   methods: {
     mystory(){
-      this.request.get("/story/usersStories?userid="+this.loc.id).then(res=>{
+      this.request.get("/story/usersStories?userId="+this.loc.id).then(res=>{
         if(res.code==='200'){
           this.books=res.data
           console.log(this.books)
           for (var re of this.books) {
-            re.link="/APP/storyinfo?storyid="+re.storyId
+            re.link="/APP/storyinfo?storyId="+re.storyId
           }
         }
         else{

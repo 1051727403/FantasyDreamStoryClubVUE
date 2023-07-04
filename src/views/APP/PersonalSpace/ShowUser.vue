@@ -48,9 +48,9 @@ export default {
   },
   created() {
     //console.log(456)
-    this.userinfo.userid=this.$route.query["userid"]
+    this.userinfo.userid=this.$route.query["userId"]
     //请求作者信息
-    this.request.get("/user/getUserInfo?userid="+this.userinfo.userid).then(res=>{
+    this.request.get("/user/getUserInfo?userId="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
         this.userinfo=res.data
       }
@@ -59,7 +59,7 @@ export default {
       }
     })
     //Ta的创作
-    this.request.get("/story/usersStoriesWithFragment?userid="+this.userinfo.userid).then(res=>{
+    this.request.get("/story/usersStoriesWithFragment?userId="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
         this.showbook(res.data,"my_book")
       }
@@ -68,7 +68,7 @@ export default {
       }
     })
     //Ta的收藏
-    this.request.get("/story/usersCollectStories?userid="+this.userinfo.userid).then(res=>{
+    this.request.get("/story/usersCollectStories?userId="+this.userinfo.userid).then(res=>{
       if(res.code==='200'){
         this.showbook(res.data,"collect_book")
       }
@@ -89,7 +89,7 @@ export default {
         tmg.width=130
         tmg.height=195
         ta.appendChild(tmg)
-        ta.href="/APP/storyinfo?storyid="+book.storyId
+        ta.href="/APP/storyinfo?storyId="+book.storyId
         tli.appendChild(ta)
         var tdiv = document.createElement("div")
         tdiv.style=

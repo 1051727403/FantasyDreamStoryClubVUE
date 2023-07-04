@@ -259,7 +259,7 @@ export default {
       })
     },
     storySkip(storyId) {
-      return "/APP/StoryInfo/?storyid=" + storyId;
+      return "/APP/StoryInfo/?storyId=" + storyId;
     },
     reflesh() {
       this.request.get("story/recommendStory").then(res=>{
