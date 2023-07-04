@@ -11,7 +11,7 @@
       </div>
 
       <div class="article-container">
-        <div class="article-cover-container" :style="imageShow()">
+        <div class="article-cover-container">
           <el-image
               style="width: 100%; height: auto; padding: 10px 75px; max-height: 1000px"
               fit="cover"
@@ -80,12 +80,6 @@ export default {
         this.createTime = res.data.createTime;
         this.coverUrl = res.data.coverUrl;
       })
-    },
-    imageShow() {
-      console.log(this.coverUrl)
-      if (this.coverUrl == null || this.coverUrl === "")
-        return 'display: none';
-      return '';
     },
   }
 }
