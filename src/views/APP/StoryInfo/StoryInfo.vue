@@ -116,6 +116,7 @@ export default {
   },
   created() {
     this.storyid=this.$route.query["storyId"]
+    this.storyId=this.$route.query["storyId"]
     this.request.get("/story/getStoryInfo?storyId="+this.storyid).then(res=>{
       if(res.code==='200'){
         this.storyinfo=res.data
