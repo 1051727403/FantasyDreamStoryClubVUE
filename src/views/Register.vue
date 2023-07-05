@@ -3,10 +3,10 @@
     <div style="margin: 80px auto;background-color: #fff;width: 400px;height: 550px;padding: 20px;border-radius: 10px;">
       <div style="margin: 15px 0;text-align: center;font-size: 24px"><b>注 册</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
-        <el-form-item prop="username">
+        <el-form-item prop="userName">
           <el-input placeholder="请输入账号" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user" v-model="user.userName"></el-input>
         </el-form-item>
-        <el-form-item prop="nickname">
+        <el-form-item prop="nickName">
           <el-input placeholder="请输入昵称" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user-solid" v-model="user.nickName"></el-input>
         </el-form-item>
         <el-form-item prop="password">
@@ -30,8 +30,7 @@ export default {
   name: "Login",
   data(){
     return{
-      user:{
-      },
+      user:{},
       rules: {
         userName: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -77,7 +76,6 @@ export default {
               this.$message.error("注册失败,已有用户名")
             }
           }})
-
         } else {
           console.log('注册信息填写有误!');
           return false;
