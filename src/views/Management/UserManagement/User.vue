@@ -40,7 +40,7 @@
           <img :src="tableData[scope.$index].avatarUrl" height="40px">
         </template>
       </el-table-column>
-      <el-table-column prop="removed" label="密码"  width="120"></el-table-column>
+      <el-table-column prop="removed" label="是否注销"  width="120"></el-table-column>
       <el-table-column label="操作" >
         <template v-slot="scope" >
           <el-button type="success" @click.native.prevent="modifyUser(scope.$index)">编辑<i class="el-icon-edit"></i></el-button>
@@ -74,7 +74,7 @@
 <!--    &lt;!&ndash;分页 end&ndash;&gt;-->
 <!--    &lt;!&ndash;嵌套表单 start&ndash;&gt;-->
     <el-dialog :title="dialogFormName" :visible.sync="dialogFormVisible">
-      <el-form label-width="100px" :rules="rules" ref="ruleForm" :model="form">
+      <el-form label-width="100px" :rules="userRules" ref="ruleForm" :model="form">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username" autocomplete="off" ></el-input>
         </el-form-item>
@@ -87,12 +87,12 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="form.password" autocomplete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="是否注销" prop="removed">
+        <el-form-item label="是否注销" >
           <el-input v-model="form.removed" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="this.dialogFormVisible=false;">取 消</el-button>
+        <el-button @click="dialogFormVisible=false;">取 消</el-button>
         <el-button type="primary" @click="saveUser">确 定</el-button>
       </div>
     </el-dialog>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import Md5 from 'js-md5'
 export default {
   name: "User",
 
@@ -116,17 +117,10 @@ export default {
       },
       dialogFormName:"",
       dialogFormVisible:false,
-      rules:{
-        username:[
-          {register:true,message:"用户名不可为空",trigger:"blur"},
-        ],
-        nickname:[
-          {register:true,message:"昵称不可为空",trigger:"blur"},
-        ],
-        avatarUrl:[
-          {register:true,message:"头像不可为空",trigger:"blur"},
-          //{min:3,max:15,message: "长度在 3 到 15 之间" ,trigger:"blur"}
-        ],
+      userRules:{
+        username:[{required:true,message:'用户名不可为空',trigger:'blur'}],
+        nickname:[{required:true,message:'昵称不可为空',trigger:'blur'}],
+        password:[{required:true,message:'密码不可为空',trigger:'blur'}]
       },
       pageNum:1,
       pageSize:5,
@@ -174,6 +168,7 @@ export default {
       console.log(id)
       this.request.post("/admin/deleteUser?userId="+id).then(res=>{
         if(res.code === "200"){
+          console.log(res)
           this.$message.success("删除成功！");
           this.load();
         }else{
@@ -212,12 +207,13 @@ export default {
             "userName":this.form.username,
             "nickName":this.form.nickname,
             "avatarUrl":this.form.avatarUrl,
-            "password":this.form.password,
+            "password":Md5(this.form.password),
             "removed":this.form.removed,
           }).then(res=>{
             this.userdialogVisible = false
             console.log(res)
             if(res.code==="200"&& res.data===true ){
+              this.$router.go(0)
               this.$message.success("修改用户成功")
             }
             else{
@@ -225,11 +221,12 @@ export default {
               this.$message.error(res.msg)
             }
           })
+          this.dialogFormVisible=false;
         }else{
 
         }
       })
-      this.dialogFormVisible=false;
+
     },
     //点击新增用户弹窗
     addUser(){
