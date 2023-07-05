@@ -18,7 +18,7 @@
                alt=""
                style="width: 40px;height:40px;margin-right: 10px;
                 border-radius: 40%;">
-          <span >{{user.nickname}}</span>
+          <span >{{user.username}}</span>
           <i class="el-icon-arrow-down" style="margin-right: 5px;"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -49,6 +49,7 @@ export default {
     }
   },
   mounted() {
+    this.user = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{}
     var t1 = document.getElementById("llogin");
     var t2 = document.getElementById("lregister");
     var t3 = document.getElementById("avatar");
@@ -76,11 +77,14 @@ export default {
         this.$router.push("/login");
     },
     userInfo(){
+      let path = new URL(window.location.href).pathname;
+      // console.log(path,item.path)
+      if (path==="/PersonalSpace/myStory") return
         this.$router.push("/PersonalSpace")
     },
     gotowhat(){
       console.log("搜索"+this.input1)
-      this.$router.push({ path: '/APP/Search/', query: { keyWord: this.input1 } });
+      this.$router.push({ path: '/APP/Search/', query: { keyWord: this.input1 }});
       if (this.$router.currentRoute.path === '/APP/Search/') {
         // 当前页面已经是目标页面，执行刷新操作
         location.reload();

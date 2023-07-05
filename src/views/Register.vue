@@ -4,10 +4,10 @@
       <div style="margin: 15px 0;text-align: center;font-size: 24px"><b>注 册</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
         <el-form-item prop="username">
-          <el-input placeholder="请输入账号" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user" v-model="user.username"></el-input>
+          <el-input placeholder="请输入账号" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user" v-model="user.userName"></el-input>
         </el-form-item>
         <el-form-item prop="nickname">
-          <el-input placeholder="请输入昵称" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user-solid" show-password v-model="user.nickname"></el-input>
+          <el-input placeholder="请输入昵称" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-user-solid" v-model="user.nickName"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input placeholder="请输入密码" size="medium" style="margin: 2px 0;"prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
@@ -25,17 +25,15 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import Md5 from 'js-md5'
 export default {
   name: "Login",
   data(){
     return{
       user:{
-        isAdmin:"1"
       },
       rules: {
-        username: [
+        userName: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
           {min: 3, max: 15, message: '长度在 3 到 15 个字符之间', trigger: 'blur'}
         ],
@@ -47,7 +45,7 @@ export default {
           {required: true, message: '请确认密码', trigger: 'blur'},
           {min: 3, max: 15, message: '长度在 3 到 15 个字符之间', trigger: 'blur'}
         ],
-        nickname: [
+        nickName: [
           {required: true, message: '请输入昵称', trigger: 'blur'},
         ]
       },
@@ -64,12 +62,21 @@ export default {
             this.$message.warning("两次输入的密码不一致！");
             return false;
           }
-          {
-            ""
-          }
           console.log("user: ",this.user)
-          axios.post("")
-
+          this.user.password = Md5(this.user.password)
+          this.user.avatarUrl = "#"
+          this.request.post("/user/upUserInfo",this.user).then(res=>{{
+            if(res.code==="200"){
+              this.$message.success("注册成功")
+              this.user = {}
+              this.$router.push("/login")
+            }
+            else{
+              this.user = {}
+              console.log(res)
+              this.$message.error("注册失败,已有用户名")
+            }
+          }})
 
         } else {
           console.log('注册信息填写有误!');

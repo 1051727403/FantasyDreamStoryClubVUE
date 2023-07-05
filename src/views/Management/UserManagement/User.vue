@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import Md5 from 'js-md5'
 export default {
   name: "User",
 
@@ -207,18 +206,18 @@ export default {
             "userName":this.form.username,
             "nickName":this.form.nickname,
             "avatarUrl":this.form.avatarUrl,
-            "password":Md5(this.form.password),
+            "password":this.form.password,
             "removed":this.form.removed,
           }).then(res=>{
             this.userdialogVisible = false
             console.log(res)
-            if(res.code==="200"&& res.data===true ){
-              this.$router.go(0)
+            if(res.code==="200" && res.data===true ){
               this.$message.success("修改用户成功")
+              location.reload()
             }
             else{
+              this.$message.error("用户名重复")
               this.$router.go(0)
-              this.$message.error(res.msg)
             }
           })
           this.dialogFormVisible=false;

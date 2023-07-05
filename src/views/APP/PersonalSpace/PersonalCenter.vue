@@ -10,17 +10,17 @@
           <div class="mhy-account-center-user">
             <div class="mhy-account-center-user__header">
               <div class="mhy-account-center-user__title">
-                <span class="mhy-account-center-user__name">{{ userinfo.nickname }}</span>
+                <span class="mhy-account-center-user__name">{{ userinfo.username }}</span>
               </div>
               <div class="mhy-account-center-header__buttons">
                 <div class="mhy-button mhy-account-center-header__edit mhy-button-outlined mhy-button-md">
-                  <button class="mhy-button__button" @click="userdialogVisible = true">编辑</button>
+                  <button class="mhy-button__button" @click="editUser">编辑</button>
                 </div>
                 <!---->
               </div>
             </div>
             <div class="mhy-account-center-user__audit">
-              <span class="mhy-account-center-user__uid">{{ userinfo.username }}</span>
+              <span class="mhy-account-center-user__uid">{{ userinfo.nickname }}</span>
               <!---->
             </div>
 
@@ -58,7 +58,7 @@
       </a>
     </div>
     <el-dialog title="修改资料" :visible.sync="userdialogVisible">
-      <el-form :model="userinfo" :rules="userRules" ref="form">
+      <el-form :model="userForm" :rules="userRules" ref="form">
         <el-form-item label="修改头像" label-width=200 >
           <el-upload
               class="avatar-uploader"
@@ -67,15 +67,15 @@
               :on-success="handleUserAvatarSuccess"
               :before-upload="beforeAvatarUpload"
               name="photo">
-            <img v-if="userinfo.avatarUrl" :src="userinfo.avatarUrl" style="height: 100px;width: 100px" class="avatarImage">
+            <img v-if="userForm.avatarUrl" :src="userForm.avatarUrl" style="height: 100px;width: 100px" class="avatarImage">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="用户名" label-width=120 prop="username">
-          <el-input v-model="userinfo.username" autocomplete="off"></el-input>
+          <el-input v-model="userForm.username" autocomplete="off"></el-input>
         </el-form-item >
         <el-form-item label="昵称" label-width=120 prop="nickname">
-          <el-input v-model="userinfo.nickname" autocomplete="off" ></el-input>
+          <el-input v-model="userForm.nickname" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -185,12 +185,12 @@ export default {
       },
       loc:{},
       headers:{},
+      userForm:{},
     };
   },
   created() {
     const createStory = this.$route.query.createStory;
     if (createStory) this.storydialogVisible = true;
-
     if(localStorage.getItem("user")){
       this.loc = JSON.parse(localStorage.getItem("user"))
       this.activeIndex=this.$route.path
@@ -239,16 +239,21 @@ export default {
     saveUser(){
       this.request.post("/user/upUserInfo", {
             "id":this.userid,
-            "userName":this.userinfo.username,
-            "nickName":this.userinfo.nickname,
-            "avatarUrl":this.userinfo.avatarUrl}).then(res=>{
+            "userName":this.userForm.username,
+            "nickName":this.userForm.nickname,
+            "avatarUrl":this.userForm.avatarUrl}).then(res=>{
         this.userdialogVisible = false
         if(res.code==="200"&&res.data===true ){
-          this.$message.success("修改用户名成功")
+          this.$message.success("修改用户信息成功")
+          var item = JSON.parse(localStorage.getItem("user"))
+          item.nickname=this.userForm.nickname
+          item.username=this.userForm.username
+          item.avatarUrl=this.userForm.avatarUrl
+          localStorage.setItem("user",JSON.stringify(item))
+          this.userForm = {}
         }
         else{
-          this.$router.go(0)
-          this.$message.success("修改用户名失败")
+          this.$message.error("修改用户名失败")
         }
       })
     },
@@ -287,8 +292,7 @@ export default {
             //console.log(res)
             this.storydialogVisible=false
             if(res.code==="200"){
-              this.request.post("/fragment/addRootFragment",
-                  {
+              this.request.post("/fragment/addRootFragment", {
                     "userId":this.userid,
                     "storyId":res.data,
                     "parentId":0,
@@ -317,6 +321,10 @@ export default {
         }
       })
     },
+    editUser(){
+      this.userdialogVisible = true
+      this.userForm = this.userinfo
+    }
   }
 };
 </script>

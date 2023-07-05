@@ -129,7 +129,6 @@ export default {
                   "&newPassword="+this.passwordInfo.newPassword).then(res=>{
                 if(res.code==="200"){
                   this.$message("密码修改成功")
-
                 }
                 else{
                   this.$message("密码修改错误")

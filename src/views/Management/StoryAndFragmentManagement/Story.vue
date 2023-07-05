@@ -26,7 +26,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="userId" label="作者ID"  width="120"></el-table-column>
-      <el-table-column prop="introduce" label="介绍"  width="120"></el-table-column>
+      <el-table-column prop="introduce" label="介绍"  width="120" :formatter="formatContent"></el-table-column>
       <el-table-column prop="totalLike" label="总喜欢数"  width="120"></el-table-column>
       <el-table-column prop="totalComment" label="总评论数"  width="120"></el-table-column>
       <el-table-column prop="totalCollection" label="总收藏数"  width="120"></el-table-column>
@@ -235,6 +235,13 @@ export default {
       this.dialogFormName="【新增故事】"
       this.dialogFormVisible=true;
     },
+    formatContent(row) {
+      const maxLength = 10; // 设置最大显示字数
+      if (row.introduce.length > maxLength) {
+        return row.introduce.slice(0, maxLength) + '...'; // 截取文本并添加省略号
+      }
+      return row.introduce; // 如果未超过最大字数限制，直接返回原始内容
+    }
   }
 }
 </script>
