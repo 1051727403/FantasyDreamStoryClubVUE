@@ -203,7 +203,7 @@ export default {
         if(valid){
           this.form.userId = JSON.parse(localStorage.getItem("user")).id
           console.log(this.form)
-          this.request.post("/story/saveStory",this.form).then(res=>{
+          this.request.post("/admin/saveStory",this.form).then(res=>{
             console.log(res)
             this.storydialogVisible=false
             if(res.code==="200"){

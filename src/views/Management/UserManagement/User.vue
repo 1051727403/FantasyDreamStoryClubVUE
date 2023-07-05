@@ -202,7 +202,7 @@ export default {
     saveUser(){
       this.$refs['ruleForm'].validate((valid)=>{
         if(valid){
-          this.request.post("/user/upUserInfo", {
+          this.request.post("/admin/upUserInfo", {
             "id":this.form.id,
             "userName":this.form.username,
             "nickName":this.form.nickname,
@@ -226,7 +226,6 @@ export default {
 
         }
       })
-
     },
     //点击新增用户弹窗
     addUser(){
