@@ -232,6 +232,7 @@ export default {
 }
 .wrapper .user-info{
   margin: 200px 250px;
+  display: flex;
 }
 .wrapper .user-info .info-left{
   position:relative;
@@ -269,6 +270,7 @@ export default {
   float: left;
   margin-left: 25px;
   width: 300px;
+  max-height: 275px;
 }
 .wrapper .user-info .info-right .avatar{
   width: 80px;
