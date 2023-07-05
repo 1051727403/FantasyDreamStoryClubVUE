@@ -1055,8 +1055,14 @@ export default {
             totalCollection:res.data.totalCollection,
             totalComment:res.data.totalComment
           }
-          this.jm.update_node(res.data.id,res.data.fragmentName,0,0,nodedata)
-          this.jm.set_node_color(res.data.id, res.data.allowRelay?this.bgMap[2].original:this.bgMap[3].original, '#fff')
+          if(this.selectNodeInfo.id=='root'){
+            nodedata.rootId=res.data.id
+            this.jm.update_node('root', res.data.fragmentName, 0, 0, nodedata)
+            this.jm.set_node_color('root', res.data.allowRelay ? this.bgMap[2].original : this.bgMap[3].original, '#fff')
+          }else {
+            this.jm.update_node(res.data.id, res.data.fragmentName, 0, 0, nodedata)
+            this.jm.set_node_color(res.data.id, res.data.allowRelay ? this.bgMap[2].original : this.bgMap[3].original, '#fff')
+          }
         }else{
           this.$message.error(res.msg);
         }
