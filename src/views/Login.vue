@@ -2,7 +2,7 @@
   <div class="login-wrapper" style="margin-top: 0;padding: 0">
     <div style="opacity:0.95;margin: 200px auto;background-color: #fff;width: 390px;height: 350px;padding: 20px;border-radius: 10px;
     box-shadow: gray 4px 4px 10px">
-      <img src="../assets/image/logo.png" style="height: 70px;cursor: pointer;" @click="jumpToIndex">
+      <img src="../assets/image/logo_small.png" style="height: 70px;cursor: pointer;" @click="jumpToIndex">
       <div  @click="jumpToIndex" style="cursor:pointer;margin: 10px 0;text-align:center;font-weight: bold;font-size: 24px; letter-spacing: 1px; color: #ff7d30;text-shadow: -1px -1px 0 #fffbe5, 1px -1px 0 #fffbe5, -1px 1px 0 #fffbe5, 1px 1px 0 #fffbe5;"><b>绮梦故事会</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
         <el-form-item prop="username">

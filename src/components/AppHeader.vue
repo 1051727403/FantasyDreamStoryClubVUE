@@ -1,7 +1,7 @@
 <template>
   <div id="nav-bar">
     <div style="position: absolute;left: 10%;cursor: pointer;display: flex;justify-content: center;align-items: center;" @click="jumpToIndex">
-      <img src="../assets/image/logo.png" style="width:79px;height: 50px;" >
+      <img src="../assets/image/logo_small.png" style="width:50px;height: 50px; margin-right: 10px" >
       <div style="font-weight: bold;font-size: 18px; letter-spacing: 1px; color: #ff7d30;text-shadow: -1px -1px 0 #fffbe5, 1px -1px 0 #fffbe5, -1px 1px 0 #fffbe5, 1px 1px 0 #fffbe5;">绮梦故事会</div>
     </div>
       <el-input class="input-with-select" placeholder="请输入内容" v-model="input1" @keyup.enter.native="gotowhat" >
