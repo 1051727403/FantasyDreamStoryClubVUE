@@ -196,7 +196,7 @@ export default {
       })
     },
     MyCollectFragment(){
-      this.request.get("/fragment/getCollectFrag?userId="+this.userinfo.id).then(res=>{
+      this.request.get("/fragment/getCollectFrag?userId="+this.userinfo.userid).then(res=>{
         if(res.code==='200'){
           this.collectFragment=res.data
           for (var re of this.fragments) {
