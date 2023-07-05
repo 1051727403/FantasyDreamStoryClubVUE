@@ -77,10 +77,10 @@
             </div>
 
             <div class="button-container">
-              <el-button class="button-new-story" @click="gotoMyStory">我的故事</el-button>
-              <el-button class="button-new-story" @click="gotoMyFragmentt">我的片段</el-button>
+              <el-button class="button-new-story1" @click="gotoMyStory">我的故事</el-button>
+              <el-button class="button-new-story2" @click="gotoMyFragmentt">我的片段</el-button>
             </div>
-            <el-button class="button-new-story" @click="gotoStoryCollect">发起新故事</el-button>
+            <el-button class="button-new-story3" @click="gotoStoryCollect">发起新故事</el-button>
 
           </div>
 
