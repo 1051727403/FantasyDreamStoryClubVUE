@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div style="margin: 80px auto;background-color: #fff;width: 400px;height: 550px;padding: 20px;border-radius: 10px;">
+    <div style="margin: 150px auto;background-color: #fff;width: 400px;height: 380px;padding: 20px;border-radius: 10px;">
       <div style="margin: 15px 0;text-align: center;font-size: 24px"><b>注 册</b></div>
       <el-form :rules="rules" :model="user" ref="userForm">
         <el-form-item prop="userName">
