@@ -85,7 +85,7 @@
           <el-input v-model="form.coverUrl" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="正文" prop="content">
-          <el-input v-model="form.content" autocomplete="off" ></el-input>
+          <el-input type="textarea" rows="10" v-model="form.content" autocomplete="off" ></el-input>
         </el-form-item>
         <el-form-item label="轮播图" prop="shown">
           <el-radio v-model="form.shown" :label="true">是</el-radio>
