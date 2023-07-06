@@ -56,7 +56,7 @@
     </div>
 
     <div class="container">
-      <div class="cat-container" style="margin-top: 45px;">
+      <div class="cat-container" style="margin-top: 75px;">
         <div class="rank-content">
           <div class="rank-book-list">
 
