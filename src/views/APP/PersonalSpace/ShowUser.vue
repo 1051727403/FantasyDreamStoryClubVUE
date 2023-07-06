@@ -199,8 +199,8 @@ export default {
       this.request.get("/fragment/getCollectFrag?userId="+this.userinfo.userid).then(res=>{
         if(res.code==='200'){
           this.collectFragment=res.data
-          for (var re of this.fragments) {
-            re.link="/APP/storyrelay?storyId="+re.storyId+"&fragmentId="+re.fragmentId
+          for (var re of this.collectFragment) {
+            re.link="/APP/StoryRelay?storyId="+re.storyId+"&fragmentId="+re.fragmentId
           }
         }
         else{
