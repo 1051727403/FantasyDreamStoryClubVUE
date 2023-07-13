@@ -17,7 +17,9 @@ FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）
 ![image](https://github.com/1051727403/FantasyDreamStoryClubVUE/assets/70049475/95600828-cb76-4260-a956-556d0c47c722)
 
   
-
+## 注意  
+该网站源码仅为个人学习测试使用，请在下载后24小时内删除，不得用于商业用途，否则后果自负。任何违规使用造成的法律后果与本人无关。  
+  
 
 ## 更新日志
 
