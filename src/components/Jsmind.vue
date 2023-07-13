@@ -83,7 +83,6 @@
     </div>
 
 
-
       <!--    树形布局-->
     <div class="jsmind_layout animate__animated animate__fadeInRight" >
       <div
@@ -780,95 +779,6 @@ export default {
     loadAllFragment(storyID){
       this.request.get("/fragment/loadAllFragment?storyId="+storyID).then(res=> {
         console.log("返回的故事数据:",res.data.data)
-        // res.data={
-        //   "id": "root",
-        //   "rootId": 1,
-        //   "topic": "序幕",
-        //   "authorInfo": {
-        //     "nickname": null,
-        //     "avatarUrl": null,
-        //     "totalLike": 0
-        //   },
-        //   "isLike": 0,
-        //   "isCollected": 0,
-        //   "totalLike": 0,
-        //   "totalCollection": 0,
-        //   "totalComment": 0,
-        //   "comments": [],
-        //   "content": "Wahn en sorl vealivasgon levy vonley\r\n夜深了 小镇静谧而安详\r\nSedd delyn o passidy sevely\r\n睡着了 像做了一个甜美的梦\r\nKluu vamo shevys dlesphon levy vonley\r\n寂然啊 这个被施了魔法的小镇\r\nOul levmon seravo rystonray\r\n女孩啊 我将一直守护着你\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nDudu laav\r\nDudu 你的微笑\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nSevely ahhs\r\n一场梦啊\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nDudu laav\r\nDudu 你的微笑\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nRelsama houwy\r\n重新开始吧\r\nWahn en sorl vealivasgon levy vonley\r\n夜深了 小镇静谧而安详\r\nSedd delyn o passidy sevely\r\n睡着了 像做了一个甜美的梦\r\nKluu vamo shevys dlesphon levy vonley\r\n寂然啊 这个被施了魔法的小镇\r\nOul levmon seravo rystonray\r\n女孩啊 我将一直守护着你\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nDudu laav\r\nDudu 你的微笑\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nSevely ahhs\r\n一场梦啊\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nDudu laav\r\nDudu 你的微笑\r\nDu dududu Du dududu\r\nDu dududu Du dududu\r\nRelsama houwy\r\n重新开始吧",
-        //   "children": [
-        //     {
-        //       "id": 3,
-        //       "topic": "第一幕",
-        //       "authorInfo": {
-        //         "nickname": null,
-        //         "avatarUrl": null,
-        //         "totalLike": 0
-        //       },
-        //       "isLike": 0,
-        //       "isCollected": 0,
-        //       "totalLike": 0,
-        //       "totalCollection": 0,
-        //       "totalComment": 0,
-        //       "comments": [],
-        //       "content": "111111111",
-        //       "children": [
-        //         {
-        //           "id": 4,
-        //           "topic": "第二幕",
-        //           "authorInfo": {
-        //             "nickname": null,
-        //             "avatarUrl": null,
-        //             "totalLike": 0
-        //           },
-        //           "isLike": 0,
-        //           "isCollected": 0,
-        //           "totalLike": 0,
-        //           "totalCollection": 0,
-        //           "totalComment": 0,
-        //           "comments": [],
-        //           "content": "222222222",
-        //           "children": [
-        //             {
-        //               "id": 6,
-        //               "topic": "第三幕",
-        //               "authorInfo": {
-        //                 "nickname": null,
-        //                 "avatarUrl": null,
-        //                 "totalLike": 0
-        //               },
-        //               "isLike": 0,
-        //               "isCollected": 0,
-        //               "totalLike": 0,
-        //               "totalCollection": 0,
-        //               "totalComment": 0,
-        //               "comments": [],
-        //               "content": "3333333",
-        //               "children": []
-        //             }
-        //           ]
-        //         },
-        //         {
-        //           "id": 5,
-        //           "topic": "第二幕plus",
-        //           "authorInfo": {
-        //             "nickname": null,
-        //             "avatarUrl": null,
-        //             "totalLike": 0
-        //           },
-        //           "isLike": 0,
-        //           "isCollected": 0,
-        //           "totalLike": 0,
-        //           "totalCollection": 0,
-        //           "totalComment": 0,
-        //           "comments": [],
-        //           "content": "212122121",
-        //           "children": []
-        //         }
-        //       ]
-        //     }
-        //   ]
-        // }
         if(res.code=='200'){
           this.mind.data= res.data.data;
           this.story_name=res.data.storyName
@@ -881,7 +791,6 @@ export default {
           //跳转到节点
           let fragmentId=this.$route.query["fragmentId"];
           this.jumpToFragment(fragmentId)
-
         }else{
           this.$message.error(res.msg)
         }
@@ -947,7 +856,6 @@ export default {
       this.jm.view.maxZoom = 5
       this.jm.expand_all()
       this.setColor()
-
       // 重写编辑完成事件
       this.jm.view.edit_node_end = () => {
         const node = this.jm.view.get_editing_node()
@@ -963,10 +871,7 @@ export default {
           this.$message.info('请输入卡片标题')
         }
         this.jm.update_node(node.id, node.topic)
-
-        // TODO 调接口
       }
-
     },
     //加载作者和评论区信息
     loadauthorInfoAndComment(){
