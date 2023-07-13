@@ -2,10 +2,10 @@
 
 绮梦故事会网站——前端    
 FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）    
-==后端网址跳转：https://github.com/1051727403/FantasyDreamStoryClubJAVA  ==  
+**后端网址跳转：https://github.com/1051727403/FantasyDreamStoryClubJAVA**
   
   
-使用方式：  
+## 使用方式：  
 本项目为springboot+VUE项目，项目成品可通过访问域名查看：www.qmstory.club  
 项目启动前请修改utils中的request.js文件来配置axios拦截器等  
 该项目为开源项目，欢迎大家提出修改意见或学习参考。  
@@ -13,7 +13,7 @@ FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）
 前端启动请使用指令：npm run sever  
   
 
-首页展示：  
+## 首页展示：  
 ![image](https://github.com/1051727403/FantasyDreamStoryClubVUE/assets/70049475/95600828-cb76-4260-a956-556d0c47c722)
 
   
