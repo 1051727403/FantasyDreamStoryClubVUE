@@ -2,7 +2,7 @@
 
 绮梦故事会网站——前端    
 FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）    
-**后端网址跳转：https://github.com/1051727403/FantasyDreamStoryClubJAVA**
+**后端源码跳转：https://github.com/1051727403/FantasyDreamStoryClubJAVA**
   
   
 ## 使用方式：  
