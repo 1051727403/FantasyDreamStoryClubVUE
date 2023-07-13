@@ -1,15 +1,25 @@
 # FantasyDreamStoryClubVUE
 
-绮梦故事会网站——前端
+绮梦故事会网站——前端    
+FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）    
+==后端网址跳转：https://github.com/1051727403/FantasyDreamStoryClubJAVA  ==  
+  
+  
+使用方式：  
+本项目为springboot+VUE项目，项目成品可通过访问域名查看：www.qmstory.club  
+项目启动前请修改utils中的request.js文件来配置axios拦截器等  
+该项目为开源项目，欢迎大家提出修改意见或学习参考。  
+  
+前端启动请使用指令：npm run sever  
+  
+
+首页展示：  
+![image](https://github.com/1051727403/FantasyDreamStoryClubVUE/assets/70049475/95600828-cb76-4260-a956-556d0c47c722)
+
+  
 
 
 ## 更新日志
-2023-6-21 
-- 新建仓库
-- 
-2023-6-23
-- 新增路由守卫权限控制，可在router中修改meta设置网页是否需要登录权限才能访问，否则跳转到登录页面，登录判定待写
-- 树状图可视化demo，有bug要改  
 
 2023-6-24 
 - 树状图优化重构ing，添加动画样式，可用animate实现动画效果,修改树状图曲线从贝尔赛曲线变为直线
@@ -32,7 +42,6 @@
 - 添加点赞和收藏
 
 2023-6-28
-- 详情页数据连接后端
 - 优化页面布局以及交互,修复bug
 - 详情页收藏实现
 
