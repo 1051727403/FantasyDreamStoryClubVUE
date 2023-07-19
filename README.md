@@ -6,7 +6,7 @@ FantasyDreamStoryClub-绮梦故事会网站源码分享（故事接龙网站）
   
   
 ## 使用方式：  
-本项目为springboot+VUE项目，项目成品可通过访问域名查看：www.qmstory.club  
+本项目为springboot项目，项目成品可通过访问域名查看：www.qmstory.club  或ip地址:  http://118.89.184.240/   
 项目启动前请修改utils中的request.js文件来配置axios拦截器等  
 该项目为开源项目，欢迎大家提出修改意见或学习参考。  
   
